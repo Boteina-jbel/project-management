@@ -11,12 +11,12 @@ public interface UserService {
 
     UserResponseDto findById(Long id);
 
-    UserResponseDto findByName(String username);
+    UserResponseDto findByUsername(String username);
 
     void delete(Long id);
 
     UserResponseDto update(UserRequestDto userRequestDto, Long id);
 
-    List<UserRequestDto> findAll();
+    List<UserResponseDto> findAll();
 
 }

@@ -12,7 +12,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 @SpringBootApplication
 @Configuration
 @EntityScan(basePackages = {"com.example.entities"}) // Adjust the package name accordingly
-@ComponentScan(basePackages = {"com.example.controllers", "com.example.services", "com.example.repositories"})
+@ComponentScan(basePackages = {"com.example.controllers", "com.example.services", "com.example.repositories", "com.example.dto"})
 @EnableJpaRepositories(basePackages = {"com.example.repositories"})
 public class ProjectManagementApplication {
 

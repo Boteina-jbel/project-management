@@ -38,8 +38,8 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public UserResponseDto findByName(String username) {
-        User user =userRepository.findByNom(username);
+    public UserResponseDto findByUsername(String username) {
+        User user =userRepository.findByUsername(username);
         return modelMapper.map(user,UserResponseDto.class);
     }
 
@@ -57,14 +57,14 @@ public class UserServiceImpl implements UserService{
             User updated= userRepository.save(user);
             return modelMapper.map(updated,UserResponseDto.class);
         }else {
-            throw new EntityNotFoundException("User not found with id : " + id);
+            throw new EntityNotFoundException("User not found");
         }
     }
 
     @Override
-    public List<UserRequestDto> findAll() {
+    public List<UserResponseDto> findAll() {
         return userRepository.findAll()
-                .stream().map(el->modelMapper.map(el, UserRequestDto.class))
+                .stream().map(el->modelMapper.map(el, UserResponseDto.class))
                 .collect(Collectors.toList());
     }
 }
