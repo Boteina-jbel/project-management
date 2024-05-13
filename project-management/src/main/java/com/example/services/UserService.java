@@ -17,6 +17,6 @@ public interface UserService {
 
     UserResponseDto update(UserRequestDto userRequestDto, Long id);
 
-    List<UserRequestDto> findAll();
+    List<UserResponseDto> findAll();
 
 }
