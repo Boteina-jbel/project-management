@@ -1,0 +1,44 @@
+<ion-header>
+  <ng-container>
+    <ion-buttons class="menu-button">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <div class="titles">
+      <ion-item *ngFor="let p of pages" routerDirection="root" [routerLink]="[p.url]" lines="none" detail="false"
+        routerLinkActive="selected">
+        <div class="item-content">
+          <ion-icon class="icon" aria-hidden="true" slot="start" [ios]="p.icon + '-outline'"
+            [md]="p.icon + '-outline'"></ion-icon>
+          <p class="label">{{ 'menu.' + p.code | translate }} </p>
+        </div>
+      </ion-item>
+    </div>
+    <ion-buttons class="user">
+      <ion-button class="user-avatar" (click)="presentPopover($event)">
+            <ion-icon name="person-outline" *ngIf="!securityDTO"></ion-icon>
+            <ion-avatar aria-hidden="true" *ngIf="securityDTO" slot="start">
+              <img [alt]="securityDTO.username" [src]="securityDTO.thumbnail" />
+          </ion-avatar>
+      </ion-button>
+    </ion-buttons>
+  </ng-container>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="app-content">
+  <div class="app-content">
+    <div class="page-content">
+      <div *ngIf="title && introduction" class="introduction">
+        <h1>{{ title }}</h1>
+        <div class="gradient"></div>
+        <p>{{ introduction }}</p>
+      </div>
+      <ng-content></ng-content>
+    </div>
+  </div>
+  <ion-footer>
+    <ion-skeleton-text *ngIf="false" [animated]="true"></ion-skeleton-text>
+    <span></span>
+    <span>Copyright © {{currentYear}}</span>
+    <span></span>
+  </ion-footer>
+</ion-content>

@@ -1,0 +1,36 @@
+<div class="login-page">
+
+  <div class="side-title">
+    <h1 class="title-text">Welcome back to</h1>
+    <h2 class="subtitle-text">Project Management</h2>
+    <p class="description-text">Sign in with your credentials provided by admin.</p>
+  </div>
+  
+  <div class="side-form">
+    <form [formGroup]="loginForm" (ngSubmit)="submitLoginForm()" novalidate>
+      <div class="icon">
+        <ion-icon name="lock-closed-outline"></ion-icon>
+      </div>
+      <ion-item lines="full">
+        <ion-label position="stacked">{{ 'usernameLabel' | translate }}</ion-label>
+        <ion-input formControlName="username" placeholder="{{ 'enterUsernamePlaceholder' | translate }}" type="text"
+          ngDefaultControl></ion-input>
+      </ion-item>
+      <ion-item lines="full">
+        <ion-label position="stacked">{{ 'passwordLabel' | translate }}</ion-label>
+        <ion-input formControlName="password" placeholder="{{ 'enterPasswordPlaceholder' | translate }}" type="password"
+          ngDefaultControl></ion-input>
+      </ion-item>
+
+      <ion-button type="submit">
+        <ion-icon name="log-in-outline" slot="end"></ion-icon>
+        {{ 'loginButtonLabel' | translate }} &nbsp;
+      </ion-button>
+
+      <ion-button fill="clear">
+        forgot passoword?
+      </ion-button>
+    </form>
+  </div>
+  
+</div>

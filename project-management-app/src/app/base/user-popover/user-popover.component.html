@@ -1,0 +1,20 @@
+<ion-content class="ion-padding">
+  <ion-item lines="full">
+    <ion-select [(ngModel)]="selectedLanguage" label="{{ 'language' | translate}}"
+      (ionChange)="switchLanguage(selectedLanguage)" interface="popover" label-placement="floating">
+      <ion-select-option value="fr">{{ 'fr' | translate }}</ion-select-option>
+      <ion-select-option value="en">{{ 'en' | translate }}</ion-select-option>
+    </ion-select>
+  </ion-item> 
+
+  <ion-item lines="full">
+    <div *ngIf="securityDTO && securityDTO.username && securityDTO.profile" >{{ securityDTO.username }}</div>     <p>({{ securityDTO.profile.name }})</p>
+  </ion-item>
+
+  <ion-item lines="full">
+    <ion-button (click)="logoutAction()" slot="end">
+      {{ 'log_out' | translate }} &nbsp;
+      <ion-icon name="log-out-outline" slot="end"></ion-icon>
+    </ion-button>
+  </ion-item>
+</ion-content>

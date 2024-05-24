@@ -1,0 +1,8 @@
+<div class="thumbnail-container">
+  <ion-img *ngIf="fileBase64" [src]="fileBase64" class="thumbnail"></ion-img>
+  <div *ngIf="!fileBase64" class="mock-thumbnail">
+    <ion-icon name="person-outline"></ion-icon>
+  </div>
+  <ion-icon class="select-ion-icon" (click)="fileInput.click()" name="create-outline"></ion-icon>
+  <input type="file" #fileInput (change)="onFileSelected($event)" accept="image/*" class="hidden-input">
+</div>
