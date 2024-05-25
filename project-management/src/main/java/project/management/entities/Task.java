@@ -21,8 +21,9 @@ public class Task implements Serializable {
     @Column(name = "description")
     private String description;
 
-    @Column(name = "status")
-    private String status;
+    @ManyToOne
+    @JoinColumn(name = "status_id")
+    private TaskStatus status;
 
     @Column(name = "created_at")
     private Date createdAt;
@@ -59,11 +60,11 @@ public class Task implements Serializable {
         this.description = description;
     }
 
-    public String getStatus() {
+    public TaskStatus getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(TaskStatus status) {
         this.status = status;
     }
 

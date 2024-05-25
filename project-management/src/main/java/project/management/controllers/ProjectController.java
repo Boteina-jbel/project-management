@@ -1,8 +1,8 @@
-package com.example.controllers;
+package project.management.controllers;
 
-import com.example.dto.ProjectRequestDto;
-import com.example.dto.ProjectResponseDto;
-import com.example.services.ProjectService;
+import project.management.dto.ProjectRequestDto;
+import project.management.dto.ProjectResponseDto;
+import project.management.services.ProjectService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
