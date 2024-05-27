@@ -16,6 +16,7 @@ public class FeatureTaskController {
 
     private final FeatureTaskService featureTaskService;
 
+
     public FeatureTaskController(FeatureTaskService featureTaskService) {
         this.featureTaskService = featureTaskService;
     }
@@ -33,10 +34,11 @@ public class FeatureTaskController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<FeatureTaskResponseDto> updateFeatureTask(@PathVariable("id") Long id, @RequestBody FeatureTaskRequestDto featureTaskRequestDto) {
-        FeatureTaskResponseDto featureTaskResponseDto = featureTaskService.updateFeatureTask(featureTaskRequestDto);
+    public ResponseEntity<FeatureTaskResponseDto> updateFeatureTask(@PathVariable("id") Long taskId, @RequestBody FeatureTaskRequestDto featureTaskRequestDto) {
+        FeatureTaskResponseDto featureTaskResponseDto = featureTaskService.updateFeatureTask(taskId, featureTaskRequestDto);
         return new ResponseEntity<>(featureTaskResponseDto, HttpStatus.ACCEPTED);
     }
+
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteFeatureTask(@PathVariable("id") Long id) {

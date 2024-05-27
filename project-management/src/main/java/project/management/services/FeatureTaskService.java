@@ -7,11 +7,11 @@ import java.util.List;
 
 public interface FeatureTaskService {
 
-    FeatureTaskResponseDto addFeatureTask(FeatureTaskRequestDto FeatureTaskRequestDto);
+    FeatureTaskResponseDto addFeatureTask(FeatureTaskRequestDto featureTaskRequestDto);
 
     FeatureTaskResponseDto getFeatureTaskById(Long taskId);
 
-    FeatureTaskResponseDto updateFeatureTask(FeatureTaskRequestDto featureTaskRequest);
+    FeatureTaskResponseDto updateFeatureTask(Long taskId, FeatureTaskRequestDto featureTaskRequestDto);
 
     void deleteFeatureTask(Long taskId);
 
@@ -24,5 +24,4 @@ public interface FeatureTaskService {
     FeatureTaskResponseDto assignTaskToUser(Long taskId, Long userId);
 
     FeatureTaskResponseDto changeTaskStatus(Long taskId, String status);
-
 }

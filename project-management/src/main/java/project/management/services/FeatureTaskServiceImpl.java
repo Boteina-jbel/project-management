@@ -1,11 +1,14 @@
 package project.management.services;
 
 import jakarta.persistence.EntityNotFoundException;
+import org.modelmapper.Converter;
 import org.modelmapper.ModelMapper;
+import org.modelmapper.TypeMap;
 import org.springframework.stereotype.Service;
 import project.management.dto.FeatureTaskRequestDto;
 import project.management.dto.FeatureTaskResponseDto;
 import project.management.entities.FeatureTask;
+import project.management.entities.Project;
 import project.management.entities.TaskStatus;
 import project.management.entities.User;
 import project.management.repositories.FeatureTaskRepository;
@@ -21,8 +24,8 @@ public class FeatureTaskServiceImpl implements FeatureTaskService {
 
     private final FeatureTaskRepository featureTaskRepository;
     private final ModelMapper modelMapper;
-    private final UserRepository userRepository;
-    private final TaskStatusRepository taskStatusRepository;
+    private  UserRepository userRepository;
+    private  TaskStatusRepository taskStatusRepository;
 
     public FeatureTaskServiceImpl(FeatureTaskRepository featureTaskRepository, ModelMapper modelMapper, UserRepository userRepository, TaskStatusRepository taskStatusRepository) {
         this.featureTaskRepository = featureTaskRepository;
@@ -46,10 +49,12 @@ public class FeatureTaskServiceImpl implements FeatureTaskService {
     }
 
     @Override
-    public FeatureTaskResponseDto updateFeatureTask(FeatureTaskRequestDto featureTaskRequestDto) {
-        Optional<FeatureTask> featureTaskOptional = featureTaskRepository.findById(featureTaskRequestDto.getId());
+    public FeatureTaskResponseDto updateFeatureTask(Long taskId, FeatureTaskRequestDto featureTaskRequestDto) {
+        Optional<FeatureTask> featureTaskOptional = featureTaskRepository.findById(taskId);
         if (featureTaskOptional.isPresent()) {
             FeatureTask featureTask = modelMapper.map(featureTaskRequestDto, FeatureTask.class);
+            // Set the ID of the task to update
+            featureTask.setId(taskId);
             FeatureTask updatedFeatureTask = featureTaskRepository.save(featureTask);
             return modelMapper.map(updatedFeatureTask, FeatureTaskResponseDto.class);
         } else {
@@ -107,4 +112,5 @@ public class FeatureTaskServiceImpl implements FeatureTaskService {
         FeatureTask updatedTask = featureTaskRepository.save(featureTask);
         return modelMapper.map(updatedTask, FeatureTaskResponseDto.class);
     }
+
 }
