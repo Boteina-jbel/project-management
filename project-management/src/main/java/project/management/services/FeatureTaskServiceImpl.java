@@ -1,23 +1,15 @@
 package project.management.services;
 
 import jakarta.persistence.EntityNotFoundException;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.modelmapper.ModelMapper;
+import org.springframework.stereotype.Service;
 import project.management.dto.FeatureTaskRequestDto;
 import project.management.dto.FeatureTaskResponseDto;
 import project.management.entities.FeatureTask;
-<<<<<<< HEAD
-import project.management.entities.Task;
 import project.management.entities.TaskStatus;
-=======
->>>>>>> 72c81df390a024e69dada95a9970d75cee42c06a
 import project.management.entities.User;
 import project.management.repositories.FeatureTaskRepository;
-import org.modelmapper.ModelMapper;
-import org.springframework.stereotype.Service;
-<<<<<<< HEAD
 import project.management.repositories.TaskStatusRepository;
-=======
->>>>>>> 72c81df390a024e69dada95a9970d75cee42c06a
 import project.management.repositories.UserRepository;
 
 import java.util.List;
@@ -30,23 +22,13 @@ public class FeatureTaskServiceImpl implements FeatureTaskService {
     private final FeatureTaskRepository featureTaskRepository;
     private final ModelMapper modelMapper;
     private final UserRepository userRepository;
-<<<<<<< HEAD
     private final TaskStatusRepository taskStatusRepository;
 
-    @Autowired
     public FeatureTaskServiceImpl(FeatureTaskRepository featureTaskRepository, ModelMapper modelMapper, UserRepository userRepository, TaskStatusRepository taskStatusRepository) {
         this.featureTaskRepository = featureTaskRepository;
         this.modelMapper = modelMapper;
         this.userRepository = userRepository;
         this.taskStatusRepository = taskStatusRepository;
-=======
-
-    @Autowired
-    public FeatureTaskServiceImpl(FeatureTaskRepository featureTaskRepository, ModelMapper modelMapper, UserRepository userRepository) {
-        this.featureTaskRepository = featureTaskRepository;
-        this.modelMapper = modelMapper;
-        this.userRepository = userRepository;
->>>>>>> 72c81df390a024e69dada95a9970d75cee42c06a
     }
 
     @Override
@@ -110,11 +92,11 @@ public class FeatureTaskServiceImpl implements FeatureTaskService {
                 .orElseThrow(() -> new RuntimeException("Feature task not found"));
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new RuntimeException("User not found"));
-        featureTask.setUser(user);
+        featureTask.setAssignedTo(user);
         FeatureTask updatedTask = featureTaskRepository.save(featureTask);
         return modelMapper.map(updatedTask, FeatureTaskResponseDto.class);
     }
-<<<<<<< HEAD
+
     @Override
     public FeatureTaskResponseDto changeTaskStatus(Long taskId, String statusName) {
         FeatureTask featureTask = featureTaskRepository.findById(taskId)
@@ -125,6 +107,4 @@ public class FeatureTaskServiceImpl implements FeatureTaskService {
         FeatureTask updatedTask = featureTaskRepository.save(featureTask);
         return modelMapper.map(updatedTask, FeatureTaskResponseDto.class);
     }
-=======
->>>>>>> 72c81df390a024e69dada95a9970d75cee42c06a
 }

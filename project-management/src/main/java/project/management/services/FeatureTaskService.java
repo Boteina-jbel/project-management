@@ -22,9 +22,7 @@ public interface FeatureTaskService {
     List<FeatureTaskResponseDto> searchFeatureTasksByAcceptanceCriteria(String acceptanceCriteria);
 
     FeatureTaskResponseDto assignTaskToUser(Long taskId, Long userId);
-<<<<<<< HEAD
 
     FeatureTaskResponseDto changeTaskStatus(Long taskId, String status);
-=======
->>>>>>> 72c81df390a024e69dada95a9970d75cee42c06a
+
 }

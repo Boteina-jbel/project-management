@@ -61,7 +61,6 @@ public class FeatureTaskController {
         List<FeatureTaskResponseDto> featureTasks = featureTaskService.searchFeatureTasksByAcceptanceCriteria(acceptanceCriteria);
         return new ResponseEntity<>(featureTasks, HttpStatus.OK);
     }
-<<<<<<< HEAD
 
     @PutMapping("/{taskId}/assign")
     public ResponseEntity<FeatureTaskResponseDto> assignTaskToUser(@PathVariable Long taskId, @RequestParam Long userId) {
@@ -72,6 +71,4 @@ public class FeatureTaskController {
     public ResponseEntity<FeatureTaskResponseDto> changeTaskStatus(@PathVariable Long taskId, @RequestParam String status) {
         return ResponseEntity.ok(featureTaskService.changeTaskStatus(taskId, status));
     }
-=======
->>>>>>> 72c81df390a024e69dada95a9970d75cee42c06a
 }
