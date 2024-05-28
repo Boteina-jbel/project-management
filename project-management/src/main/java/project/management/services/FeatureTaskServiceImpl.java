@@ -1,14 +1,11 @@
 package project.management.services;
 
 import jakarta.persistence.EntityNotFoundException;
-import org.modelmapper.Converter;
 import org.modelmapper.ModelMapper;
-import org.modelmapper.TypeMap;
 import org.springframework.stereotype.Service;
 import project.management.dto.FeatureTaskRequestDto;
 import project.management.dto.FeatureTaskResponseDto;
 import project.management.entities.FeatureTask;
-import project.management.entities.Project;
 import project.management.entities.TaskStatus;
 import project.management.entities.User;
 import project.management.repositories.FeatureTaskRepository;
@@ -19,13 +16,15 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+
+
 @Service
 public class FeatureTaskServiceImpl implements FeatureTaskService {
 
     private final FeatureTaskRepository featureTaskRepository;
     private final ModelMapper modelMapper;
-    private  UserRepository userRepository;
-    private  TaskStatusRepository taskStatusRepository;
+    private final UserRepository userRepository;
+    private final TaskStatusRepository taskStatusRepository;
 
     public FeatureTaskServiceImpl(FeatureTaskRepository featureTaskRepository, ModelMapper modelMapper, UserRepository userRepository, TaskStatusRepository taskStatusRepository) {
         this.featureTaskRepository = featureTaskRepository;
