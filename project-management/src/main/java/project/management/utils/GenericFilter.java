@@ -67,10 +67,11 @@ public class GenericFilter implements Filter {
             String contextPath          = httpRequest.getContextPath();
             String uriWithoutContext    = requestURI.substring(contextPath.length());
 
-            List<String> publicEndPoints        = Arrays.asList("/security/login");
+            List<String> publicEndpoints        = Arrays.asList("/security/login");
             String username                     = null;
             String token                        = null;
-            if (! publicEndPoints.contains(uriWithoutContext)) {
+
+            if (! publicEndpoints.contains(uriWithoutContext)) {
 
                 username = httpRequest.getHeader("username");
                 token    = httpRequest.getHeader("Authorization");
@@ -91,7 +92,7 @@ public class GenericFilter implements Filter {
                     return;
                 }
 
-                Endpoint endpoint   = getEndpoint(uriWithoutContext);
+                Endpoint endpoint   = getEndpoint(httpRequest.getMethod(), uriWithoutContext);
                 User user           = userRepository.findByUsername(username);
 
                 // Check if the Person have the permission to use this endpoint
@@ -137,9 +138,23 @@ public class GenericFilter implements Filter {
         logger.info("Outgoing response - Status: {}", httpResponse.getStatus());
     }
 
-    private Endpoint getEndpoint(String uriWithoutContext) {
-        Endpoint endpoint = endpointRepository.findByValue(uriWithoutContext);
-        if(endpoint == null) throw new ProjectManagementException(ErrorCode.endpoint_not_configured, "Endpoint " + uriWithoutContext +" not configured");
-        return endpoint;
+    private Endpoint getEndpoint(String method, String uriWithoutContext) {
+        // Get all endpoints
+        List<Endpoint> endpoints = endpointRepository.findAll();
+
+        // Find the endpoint that matches the method and the URI pattern
+        for (Endpoint endpoint : endpoints) {
+            if (endpoint.getMethod().equalsIgnoreCase(method) && pathMatches(endpoint.getValue(), uriWithoutContext)) {
+                return endpoint;
+            }
+        }
+
+        throw new ProjectManagementException(ErrorCode.endpoint_not_configured, "Endpoint " + uriWithoutContext + " not configured");
+    }
+
+    private boolean pathMatches(String pattern, String path) {
+        // Convert the pattern to a regular expression
+        String regex = pattern.replace("*", ".*");
+        return path.matches(regex);
     }
 }

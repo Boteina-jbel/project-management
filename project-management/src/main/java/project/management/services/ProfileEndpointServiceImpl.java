@@ -19,10 +19,11 @@ public class ProfileEndpointServiceImpl implements ProfileEndpointService {
 
     @Override
     public void checkProfileEndpointGranted(Profile profile, Endpoint endpoint) {
-        if(! profile.getHold()) throw new ProjectManagementException(ErrorCode.profile_blocked, "Profile blocked => " + profile.getName());
-        if(! endpoint.getHold()) throw new ProjectManagementException(ErrorCode.endpoint_blocked, "Endpoint blocked => " + endpoint.getValue());
+        if(profile.getHold() != null && profile.getHold())   throw new ProjectManagementException(ErrorCode.profile_blocked, "Profile blocked => " + profile.getName());
+        if(endpoint.getHold() != null && endpoint.getHold()) throw new ProjectManagementException(ErrorCode.endpoint_blocked, "Endpoint blocked => " + endpoint.getValue());
 
         ProfileEndpoint profileEndpoint = profileEndpointRepository.findByProfileAndEndpoint(profile, endpoint);
-        if(! profileEndpoint.getHold()) throw new ProjectManagementException(ErrorCode.profile_endpoint_blocked, "Profile Endpoint blocked => " + profile.getName() + " " + endpoint.getValue());
+        if(profileEndpoint == null) throw new ProjectManagementException(ErrorCode.profile_endpoint_not_granted, "Profile Endpoint Not Granted => " + profile.getName() + " " + endpoint.getValue());
+        if(profileEndpoint.getHold()) throw new ProjectManagementException(ErrorCode.profile_endpoint_blocked, "Profile Endpoint blocked => " + profile.getName() + " " + endpoint.getValue());
     }
 }

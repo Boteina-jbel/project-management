@@ -18,6 +18,9 @@ public class Endpoint {
     @Column(name = "value")
     private String value;
 
+    @Column(name = "method")
+    private String method;
+
     @Column(name = "hold", nullable = false)
     private Boolean hold = false;
 
