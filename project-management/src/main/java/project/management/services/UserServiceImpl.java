@@ -5,11 +5,13 @@ import project.management.dto.UserRequestDto;
 import project.management.dto.UserResponseDto;
 import project.management.entities.User;
 import project.management.repositories.UserRepository;
+import project.management.utils.ErrorCode;
 import project.management.utils.JwtTokenManager;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import project.management.utils.ProjectManagementException;
 
 import java.util.List;
 import java.util.Optional;
@@ -54,6 +56,14 @@ public class UserServiceImpl implements UserService{
         userResponseDto.setToken(token);
 
         return userResponseDto;
+    }
+
+    @Override
+    public void burnToken(UserRequestDto userRequestDto) {
+        User user = userRepository.findByUsername(userRequestDto.getUsername());
+        if (user == null) throw new ProjectManagementException(ErrorCode.security_login_password, "Login or Password invalid");
+
+        jwtTokenManager.validateAndExpireTokenForLogin(userRequestDto.getUsername(), userRequestDto.getToken());
     }
 
     @Override

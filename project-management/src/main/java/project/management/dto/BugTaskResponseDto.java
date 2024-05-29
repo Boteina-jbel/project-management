@@ -3,6 +3,7 @@ package project.management.dto;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import project.management.entities.Project;
 
 import java.util.Date;
 
@@ -17,7 +18,7 @@ public class BugTaskResponseDto {
     private String statusName;
     private Long assignedToId;
     private String assignedToName;
-    private Long projectId;
+    private Project project;
     private String projectName;
     private Date createdAt;
     private String severity;

@@ -65,4 +65,21 @@ public class JwtTokenManager  {
         claims.setExpiration(new Date(0));
     }
 
+    public boolean validateTokenForUsername(String token, String username) {
+        try {
+            // First, validate the token's integrity and expiry.
+            if (!validateToken(token)) {
+                return false;
+            }
+
+            // Next, extract the login (subject) from the token.
+            String tokenLogin = getLoginFromToken(token);
+
+            // Finally, check if the extracted login matches the expected login.
+            return tokenLogin.equals(username);
+        } catch (JwtException | IllegalArgumentException exception) {
+            // Log or handle the error appropriately
+            return false;
+        }
+    }
 }

@@ -1,5 +1,6 @@
 package project.management.controllers;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import project.management.entities.TaskStatus;
@@ -12,7 +13,7 @@ import java.util.List;
 public class TaskStatusController {
 
     private final TaskStatusService taskStatusService;
-
+    @Autowired
     public TaskStatusController(TaskStatusService taskStatusService) {
         this.taskStatusService = taskStatusService;
     }

@@ -33,6 +33,10 @@ public class User implements Serializable {
     @Column(name = "password")
     private String password;
 
+    @ManyToOne
+    @JoinColumn(name = "profile_id")
+    private Profile profile;
+
     @Transient
     private String token;
 

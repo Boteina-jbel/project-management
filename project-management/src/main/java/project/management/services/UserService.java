@@ -11,6 +11,8 @@ public interface UserService {
 
     UserResponseDto authenticate(UserRequestDto userRequestDto);
 
+    void burnToken(UserRequestDto userRequestDto);
+
     UserResponseDto findById(Long id);
 
     UserResponseDto findByUsername(String username);
