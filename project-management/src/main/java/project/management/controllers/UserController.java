@@ -34,12 +34,6 @@ public class UserController {
         return new ResponseEntity<>(userResponseDto, HttpStatus.CREATED);
     }
 
-    @PostMapping("/authenticate")
-    public ResponseEntity<UserResponseDto> authenticate(@RequestBody() UserRequestDto userRequestDto){
-        UserResponseDto userResponseDto = userService.authenticate(userRequestDto);
-        return new ResponseEntity<>(userResponseDto, HttpStatus.CREATED);
-    }
-
     @GetMapping("/id/{id}")
     public ResponseEntity<UserResponseDto> findById(@PathVariable("id") Long id) {
         UserResponseDto userResponseDto= userService.findById(id);
