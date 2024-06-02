@@ -1,21 +1,17 @@
-import { City } from "./City";
-import { Country } from "./Country";
-import { LegalIdType } from "./LegalIdType";
 import { Profile } from "./Profile";
+import { ProfileEndpoint } from "./ProfileEndpoint";
 
-export class Person {
+export class User {
+
     id: number;
     username: string;
     password: string;
-    gender: string;
     email: string;
     firstName: string;
     lastName: string;
-    birthDate: Date;
-    legalIdNumber: string;
     thumbnail: string;
-    legalIdType: LegalIdType;
-    citizenship: Country;
-    city: City;
+    token: string;
     profile: Profile;
+    profileEndpoint: ProfileEndpoint[];
+
 }

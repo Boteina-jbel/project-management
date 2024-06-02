@@ -3,7 +3,9 @@ package project.management.services;
 import jakarta.persistence.EntityNotFoundException;
 import project.management.dto.UserRequestDto;
 import project.management.dto.UserResponseDto;
+import project.management.entities.ProfileEndpoint;
 import project.management.entities.User;
+import project.management.repositories.ProfileEndpointRepository;
 import project.management.repositories.UserRepository;
 import project.management.utils.ErrorCode;
 import project.management.utils.JwtTokenManager;
@@ -23,12 +25,14 @@ public class UserServiceImpl implements UserService{
     private UserRepository userRepository;
     private JwtTokenManager jwtTokenManager;
     private ModelMapper modelMapper;
+    private ProfileEndpointRepository profileEndpointRepository;
 
     @Autowired
-    public UserServiceImpl(UserRepository userRepository, ModelMapper modelMapper, JwtTokenManager jwtTokenManager) {
+    public UserServiceImpl(UserRepository userRepository, ModelMapper modelMapper, JwtTokenManager jwtTokenManager, ProfileEndpointRepository profileEndpointRepository) {
         this.userRepository = userRepository;
         this.modelMapper = modelMapper;
         this.jwtTokenManager = jwtTokenManager;
+        this.profileEndpointRepository = profileEndpointRepository;
     }
 
 
@@ -54,6 +58,9 @@ public class UserServiceImpl implements UserService{
         // Mapping to DTO and set the generated token
         UserResponseDto userResponseDto = modelMapper.map(user, UserResponseDto.class);
         userResponseDto.setToken(token);
+
+        List<ProfileEndpoint> profileEndpoints = profileEndpointRepository.findByProfile(user.getProfile());
+        userResponseDto.setProfileEndpoints(profileEndpoints);
 
         return userResponseDto;
     }

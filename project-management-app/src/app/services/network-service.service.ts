@@ -3,6 +3,7 @@ import { ConfigurationService } from './configuration.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { SpinnerService } from './spinner.service';
 import { AlertController } from '@ionic/angular';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -13,19 +14,41 @@ export class NetworkServiceService {
     private configuration: ConfigurationService,
     private http: HttpClient,
     private spinner: SpinnerService,
-    private alertController: AlertController
+    private alertController: AlertController,
+    private router: Router,
   ) { }
+
+  private getAuthToken(): string | null {
+    const storedInfo = localStorage.getItem('securityInfo');
+    const securityDTO = storedInfo ? JSON.parse(storedInfo) : null;
+    if(! securityDTO) return null;
+    return 'Bearer ' + securityDTO.token;
+  }
+
+  private getUsername(): string | null {
+    const storedInfo = localStorage.getItem('securityInfo');
+    const securityDTO = storedInfo ? JSON.parse(storedInfo) : null;
+    if(! securityDTO) return null;
+    return securityDTO.username;
+  }
+
+  private createHttpOptions() {
+    let httpHeaders = new HttpHeaders({ 'Content-Type': 'application/json' });
+    const token = this.getAuthToken();
+    const username = this.getUsername();
+
+    if (token) httpHeaders = httpHeaders.set('Authorization', token);
+    if (username) httpHeaders = httpHeaders.set('username', username);
+
+    return httpHeaders;
+  }
 
   public post(module: string, query: any, toBeLoaded: boolean): Promise<any> {
     if (toBeLoaded) this.spinner.show();
     const endPointUrL = this.configuration.configuration.serverUrl + module;
 
-    let httpHeaders: HttpHeaders = new HttpHeaders({
-      'Content-Type': 'application/json',
-      'Access-Control-Allow-Origin' : '*'
-    });
     let httpOptions = {
-      headers: httpHeaders,
+      headers: this.createHttpOptions(),
       params: undefined,
       reportProgress: false,
       withCredentials: true
@@ -36,18 +59,11 @@ export class NetworkServiceService {
         next: (response: any) => {
           this.spinner.hide();
           resolve(response);
-
-          // if (response.response.code === ServerCode.ACCEPTED) {
-          //   resolve(response);
-          // } else {
-          //   this.presentAlert('Oops!', response.error.reason);
-          //   reject(response.response.reason);
-          // }
         },
         error: (error) => {
           if (toBeLoaded) this.spinner.hide();
-          let errorMessage = error.error.message ? error.error.message : "Something went wrong. Please try again";
-          this.presentAlert('Oops!', errorMessage);
+          if(error.error && error.error.errorCode === 'unauthorized') this.router.navigateByUrl('/login');
+          else this.presentAlert('Oops!', error.error.errorCode && error.error.errorMessage ? error.error.errorCode + ' : ' + error.error.errorMessage : 'Something went wrong. Please try again');
           reject(error);
         }
       });
@@ -58,13 +74,8 @@ export class NetworkServiceService {
     if (toBeLoaded) this.spinner.show();
     const endPointUrL = this.configuration.configuration.serverUrl + module;
 
-    let httpHeaders: HttpHeaders = new HttpHeaders({
-      'Content-Type': 'application/json',
-      'Access-Control-Allow-Origin': '*',
-      "Access-Control-Allow-Methods": "GET,PUT,POST,DELETE,PATCH,OPTIONS"
-    });
     let httpOptions = {
-      headers: httpHeaders,
+      headers: this.createHttpOptions(),
       params: undefined,
       reportProgress: false,
       withCredentials: true
@@ -74,22 +85,15 @@ export class NetworkServiceService {
       this.http.get(endPointUrL, httpOptions).subscribe({
         next: (response: any) => {
           this.spinner.hide();
-          if (response?.response?.code) {
-            if (response.response.code === ServerCode.ACCEPTED) {
-              resolve(response);
-            } else {
-              this.presentAlert('Oops!', response.error.message);
-              reject(response.error.message);
-            }
-          } else {
-            resolve(response);
-          }
-
+          resolve(response);
         },
         error: (error) => {
           if (toBeLoaded) this.spinner.hide();
-          let errorMessage = error.error.message ? error.error.message : "Something went wrong. Please try again";
-          this.presentAlert('Oops!', errorMessage);
+          if ((error.error && error.error.errorCode === 'unauthorized')) {
+            this.router.navigateByUrl('/login');
+          } else {
+            this.presentAlert('Oops!', error.error.errorCode && error.error.errorMessage ? error.error.errorCode + ' : ' + error.error.errorMessage : 'Something went wrong. Please try again');
+          }
           reject(error);
         }
       });
@@ -100,13 +104,8 @@ export class NetworkServiceService {
     if (toBeLoaded) this.spinner.show();
     const endPointUrL = this.configuration.configuration.serverUrl + module;
 
-    let httpHeaders: HttpHeaders = new HttpHeaders({
-      'Content-Type': 'application/json',
-      'Access-Control-Allow-Origin': '*',
-      "Access-Control-Allow-Methods": "GET,PUT,POST,DELETE,PATCH,OPTIONS"
-    });
     let httpOptions = {
-      headers: httpHeaders,
+      headers: this.createHttpOptions(),
       params: undefined,
       reportProgress: false,
       withCredentials: true
@@ -116,25 +115,15 @@ export class NetworkServiceService {
       this.http.delete(endPointUrL, httpOptions).subscribe({
         next: (response: any) => {
           this.spinner.hide();
-          if (response?.response?.code) {
-            if (response.response.code === ServerCode.ACCEPTED) {
-              resolve(response);
-            } else {
-              this.presentAlert('Oops!', response.error.message);
-              reject(response.error.message);
-            }
-          } else {
-            resolve(response);
-          }
-
+          resolve(response);
         },
         error: (error) => {
           if (toBeLoaded) this.spinner.hide();
-          let errorMessage = error.error.message ? error.error.message : "Something went wrong. Please try again";
-          this.presentAlert('Oops!', errorMessage);
+          if(error.error && error.error.errorCode === 'unauthorized') this.router.navigateByUrl('/login');
+          else this.presentAlert('Oops!', error.error.errorCode && error.error.errorMessage ? error.error.errorCode + ' : ' + error.error.errorMessage : 'Something went wrong. Please try again');
           reject(error);
         }
-      });
+      }); 
     });
   }
 

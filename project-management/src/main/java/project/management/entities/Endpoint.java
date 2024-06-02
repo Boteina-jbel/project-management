@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
+@Table(name = "endpoint", uniqueConstraints = @UniqueConstraint(columnNames = {"method", "value"}))
 public class Endpoint {
 
     @Id

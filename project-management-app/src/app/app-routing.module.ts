@@ -11,29 +11,25 @@ const routes: Routes = [
   {
     path: '', component: HomeComponent,
     data: {
-      title: "Tableau de bord",
-      description: "Bienvenue sur le tableau de bord du planificateur académique. Obtenez un aperçu de vos activités académiques et gérez vos tâches efficacement."
+      title: "dashboard",
     }
   },
   {
     path: 'login', component: LoginComponent,
     data: {
-      title: "",
-      description: "" 
+      title: "login",
     }
   },
   {
     path: 'user/:username', component: UserComponent,
     data: {
-      title: "",
-      description: ""
+      title: "user",
     }
   },
   {
     path: 'users-management', component: UsersManagementComponent,
     data: {
-      title: "Gestion des Utilisateurs",
-      description: "Gérez efficacement les utilisateurs, y compris les étudiants, le corps professoral et le personnel administratif, avec le module de gestion des utilisateurs du planificateur académique."
+      title: "users",
     }
   },
 ];

@@ -1,3 +1,6 @@
+INSERT INTO users (profile_id, email, first_name, last_name, password, username)
+values((select id from profile where code = 'ADMIN'), 'admin@gmail.com', 'Admin', 'Admin', 'admin', 'admin');
+
 INSERT INTO profile (code, name, hold) VALUES
     ('ADMIN', 'Admin', 0),
 ('PM', 'Project Manager', 0),
@@ -67,14 +70,12 @@ INSERT INTO profile_endpoint (profile_id, endpoint_id, `hold`) values
 ((select id from profile where code = 'ADMIN'), (select id from endpoint where method = 'GET' and value = '/user/id/*'), 0),
 ((select id from profile where code = 'ADMIN'), (select id from endpoint where method = 'GET' and value = '/user/username/*'), 0),
 ((select id from profile where code = 'ADMIN'), (select id from endpoint where method = 'DELETE' and value = '/user/id/*'), 0),
-
 ((select id from profile where code = 'ADMIN'), (select id from endpoint where method = 'GET' and value = '/project'), 0),
 ((select id from profile where code = 'ADMIN'), (select id from endpoint where method = 'POST' and value = '/project'), 0),
 ((select id from profile where code = 'ADMIN'), (select id from endpoint where method = 'PUT' and value = '/project/id/*'), 0),
 ((select id from profile where code = 'ADMIN'), (select id from endpoint where method = 'GET' and value = '/project/id/*'), 0),
 ((select id from profile where code = 'ADMIN'), (select id from endpoint where method = 'GET' and value = '/project/name/*'), 0),
 ((select id from profile where code = 'ADMIN'), (select id from endpoint where method = 'DELETE' and value = '/project/id/*'), 0),
-
 ((select id from profile where code = 'ADMIN'), (select id from endpoint where method = 'POST' and value = '/feature-task'), 0),
 ((select id from profile where code = 'ADMIN'), (select id from endpoint where method = 'PUT' and value = '/feature-task/*'), 0),
 ((select id from profile where code = 'ADMIN'), (select id from endpoint where method = 'GET' and value = '/feature-task/*'), 0),
@@ -84,7 +85,6 @@ INSERT INTO profile_endpoint (profile_id, endpoint_id, `hold`) values
 ((select id from profile where code = 'ADMIN'), (select id from endpoint where method = 'PUT' and value = '/feature-task/*/assign'), 0),
 ((select id from profile where code = 'ADMIN'), (select id from endpoint where method = 'PUT' and value = '/feature-task/*/status'), 0),
 ((select id from profile where code = 'ADMIN'), (select id from endpoint where method = 'DELETE' and value = '/feature-task/*'), 0),
-
 ((select id from profile where code = 'ADMIN'), (select id from endpoint where method = 'POST' and value = '/bug-task'), 0),
 ((select id from profile where code = 'ADMIN'), (select id from endpoint where method = 'PUT' and value = '/bug-task/*'), 0),
 ((select id from profile where code = 'ADMIN'), (select id from endpoint where method = 'GET' and value = '/bug-task/*'), 0),
@@ -93,17 +93,14 @@ INSERT INTO profile_endpoint (profile_id, endpoint_id, `hold`) values
 ((select id from profile where code = 'ADMIN'), (select id from endpoint where method = 'PUT' and value = '/bug-task/*/assign'), 0),
 ((select id from profile where code = 'ADMIN'), (select id from endpoint where method = 'PUT' and value = '/bug-task/*/status'), 0),
 ((select id from profile where code = 'ADMIN'), (select id from endpoint where method = 'DELETE' and value = '/bug-task/*'), 0),
-
 ((select id from profile where code = 'ADMIN'), (select id from endpoint where method = 'POST' and value = '/comment'), 0),
 ((select id from profile where code = 'ADMIN'), (select id from endpoint where method = 'GET' and value = '/comment'), 0),
 ((select id from profile where code = 'ADMIN'), (select id from endpoint where method = 'PUT' and value = '/comment/*'), 0),
 ((select id from profile where code = 'ADMIN'), (select id from endpoint where method = 'GET' and value = '/comment/*'), 0),
 ((select id from profile where code = 'ADMIN'), (select id from endpoint where method = 'GET' and value = '/comment/task/*'), 0),
 ((select id from profile where code = 'ADMIN'), (select id from endpoint where method = 'DELETE' and value = '/comment/*'), 0),
-
 ((select id from profile where code = 'ADMIN'), (select id from endpoint where method = 'POST' and value = '/security/login'), 0),
 ((select id from profile where code = 'ADMIN'), (select id from endpoint where method = 'POST' and value = '/security/logout'), 0),
-
 ((select id from profile where code = 'ADMIN'), (select id from endpoint where method = 'POST' and value = '/task-statuses'), 0),
 ((select id from profile where code = 'ADMIN'), (select id from endpoint where method = 'GET' and value = '/task-statuses'), 0),
 ((select id from profile where code = 'ADMIN'), (select id from endpoint where method = 'GET' and value = '/task-statuses/*'), 0),
@@ -113,16 +110,11 @@ INSERT INTO profile_endpoint (profile_id, endpoint_id, `hold`) values
 
 INSERT INTO profile_endpoint (profile_id, endpoint_id, `hold`) values
     ((select id from profile where code = 'PM'), (select id from endpoint where method = 'GET' and value = '/user'), 0),
--- ((select id from profile where code = 'PM'), (select id from endpoint where method = 'POST' and value = '/user'), 0),
 ((select id from profile where code = 'PM'), (select id from endpoint where method = 'GET' and value = '/user/id/*'), 0),
 ((select id from profile where code = 'PM'), (select id from endpoint where method = 'GET' and value = '/user/username/*'), 0),
-
 ((select id from profile where code = 'PM'), (select id from endpoint where method = 'GET' and value = '/project'), 0),
--- ((select id from profile where code = 'PM'), (select id from endpoint where method = 'POST' and value = '/project'), 0),
--- ((select id from profile where code = 'PM'), (select id from endpoint where method = 'PUT' and value = '/project/id/*'), 0),
 ((select id from profile where code = 'PM'), (select id from endpoint where method = 'GET' and value = '/project/id/*'), 0),
 ((select id from profile where code = 'PM'), (select id from endpoint where method = 'GET' and value = '/project/name/*'), 0),
-
 ((select id from profile where code = 'PM'), (select id from endpoint where method = 'POST' and value = '/feature-task'), 0),
 ((select id from profile where code = 'PM'), (select id from endpoint where method = 'PUT' and value = '/feature-task/*'), 0),
 ((select id from profile where code = 'PM'), (select id from endpoint where method = 'GET' and value = '/feature-task/*'), 0),
@@ -132,7 +124,6 @@ INSERT INTO profile_endpoint (profile_id, endpoint_id, `hold`) values
 ((select id from profile where code = 'PM'), (select id from endpoint where method = 'PUT' and value = '/feature-task/*/assign'), 0),
 ((select id from profile where code = 'PM'), (select id from endpoint where method = 'PUT' and value = '/feature-task/*/status'), 0),
 ((select id from profile where code = 'PM'), (select id from endpoint where method = 'DELETE' and value = '/feature-task/*'), 0),
-
 ((select id from profile where code = 'PM'), (select id from endpoint where method = 'POST' and value = '/bug-task'), 0),
 ((select id from profile where code = 'PM'), (select id from endpoint where method = 'PUT' and value = '/bug-task/*'), 0),
 ((select id from profile where code = 'PM'), (select id from endpoint where method = 'GET' and value = '/bug-task/*'), 0),
@@ -141,17 +132,14 @@ INSERT INTO profile_endpoint (profile_id, endpoint_id, `hold`) values
 ((select id from profile where code = 'PM'), (select id from endpoint where method = 'PUT' and value = '/bug-task/*/assign'), 0),
 ((select id from profile where code = 'PM'), (select id from endpoint where method = 'PUT' and value = '/bug-task/*/status'), 0),
 ((select id from profile where code = 'PM'), (select id from endpoint where method = 'DELETE' and value = '/bug-task/*'), 0),
-
 ((select id from profile where code = 'PM'), (select id from endpoint where method = 'POST' and value = '/comment'), 0),
 ((select id from profile where code = 'PM'), (select id from endpoint where method = 'GET' and value = '/comment'), 0),
 ((select id from profile where code = 'PM'), (select id from endpoint where method = 'PUT' and value = '/comment/*'), 0),
 ((select id from profile where code = 'PM'), (select id from endpoint where method = 'GET' and value = '/comment/*'), 0),
 ((select id from profile where code = 'PM'), (select id from endpoint where method = 'GET' and value = '/comment/task/*'), 0),
 ((select id from profile where code = 'PM'), (select id from endpoint where method = 'DELETE' and value = '/comment/*'), 0),
-
 ((select id from profile where code = 'PM'), (select id from endpoint where method = 'POST' and value = '/security/login'), 0),
 ((select id from profile where code = 'PM'), (select id from endpoint where method = 'POST' and value = '/security/logout'), 0),
-
 ((select id from profile where code = 'PM'), (select id from endpoint where method = 'POST' and value = '/task-statuses'), 0),
 ((select id from profile where code = 'PM'), (select id from endpoint where method = 'GET' and value = '/task-statuses'), 0),
 ((select id from profile where code = 'PM'), (select id from endpoint where method = 'GET' and value = '/task-statuses/*'), 0);
@@ -161,31 +149,21 @@ INSERT INTO profile_endpoint (profile_id, endpoint_id, `hold`) values
     ((select id from profile where code = 'TM'), (select id from endpoint where method = 'GET' and value = '/project'), 0),
 ((select id from profile where code = 'TM'), (select id from endpoint where method = 'GET' and value = '/project/id/*'), 0),
 ((select id from profile where code = 'TM'), (select id from endpoint where method = 'GET' and value = '/project/name/*'), 0),
-
--- ((select id from profile where code = 'TM'), (select id from endpoint where method = 'POST' and value = '/feature-task'), 0),
--- ((select id from profile where code = 'TM'), (select id from endpoint where method = 'PUT' and value = '/feature-task/*'), 0),
 ((select id from profile where code = 'TM'), (select id from endpoint where method = 'GET' and value = '/feature-task/*'), 0),
 ((select id from profile where code = 'TM'), (select id from endpoint where method = 'GET' and value = '/feature-task/project/*'), 0),
 ((select id from profile where code = 'TM'), (select id from endpoint where method = 'GET' and value = '/feature-task/priority/*'), 0),
 ((select id from profile where code = 'TM'), (select id from endpoint where method = 'GET' and value = '/feature-task/search'), 0),
 ((select id from profile where code = 'TM'), (select id from endpoint where method = 'PUT' and value = '/feature-task/*/status'), 0),
--- ((select id from profile where code = 'TM'), (select id from endpoint where method = 'DELETE' and value = '/feature-task/*'), 0),
-
--- ((select id from profile where code = 'TM'), (select id from endpoint where method = 'POST' and value = '/bug-task'), 0),
--- ((select id from profile where code = 'TM'), (select id from endpoint where method = 'PUT' and value = '/bug-task/*'), 0),
 ((select id from profile where code = 'TM'), (select id from endpoint where method = 'GET' and value = '/bug-task/*'), 0),
 ((select id from profile where code = 'TM'), (select id from endpoint where method = 'GET' and value = '/bug-task/project/*'), 0),
 ((select id from profile where code = 'TM'), (select id from endpoint where method = 'GET' and value = '/bug-task/severity/*'), 0),
 ((select id from profile where code = 'TM'), (select id from endpoint where method = 'PUT' and value = '/bug-task/*/status'), 0),
--- ((select id from profile where code = 'TM'), (select id from endpoint where method = 'DELETE' and value = '/bug-task/*'), 0),
-
 ((select id from profile where code = 'TM'), (select id from endpoint where method = 'POST' and value = '/comment'), 0),
 ((select id from profile where code = 'TM'), (select id from endpoint where method = 'GET' and value = '/comment'), 0),
 ((select id from profile where code = 'TM'), (select id from endpoint where method = 'PUT' and value = '/comment/*'), 0),
 ((select id from profile where code = 'TM'), (select id from endpoint where method = 'GET' and value = '/comment/*'), 0),
 ((select id from profile where code = 'TM'), (select id from endpoint where method = 'GET' and value = '/comment/task/*'), 0),
 ((select id from profile where code = 'TM'), (select id from endpoint where method = 'DELETE' and value = '/comment/*'), 0),
-
 ((select id from profile where code = 'TM'), (select id from endpoint where method = 'POST' and value = '/security/login'), 0),
 ((select id from profile where code = 'TM'), (select id from endpoint where method = 'POST' and value = '/security/logout'), 0);
 
@@ -194,34 +172,18 @@ INSERT INTO profile_endpoint (profile_id, endpoint_id, `hold`) values
     ((select id from profile where code = 'SH'), (select id from endpoint where method = 'GET' and value = '/project'), 0),
 ((select id from profile where code = 'SH'), (select id from endpoint where method = 'GET' and value = '/project/id/*'), 0),
 ((select id from profile where code = 'SH'), (select id from endpoint where method = 'GET' and value = '/project/name/*'), 0),
-
--- ((select id from profile where code = 'SH'), (select id from endpoint where method = 'POST' and value = '/feature-task'), 0),
--- ((select id from profile where code = 'SH'), (select id from endpoint where method = 'PUT' and value = '/feature-task/*'), 0),
--- ((select id from profile where code = 'SH'), (select id from endpoint where method = 'GET' and value = '/feature-task/*'), 0),
--- ((select id from profile where code = 'SH'), (select id from endpoint where method = 'GET' and value = '/feature-task/project/*'), 0),
--- ((select id from profile where code = 'SH'), (select id from endpoint where method = 'GET' and value = '/feature-task/priority/*'), 0),
--- ((select id from profile where code = 'SH'), (select id from endpoint where method = 'GET' and value = '/feature-task/search'), 0),
--- ((select id from profile where code = 'SH'), (select id from endpoint where method = 'PUT' and value = '/feature-task/*/status'), 0),
--- ((select id from profile where code = 'PM'), (select id from endpoint where method = 'DELETE' and value = '/feature-task/*'), 0),
-
 ((select id from profile where code = 'SH'), (select id from endpoint where method = 'POST' and value = '/bug-task'), 0),
 ((select id from profile where code = 'SH'), (select id from endpoint where method = 'PUT' and value = '/bug-task/*'), 0),
 ((select id from profile where code = 'SH'), (select id from endpoint where method = 'GET' and value = '/bug-task/*'), 0),
 ((select id from profile where code = 'SH'), (select id from endpoint where method = 'GET' and value = '/bug-task/project/*'), 0),
 ((select id from profile where code = 'SH'), (select id from endpoint where method = 'GET' and value = '/bug-task/severity/*'), 0),
 ((select id from profile where code = 'SH'), (select id from endpoint where method = 'PUT' and value = '/bug-task/*/status'), 0),
-((select id from profile where code = 'PM'), (select id from endpoint where method = 'DELETE' and value = '/bug-task/*'), 0),
-
+((select id from profile where code = 'SH'), (select id from endpoint where method = 'DELETE' and value = '/bug-task/*'), 0),
 ((select id from profile where code = 'SH'), (select id from endpoint where method = 'POST' and value = '/comment'), 0),
 ((select id from profile where code = 'SH'), (select id from endpoint where method = 'GET' and value = '/comment'), 0),
 ((select id from profile where code = 'SH'), (select id from endpoint where method = 'PUT' and value = '/comment/*'), 0),
 ((select id from profile where code = 'SH'), (select id from endpoint where method = 'GET' and value = '/comment/*'), 0),
 ((select id from profile where code = 'SH'), (select id from endpoint where method = 'GET' and value = '/comment/task/*'), 0),
 ((select id from profile where code = 'SH'), (select id from endpoint where method = 'DELETE' and value = '/comment/*'), 0),
-
 ((select id from profile where code = 'SH'), (select id from endpoint where method = 'POST' and value = '/security/login'), 0),
 ((select id from profile where code = 'SH'), (select id from endpoint where method = 'POST' and value = '/security/logout'), 0);
-
-
-
-
