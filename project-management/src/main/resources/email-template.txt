@@ -1,0 +1,14 @@
+Hello {firstName},
+
+Welcome to the Project Planner Application!
+
+You can use the following password to log in to your account:
+
+Password: {password}
+
+For security reasons, we recommend that you change this password after logging in.
+
+If you have any questions or need assistance, please contact our support team at support@projectplanner.com.
+
+Best regards,
+The Project Planner Team

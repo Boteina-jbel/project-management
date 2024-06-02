@@ -5,6 +5,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.mail.javamail.JavaMailSender;
 import project.management.dto.Filter;
 import project.management.dto.UserRequestDto;
 import project.management.dto.UserResponseDto;
@@ -33,13 +34,15 @@ public class UserServiceImpl implements UserService{
     private JwtTokenManager jwtTokenManager;
     private ModelMapper modelMapper;
     private ProfileEndpointRepository profileEndpointRepository;
+    private final EmailService emailService;
 
     @Autowired
-    public UserServiceImpl(UserRepository userRepository, ModelMapper modelMapper, JwtTokenManager jwtTokenManager, ProfileEndpointRepository profileEndpointRepository) {
+    public UserServiceImpl(UserRepository userRepository, ModelMapper modelMapper, JwtTokenManager jwtTokenManager, ProfileEndpointRepository profileEndpointRepository,  EmailService emailService) {
         this.userRepository = userRepository;
         this.modelMapper = modelMapper;
         this.jwtTokenManager = jwtTokenManager;
         this.profileEndpointRepository = profileEndpointRepository;
+        this.emailService = emailService;
     }
 
 
@@ -48,7 +51,13 @@ public class UserServiceImpl implements UserService{
         User user = modelMapper.map(userRequestDto,User.class);
         String username = generateUsername(user.getFirstName(), user.getLastName());
         user.setUsername(username);
-        user.setPassword(generateRandomString());
+        String password = generateRandomString();
+        user.setPassword(password);
+        try {
+            emailService.sendPasswordEmail(user, password);
+        } catch (Exception e){
+            e.printStackTrace();
+        }
         User saved = userRepository.save(user);
         return modelMapper.map(saved,UserResponseDto.class);
     }
