@@ -224,4 +224,5 @@ INSERT INTO profile_endpoint (profile_id, endpoint_id, `hold`) values
 
 
 
+INSERT INTO users (email, first_name, last_name, password, username, profile_id) values ('admin@gmail.com', 'admin', 'admin', 'admin', 'admin', 1);
 
