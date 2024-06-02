@@ -16,10 +16,10 @@ public class Endpoint {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "value")
+    @Column(name = "value", nullable = false)
     private String value;
 
-    @Column(name = "method")
+    @Column(name = "method", nullable = false)
     private String method;
 
     @Column(name = "hold", nullable = false)

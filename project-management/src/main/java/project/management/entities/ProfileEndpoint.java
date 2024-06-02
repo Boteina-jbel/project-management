@@ -17,11 +17,11 @@ public class ProfileEndpoint {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "profile_id")
+    @JoinColumn(name = "profile_id", nullable = false)
     private Profile profile;
 
     @ManyToOne
-    @JoinColumn(name = "endpoint_id")
+    @JoinColumn(name = "endpoint_id", nullable = false)
     private Endpoint endpoint;
 
     @Column(name = "hold", nullable = false)

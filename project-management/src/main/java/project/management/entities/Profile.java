@@ -18,7 +18,7 @@ public class Profile {
     @Column(name = "code", unique = true)
     private String code;
 
-    @Column(name = "name")
+    @Column(name = "name", nullable = false)
     private String name;
 
     @ManyToOne
