@@ -1,5 +1,36 @@
 <ion-app>
   <ion-menu contentId="main-content">
+    <ion-header *ngIf="user">
+      <div class="gradient"></div>
+      <div class="user-avatar">
+        <ion-icon name="person-outline" *ngIf="!user?.thumbnail"></ion-icon>
+      </div>
+      <img *ngIf="user?.thumbnail" [src]="user?.thumbnail" [alt]="user.firstName">
+      <ion-title> {{user.firstName}} {{user.lastName}} </ion-title>
+      <span> {{user.profile.name}} </span>
+    </ion-header>
+
+    <ion-content *ngIf="user">
+      <div class="gradient"></div>
+      <ion-menu-toggle autoHide="false" *ngFor="let p of pages; let i = index">
+        <ion-item [routerLink]="p.url">
+          <ion-icon class="icon" aria-hidden="true" slot="start" [ios]="p.icon + '-outline'"
+            [md]="p.icon + '-outline'"></ion-icon>
+          <ion-label>{{ 'menu.' + p.code | translate }} </ion-label>
+        </ion-item>
+      </ion-menu-toggle>
+
+      <ion-menu-toggle (click)="logoutAction()" autoHide="false">
+        <ion-item>
+          <ion-icon class="icon" aria-hidden="true" slot="start" ios="log-out-outline" md="log-out-outline"></ion-icon>
+          <ion-label>{{ 'log_out' | translate }} </ion-label>
+        </ion-item>
+      </ion-menu-toggle>
+
+    </ion-content>
+    <ion-footer *ngIf="user">
+      <span>{{ 'appName' | translate }} Copyright © {{currentYear}}</span>
+    </ion-footer>
   </ion-menu>
   <ion-router-outlet id="main-content"></ion-router-outlet>
 </ion-app>

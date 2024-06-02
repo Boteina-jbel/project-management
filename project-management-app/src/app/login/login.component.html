@@ -5,8 +5,15 @@
     <h2 class="subtitle-text">{{ 'login.subtitle-text' | translate }}</h2>
     <p class="description-text">{{ 'login.description-text' | translate }}</p>
   </div>
-  
+
   <div class="side-form">
+
+    <div class="titles">
+      <h1 class="title-text"> {{ 'login.title-text' | translate }} </h1>
+      <h2 class="subtitle-text">{{ 'login.subtitle-text' | translate }}</h2>
+      <p class="description-text">{{ 'login.description-text' | translate }}</p>
+    </div>
+
     <form [formGroup]="loginForm" (ngSubmit)="submitLoginForm()" novalidate>
       <div class="icon">
         <ion-icon name="lock-closed-outline"></ion-icon>
@@ -32,5 +39,5 @@
       </ion-button>
     </form>
   </div>
-  
+
 </div>

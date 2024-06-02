@@ -76,9 +76,9 @@ ion-input {
 
 ion-footer {
   padding: 15px;
-  height: 60px;
+  height: 70px;
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
   overflow: hidden;
   background-color: var(--ion-color-primary);
@@ -98,11 +98,11 @@ ion-footer {
     height: 100%;
   }
 
-  @media screen and (max-width: 999px) {
-    height: 110px;
-    flex-direction: column;
-    gap: 10px;
-  }
+  // @media screen and (max-width: 999px) {
+  //   height: 110px;
+  //   flex-direction: column;
+  //   gap: 10px;
+  // }
 
 }
 

@@ -37,8 +37,6 @@
   </div>
   <ion-footer>
     <ion-skeleton-text *ngIf="false" [animated]="true"></ion-skeleton-text>
-    <span></span>
-    <span>Copyright © {{currentYear}}</span>
-    <span></span>
+    <span>{{ 'appName' | translate }} Copyright © {{currentYear}}</span>
   </ion-footer>
 </ion-content>

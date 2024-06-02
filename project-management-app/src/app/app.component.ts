@@ -20,6 +20,7 @@ export class AppComponent implements OnInit {
   pages           : any[];
   global          : GlobalConfig;
   user            : User;
+  currentYear: number = new Date().getFullYear();
 
   constructor(
     private router: Router,
@@ -58,6 +59,10 @@ export class AppComponent implements OnInit {
         });
         })
       ).subscribe();
+  }
+  
+  async logoutAction() {
+    await this.securityService.logout(this.user.username, this.user.token);
   }
 
 }

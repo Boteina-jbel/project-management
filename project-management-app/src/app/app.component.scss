@@ -69,3 +69,17 @@ ion-item {
         color: #333;
     }
 }
+
+
+.user-avatar {
+    width: 80px;
+    height: 80px;
+    margin: auto 5px;
+    border-radius: 50%;
+    background-color: var(--gray-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--white-color);
+    font-size: 30px;
+}

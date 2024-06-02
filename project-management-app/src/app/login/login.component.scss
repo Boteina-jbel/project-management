@@ -1,52 +1,3 @@
-// .login-page {
-//     width: 100%;
-//     height: 100vh;
-//     display: flex;
-//     align-items: center;
-//     justify-content: center;
-//     position: relative;
-//     background-color: #e6e6e6;
-    
-//     form {
-//         width: 30%;
-//         padding: 60px;
-//         border-radius: 10px;
-//         box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
-//         display: flex;
-//         flex-direction: column;
-//         gap: 15px;
-//         position: relative;
-//         padding-top: 80px;
-//         background-color: var(--white-color);
-
-//         .icon {
-//             background-color: var(--ion-color-primary);
-//             width: 80px;
-//             height: 80px;
-//             color: var(--white-color);
-//             border-radius: 50%;
-//             display: flex;
-//             justify-content: center;
-//             align-items: center;
-//             font-size: var(--text-large-font-size);
-//             position: absolute;
-//             top: -40px;
-//             left: 50%;
-//             transform: translateX(-50%);
-//         }
-//     }
-// }
-
-
-
-
-
-
-
-
-
-
-
 .login-page {
     width: 100%;
     height: 100vh;
@@ -55,6 +6,7 @@
     justify-content: center;
     position: relative;
     background-color: var(--ion-color-primary);
+
 
     .side-title {
         width: 50%;
@@ -69,7 +21,7 @@
         padding: 80px;
         text-align: center;
 
-        &::after{
+        &::after {
             content: "";
             position: absolute;
             right: 0;
@@ -78,7 +30,7 @@
             height: 180px;
             background-color: transparent;
             border-radius: 0px 0px 140px 0px;
-            box-shadow: 40px 40px  0px white;
+            box-shadow: 40px 40px 0px white;
         }
 
         .title-text {
@@ -117,6 +69,25 @@
         background-color: var(--white-color);
     }
 
+    .titles {
+        text-align: center;
+        display: none;
+        .title-text {
+            font-size: 1rem;
+            font-weight: bold;
+        }
+    
+        .subtitle-text {
+            font-size: 2rem;
+        }
+    
+        .description-text {
+            font-size: 1rem;
+            opacity: 0.8;
+        }
+    }
+
+
     form {
         width: 50%;
         padding: 60px;
@@ -142,6 +113,27 @@
             left: 50%;
             transform: translateX(-50%);
 
+        }
+    }
+
+    @media screen and (max-width: 999px) {
+        .side-title {
+            display: none;
+        }
+
+        .side-form {
+            width: 100%;
+            border-radius: 0;
+            flex-direction: column;
+            justify-content: space-evenly;
+            form {
+                width: 80%;
+            }
+
+            .titles {
+                display: flex;
+                flex-direction: column;
+            }
         }
     }
 }
