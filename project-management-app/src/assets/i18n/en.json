@@ -45,5 +45,11 @@
     "moreDetailsLabel": "More details",
     "showFilterButtonLabel": "Show filter",
     "hideFilterButtonLabel": "Hide filter",
-    "clearFilter": "Clear filter"
+    "clearFilter": "Clear filter",
+    "users_management": "Users management",
+    "loginButtonLabel": "Login",
+    "forgotPasswordButtonLabel": "Forgot Password ?",
+    "add_user": "Add user",
+    "filterUserTitle": "Filtrer les utilisateurs",
+    "cancelButtonLabel": "Cancel"
 }

@@ -2,6 +2,8 @@ package project.management.services;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import project.management.dto.Filter;
 import project.management.dto.UserRequestDto;
 import project.management.dto.UserResponseDto;
 
@@ -22,5 +24,6 @@ public interface UserService {
     UserResponseDto update(UserRequestDto userRequestDto, Long id);
 
     List<UserResponseDto> findAll();
+    Page<UserResponseDto> findAll(Filter filter);
 
 }

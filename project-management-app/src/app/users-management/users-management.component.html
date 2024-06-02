@@ -91,7 +91,7 @@
     <div class="form-enrollment" *ngIf="showFilterForm">
     
         <div class="form-header">
-            <h1>{{ 'filterTitle' | translate }}</h1>
+            <h1>{{ 'filterUserTitle' | translate }}</h1>
             <p>{{ 'filterDescription' | translate }}</p>
         </div>
     
@@ -113,13 +113,14 @@
             <div class="form-row">
                 <ion-item lines="full">
                     <ion-label position="stacked">{{ 'usernameLabel' | translate }}</ion-label>
-                    <ion-input formControlName="username" placeholder="{{ 'usernameLabelPlaceholder' | translate }}"
+                    <ion-input formControlName="username" placeholder="{{ 'enterUsernamePlaceholder' | translate }}"
                         type="text" ngDefaultControl></ion-input>
                 </ion-item>
                 <ion-item lines="full">
-                    <ion-label position="stacked">{{ 'emailLabel' | translate }}</ion-label>
-                    <ion-input formControlName="email" placeholder="{{ 'enterEmailPlaceholder' | translate }}" type="email"
-                        ngDefaultControl></ion-input>
+                    <ion-select *ngIf="profiles" formControlName="profileCode" label="{{ 'profileLabel' | translate }}"
+                    placeholder="{{ 'selectProfilePlaceholder' | translate }}">
+                    <ion-select-option *ngFor="let profile of profiles" [value]="profile.code">{{ profile.name | translate }}</ion-select-option>
+                </ion-select>
                 </ion-item>
             </div>
     
@@ -145,7 +146,7 @@
     </div>
     
     
-    <!-- <div class="table-container" *ngIf="personsResponse && personsResponse.content && personsResponse.content.length !== 0">
+    <div class="table-container" *ngIf="usersResponse && usersResponse.content && usersResponse.content.length !== 0">
         <div class="table-responsive">
             <table class="table table-striped">
                 <thead>
@@ -154,22 +155,27 @@
                         <th>{{ 'firstNameLabel' | translate }}</th>
                         <th>{{ 'lastNameLabel' | translate }}</th>
                         <th>{{ 'usernameLabel' | translate }}</th>
-                        <th>{{ 'birthDateLabel' | translate }}</th>
+                        <th>{{ 'emailLabel' | translate }}</th>
+                        <th>{{ 'profileLabel' | translate }}</th>
                         <th></th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let person of personsResponse.content">
+                    <tr *ngFor="let user of usersResponse.content">
                         <td>
-                            <img alt="" [src]="person.thumbnail" />
+                            <img *ngIf="user.thumbnail" alt="" [src]="user?.thumbnail" />
+                            <div class="user-avatar" *ngIf="! user.thumbnail"slot="start">
+                                <ion-icon name="person-outline"></ion-icon>
+                            </div>
                         </td>
-                        <td>{{ person.firstName }}</td>
-                        <td>{{ person.lastName }}</td>
-                        <td>{{ person.username }}</td>
-                        <td>{{ person.birthDate | date: 'dd/MM/yyyy' }}</td>
+                        <td>{{ user.firstName }}</td>
+                        <td>{{ user.lastName }}</td>
+                        <td>{{ user.username }}</td>
+                        <td>{{ user.email }}</td>
+                        <td>{{ user.profile.name }}</td>
                         <td>
-                            <ion-button color="primary" fill="clear" (click)="openPersonPage(person.username)"> 
-                                {{ 'moreDetailsLabel' | translate }} &nbsp; <ion-icon name="arrow-forward-outline"></ion-icon>
+                            <ion-button color="primary" fill="clear" (click)="openPersonPage(user.username)"> 
+                                {{ 'moreDetailsLabel' | translate }} &nbsp; <ion-icon name="open-outline"></ion-icon>
                             </ion-button>
                         </td>
                         
@@ -180,9 +186,9 @@
     
         <div class="paggination">
             <ion-button fill="solid" (click)="paginate('prev')"> <ion-icon name="chevron-back-outline"></ion-icon> </ion-button>
-            <p>Page {{ personsResponse.number+1 }} of {{ personsResponse.totalPages }}</p>
+            <p>Page {{ usersResponse.number+1 }} of {{ usersResponse.totalPages }}</p>
             <ion-button fill="solid" (click)="paginate('next')"> <ion-icon name="chevron-forward-outline"></ion-icon> </ion-button>
         </div>
-    </div> -->
+    </div>
 
 </app-base>

@@ -45,5 +45,12 @@
     "moreDetailsLabel": "Plus de détails",
     "showFilterButtonLabel": "Afficher le filtre",
     "hideFilterButtonLabel": "Cacher le filtre",
-    "clearFilter": "Effacer le filtre"
+    "clearFilter": "Effacer le filtre",
+    "users_management": "Gestion des utilisateurs",
+    "loginButtonLabel": "Connexion",
+    "forgotPasswordButtonLabel": "Mot de passe oublié ?",
+    "add_user": "Ajouter un autre utilisateur",
+    "filterUserTitle": "Users Filter",
+    "cancelButtonLabel": "Annuler"
+
 }

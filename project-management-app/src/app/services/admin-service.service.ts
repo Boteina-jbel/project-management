@@ -31,7 +31,7 @@ export class AdminServiceService {
 
   getUsers(filter: Filter): Promise<UsersResponse>{
     return new Promise((resolve, reject) => {
-      this.networkService.post("user", filter, false).then((response: any) => {
+      this.networkService.post("user/usersGet", filter,true).then((response: any) => {
           resolve(response);
       }, error => {
           reject(error);

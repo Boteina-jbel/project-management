@@ -2,8 +2,8 @@
   <ion-menu contentId="main-content">
     <ion-header *ngIf="user">
       <div class="gradient"></div>
-      <div class="user-avatar">
-        <ion-icon name="person-outline" *ngIf="!user?.thumbnail"></ion-icon>
+      <div class="user-avatar" *ngIf="!user?.thumbnail">
+        <ion-icon name="person-outline"></ion-icon>
       </div>
       <img *ngIf="user?.thumbnail" [src]="user?.thumbnail" [alt]="user.firstName">
       <ion-title> {{user.firstName}} {{user.lastName}} </ion-title>

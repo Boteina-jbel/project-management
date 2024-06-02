@@ -1,10 +1,12 @@
 package project.management.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import project.management.dto.Filter;
 import project.management.dto.UserRequestDto;
 import project.management.dto.UserResponseDto;
 import project.management.services.UserService;
@@ -56,5 +58,11 @@ public class UserController {
     public ResponseEntity<UserResponseDto> update(@RequestBody() UserRequestDto userRequestDto,@PathVariable() Long id) {
         UserResponseDto userResponseDto= userService.update(userRequestDto, id);
         return ResponseEntity.accepted().body(userResponseDto);
+    }
+
+    @PostMapping("/usersGet")
+    public ResponseEntity<Page<UserResponseDto>> update(@RequestBody()Filter filter) {
+        Page<UserResponseDto> userResponseDtos = userService.findAll(filter);
+        return ResponseEntity.accepted().body(userResponseDtos);
     }
 }

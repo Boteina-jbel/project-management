@@ -26,6 +26,9 @@ import { UserPopoverComponent } from './base/user-popover/user-popover.component
 import { LoginComponent } from './login/login.component';
 import { CustomDatePipe } from './pipes/custom-date-pipe.pipe';
 import { UserComponent } from './user/user.component';
+import { ProjectsComponent } from './projects/projects.component';
+import { FeatureTasksComponent } from './feature-tasks/feature-tasks.component';
+import { BugTasksComponent } from './bug-tasks/bug-tasks.component';
 
 export function ConfigLoader(configurationService: ConfigurationService) {
   return () => configurationService.load(environment.configFile);
@@ -51,6 +54,9 @@ export function HttpLoaderFactory(http: HttpClient) {
     LoginComponent,
     CustomDatePipe,
     UserComponent,
+    ProjectsComponent,
+    FeatureTasksComponent,
+    BugTasksComponent,
   ],
   imports: [
     BrowserModule,

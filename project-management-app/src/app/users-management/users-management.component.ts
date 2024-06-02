@@ -26,7 +26,7 @@ export class UsersManagementComponent  implements OnInit {
   global          : GlobalConfig;
   profiles        : Profile[];
   showForm        : boolean = false;
-  showFilterForm  : boolean = false;
+  showFilterForm  : boolean = true;
   filter          : Filter = new Filter();
   defaultProfile  : Profile | undefined;
   usersResponse   : UsersResponse;
@@ -60,13 +60,14 @@ export class UsersManagementComponent  implements OnInit {
       firstName: [this.filter.firstName],
       lastName: [this.filter.lastName],
       username: [this.filter.username],
+      profileCode: [this.filter.profileCode],
     });
 
     this.profiles = await this.kernelServiceService.getProfiles();
 
     this.filter.page = this.page;
     this.filter.pageSize = this.pageSize;
-    // this.usersResponse = await this.adminServiceService.getUsers(this.filter);
+    this.usersResponse = await this.adminServiceService.getUsers(this.filter);
   }
 
   async submitUserForm() {
@@ -120,8 +121,8 @@ export class UsersManagementComponent  implements OnInit {
       pageSize: this.pageSize,
       firstName: null,
       lastName: null,
-      apogeeCode: null,
-      studentNationalCode: null
+      username: null,
+      profileCode: null,
     });
     this.showFilterForm = false;
     this.filter = this.filterForm.value;

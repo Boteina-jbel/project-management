@@ -22,4 +22,13 @@ public class UserResponseDto {
     private String token;
     private Profile profile;
     private List<ProfileEndpoint> profileEndpoints;
+
+    public UserResponseDto(String firstName, String lastName, String username, String email, String thumbnail, Profile profile) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.username = username;
+        this.email = email;
+        this.thumbnail = thumbnail;
+        this.profile = profile;
+    }
 }
