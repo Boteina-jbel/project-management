@@ -1,21 +1,4 @@
 <app-base>
 
-  <section class="user-section" *ngIf="person">
-    <div class="bloc">
-      <img [src]="person.thumbnail" alt="">
-      <div>
-        <p> {{ 'firstNameLabel' | translate }} : {{person.firstName}} {{person.lastName}} ({{person.profile.name}})</p>
-        <p> {{ 'lastNameLabel' | translate }} : {{person.username}} </p>
-        <p> {{ 'emailLabel' | translate }} : {{person.email}} </p>
-        <p> {{ 'legalIdNumberLabel' | translate }} : {{person.legalIdNumber}} </p>
-        <p> {{ 'legalIdTypeLabel' | translate }} : {{person.legalIdType.name}} </p>
-        <p> {{ 'citizenshipLabel' | translate }} : {{person.citizenship.name}} </p>
-      </div>
-      <span class="float-card-button" (click)="openPersonModal()">
-        <ion-icon name="create-outline"></ion-icon>
-      </span>
-    </div>
-
-  </section>
 
 </app-base>

@@ -8,7 +8,7 @@
   </ion-item> 
 
   <ion-item lines="full">
-    <div *ngIf="securityDTO && securityDTO.username && securityDTO.profile" >{{ securityDTO.username }}</div>     <p>({{ securityDTO.profile.name }})</p>
+    <div *ngIf="user" >{{ user?.username }}</div>  <p>({{ user?.profile?.name }})</p>
   </ion-item>
 
   <ion-item lines="full">

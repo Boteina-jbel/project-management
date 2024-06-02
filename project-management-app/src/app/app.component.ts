@@ -1,12 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { register } from 'swiper/element/bundle';
 import { UtilsService } from './services/utils.service';
-import { GlobalConfig } from './models/GlobalConfig';
 import { ActivatedRoute, Data, NavigationEnd, Router } from '@angular/router';
 import { MetaService } from './services/meta.service';
 import { filter, map, mergeMap, tap } from 'rxjs/operators';
 import { SecurityServiceService } from './services/security-service.service';
-import { SecurityDTO } from './models/msg/SecurityDTO';
+import { GlobalConfig } from './models/GlobalConfig';
+import { User } from './models/Person';
+import { TranslateService } from '@ngx-translate/core';
 
 register();
 @Component({
@@ -18,7 +19,7 @@ export class AppComponent implements OnInit {
 
   pages           : any[];
   global          : GlobalConfig;
-  securityDTO     : SecurityDTO;
+  user            : User;
 
   constructor(
     private router: Router,
@@ -26,6 +27,8 @@ export class AppComponent implements OnInit {
     private metaService: MetaService,
     public utilsService: UtilsService,
     private securityService: SecurityServiceService,
+    private translate       : TranslateService,
+
   ) { }
 
   async ngOnInit() {
@@ -33,10 +36,10 @@ export class AppComponent implements OnInit {
     this.pages = this.utilsService.pagesConfigGet();
     this.global = this.utilsService.globalGet();
 
-    // this.securityDTO = this.securityService.getSecurityInfo();
-    // if (! this.securityDTO) {
-    //   this.router.navigateByUrl('/login');
-    // }
+    this.user = this.securityService.getSecurityInfo();
+    if (! this.user) {
+      this.router.navigateByUrl('/login');
+    }
 
     this.router.events
       .pipe(filter((event) => event instanceof NavigationEnd),
@@ -49,9 +52,10 @@ export class AppComponent implements OnInit {
         }),
         filter((route) => route.outlet === 'primary'),
         mergeMap((route) => route.data),
-        tap(({ title, description }: Data) => {
-          this.metaService.setTitle(title);
-          this.metaService.setDescription(description);
+        tap(({ title }: Data) => {
+          this.translate.get( 'menu.'+ title).subscribe((translatedTitle: string) => {
+            this.metaService.setTitle(translatedTitle);
+        });
         })
       ).subscribe();
   }

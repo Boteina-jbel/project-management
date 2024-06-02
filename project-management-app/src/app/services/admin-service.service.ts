@@ -1,23 +1,8 @@
 import { Injectable } from '@angular/core';
-import { Student } from '../models/Student';
 import { ConfigurationService } from './configuration.service';
 import { NetworkServiceService } from './network-service.service';
 import { SpinnerService } from './spinner.service';
-import { Teacher } from '../models/Teacher';
-import { Admin } from '../models/Admin';
-import { Establishment } from '../models/Establishment';
 import { KernelServiceService } from './kernel-service.service';
-import { Filter } from '../models/Filter';
-import { filter } from 'rxjs/operators';
-import { PersonsResponse } from '../models/msg/PersonsResponse';
-import { TeachersResponse } from '../models/msg/TeachersResponse';
-import { StudentsResponse } from '../models/msg/StudentsResponse';
-import { University } from '../models/University';
-import { Department } from '../models/Department';
-import { AcademicProgram } from '../models/AcademicProgram';
-import { Course } from '../models/Course';
-import { ClassRoom } from '../models/ClassRoom';
-
 @Injectable({
   providedIn: 'root'
 })

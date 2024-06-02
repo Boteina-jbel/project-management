@@ -2,11 +2,11 @@ import { Injectable } from '@angular/core';
 import { NetworkServiceService } from './network-service.service';
 import { ConfigurationService } from './configuration.service';
 import { Clipboard } from '@angular/cdk/clipboard';
-import { GlobalConfig } from '../models/GlobalConfig';
 import { ModalController } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
 import { SecurityServiceService } from './security-service.service';
-import { SecurityDTO } from '../models/msg/SecurityDTO';
+import { User } from '../models/Person';
+import { GlobalConfig } from '../models/GlobalConfig';
 
 @Injectable({
   providedIn: 'root'
@@ -15,28 +15,33 @@ export class UtilsService {
 
   private readonly PREFERRED_LANGUAGE_LOCAL_STORAGE_KEY: string = 'preferredLanguage';
 
-  securityDTO     : SecurityDTO;
+  user            : User;
   global          : GlobalConfig;
   public pages = {
     admin: [
       { code: 'dashboard',  url: '/', icon: 'home' },
-      { code: 'university', url: '/university', icon: 'business' },
-      { code: 'users',      url: '/users-management', icon: 'people' },
-      { code: 'schedules',  url: '/schedules', icon: 'time' },
-      { code: 'absences',   url: '/absences', icon: 'calendar' },
+      { code: 'projects', url: '/projects', icon: 'folder' },
+      { code: 'feature-tasks', url: '/feature-tasks', icon: 'trending-up' },
+      { code: 'bug-tasks', url: '/bug-tasks', icon: 'bug' },
+      { code: 'users', url: '/users', icon: 'people' }
     ],
-    teacher: [
-      { code: 'dashboard',   url: '/dashboard', icon: 'home' },
-      { code: 'courses',     url: '/courses', icon: 'book' },
-      { code: 'absences',    url: '/absences', icon: 'calendar' },
-      { code: 'grades',      url: '/grades', icon: 'school' },
-      { code: 'students',    url: '/students', icon: 'people' },
+    projectManager: [
+      { code: 'dashboard',  url: '/', icon: 'home' },
+      { code: 'projects', url: '/projects', icon: 'folder' },
+      { code: 'feature-tasks', url: '/feature-tasks', icon: 'trending-up' },
+      { code: 'bug-tasks', url: '/bug-tasks', icon: 'bug' }
     ],
-    student: [
-      { code: 'dashboard',   url: '/dashboard', icon: 'home' },
-      { code: 'courses',     url: '/courses', icon: 'book' },
-      { code: 'absences',    url: '/absences', icon: 'calendar' },
-      { code: 'grades',      url: '/grades', icon: 'school' },
+    teamMember: [
+      { code: 'dashboard',  url: '/', icon: 'home' },
+      { code: 'projects', url: '/projects', icon: 'folder' },
+      { code: 'feature-tasks', url: '/feature-tasks', icon: 'trending-up' },
+      { code: 'bug-tasks', url: '/bug-tasks', icon: 'bug' }    
+    ],
+    stackholder: [
+      { code: 'dashboard',  url: '/', icon: 'home' },
+      { code: 'projects', url: '/projects', icon: 'folder' },
+      { code: 'feature-tasks', url: '/feature-tasks', icon: 'trending-up' },
+      { code: 'bug-tasks', url: '/bug-tasks', icon: 'bug' }   
     ]
   };
 
@@ -64,16 +69,18 @@ export class UtilsService {
   }
 
   pagesConfigGet() {
-    const securityDTO: SecurityDTO = this.securityService.getSecurityInfo();
-    const userProfileCode = securityDTO?.profile?.code.toLowerCase();
+    const user: User = this.securityService.getSecurityInfo();
+    const userProfileCode = user?.profile?.code.toLowerCase();
 
     switch (userProfileCode) {
       case 'admin':
         return this.pages.admin;
-      case 'teacher':
-        return this.pages.teacher;
-      case 'student':
-        return this.pages.student;
+      case 'pm':
+        return this.pages.projectManager;
+      case 'tm':
+        return this.pages.teamMember;
+      case 'sh':
+        return this.pages.stackholder;
       default:
         return this.pages.admin;
     }

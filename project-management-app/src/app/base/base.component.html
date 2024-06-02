@@ -15,9 +15,9 @@
     </div>
     <ion-buttons class="user">
       <ion-button class="user-avatar" (click)="presentPopover($event)">
-            <ion-icon name="person-outline" *ngIf="!securityDTO"></ion-icon>
-            <ion-avatar aria-hidden="true" *ngIf="securityDTO" slot="start">
-              <img [alt]="securityDTO.username" [src]="securityDTO.thumbnail" />
+            <ion-icon name="person-outline" *ngIf="!user?.thumbnail"></ion-icon>
+            <ion-avatar aria-hidden="true" *ngIf="user?.thumbnail" slot="start">
+              <img [alt]="user.username" [src]="user.thumbnail" />
           </ion-avatar>
       </ion-button>
     </ion-buttons>

@@ -1,7 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Person } from '../models/Person';
-import { Student } from '../models/Student';
-import { Teacher } from '../models/Teacher';
 import { AdminServiceService } from '../services/admin-service.service';
 import { KernelServiceService } from '../services/kernel-service.service';
 import { UtilsService } from '../services/utils.service';
@@ -16,9 +13,6 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class UserComponent  implements OnInit {
 
   username  : string | null;
-  person    : Person;
-  student   : Student;
-  teacher   : Teacher;
 
   constructor(
     private adminService: AdminServiceService,

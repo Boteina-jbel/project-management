@@ -1,12 +1,11 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ModalController, PopoverController } from '@ionic/angular';
 import { UtilsService } from '../services/utils.service';
-import { GlobalConfig } from '../models/GlobalConfig';
-import { University } from '../models/University';
 import { KernelServiceService } from '../services/kernel-service.service';
 import { UserPopoverComponent } from './user-popover/user-popover.component';
 import { SecurityServiceService } from '../services/security-service.service';
-import { SecurityDTO } from '../models/msg/SecurityDTO';
+import { User } from '../models/Person';
+import { GlobalConfig } from '../models/GlobalConfig';
 
 @Component({
   selector: 'app-base',
@@ -17,7 +16,7 @@ export class BaseComponent implements OnInit {
 
   pages                 : any[];
   global                : GlobalConfig;
-  securityDTO           : SecurityDTO;
+  user                  : User;
   @Input() title        : string;
   @Input() introduction : string;
 
@@ -33,7 +32,7 @@ export class BaseComponent implements OnInit {
   ) { }
 
   async ngOnInit() {
-    this.securityDTO  = this.securityService.getSecurityInfo();
+    this.user         = this.securityService.getSecurityInfo();
     this.pages        = this.utilsService.pagesConfigGet();
     this.global       = this.utilsService.globalGet();
   }
