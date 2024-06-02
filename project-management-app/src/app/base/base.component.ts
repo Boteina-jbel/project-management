@@ -4,7 +4,7 @@ import { UtilsService } from '../services/utils.service';
 import { KernelServiceService } from '../services/kernel-service.service';
 import { UserPopoverComponent } from './user-popover/user-popover.component';
 import { SecurityServiceService } from '../services/security-service.service';
-import { User } from '../models/Person';
+import { User } from '../models/User';
 import { GlobalConfig } from '../models/GlobalConfig';
 
 @Component({

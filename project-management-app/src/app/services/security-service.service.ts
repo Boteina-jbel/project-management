@@ -3,7 +3,7 @@ import { ConfigurationService } from './configuration.service';
 import { NetworkServiceService } from './network-service.service';
 import { SpinnerService } from './spinner.service';
 import { Router } from '@angular/router';
-import { User } from '../models/Person';
+import { User } from '../models/User';
 
 @Injectable({
   providedIn: 'root'

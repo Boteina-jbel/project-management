@@ -5,7 +5,7 @@ import { Clipboard } from '@angular/cdk/clipboard';
 import { ModalController } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
 import { SecurityServiceService } from './security-service.service';
-import { User } from '../models/Person';
+import { User } from '../models/User';
 import { GlobalConfig } from '../models/GlobalConfig';
 
 @Injectable({

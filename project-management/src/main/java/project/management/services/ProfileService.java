@@ -1,7 +1,12 @@
 package project.management.services;
 
-import org.springframework.stereotype.Service;
+
+import project.management.entities.Profile;
+
+import java.util.List;
 
 public interface ProfileService {
+
+    List<Profile> findAll();
 
 }

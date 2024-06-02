@@ -127,6 +127,12 @@ public class GenericFilter implements Filter {
             errorResponse.put("errorMessage", errorMessage);
             errorResponse.put("status", String.valueOf(HttpServletResponse.SC_INTERNAL_SERVER_ERROR));
 
+            // Set the CORS headers
+            httpResponse.setHeader("Access-Control-Allow-Origin", "http://localhost:4200");
+            httpResponse.setHeader("Access-Control-Allow-Methods", "*");
+            httpResponse.setHeader("Access-Control-Allow-Headers", "*");
+            httpResponse.setHeader("Access-Control-Allow-Credentials", "true");
+
             httpResponse.setContentType(MediaType.APPLICATION_JSON_VALUE);
             PrintWriter writer = httpResponse.getWriter();
             objectMapper.writeValue(writer, errorResponse);

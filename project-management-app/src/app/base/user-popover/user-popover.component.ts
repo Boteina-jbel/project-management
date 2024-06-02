@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { PopoverController } from '@ionic/angular';
-import { User } from 'src/app/models/Person';
+import { User } from 'src/app/models/User';
 import { SecurityServiceService } from 'src/app/services/security-service.service';
 import { UtilsService } from 'src/app/services/utils.service';
 

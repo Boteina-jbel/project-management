@@ -3,12 +3,13 @@ import { ConfigurationService } from './configuration.service';
 import { NetworkServiceService } from './network-service.service';
 import { SpinnerService } from './spinner.service';
 import { KernelServiceService } from './kernel-service.service';
+import { UsersResponse } from '../models/UsersResponse';
+import { Filter } from '../models/Filter';
+import { User } from '../models/User';
 @Injectable({
   providedIn: 'root'
 })
 export class AdminServiceService {
-
-  private readonly MODULE_GET_URL: string = 'admin/';
 
   constructor(
     private configurationService  : ConfigurationService,
@@ -17,17 +18,27 @@ export class AdminServiceService {
     private kernelServiceService : KernelServiceService
   ) {}
 
-  // createStudent(student: Student) : Promise<Student>{
-  //   return new Promise((resolve, reject) => {
-  //       student.citizenship.cities = [];
-  //       this.networkService.post(this.MODULE_GET_URL + "studentSave", student, true).then((response: any) => {
-  //           resolve(response);
-  //       }, error => {
-  //           reject(error);
-  //       }
-  //       );
-  //   });
-  // }
+  saveUser(user: User) : Promise<User>{
+    return new Promise((resolve, reject) => {
+        this.networkService.post("user", user, true).then((response: any) => {
+            resolve(response);
+        }, error => {
+            reject(error);
+        }
+        );
+    });
+  }
+
+  getUsers(filter: Filter): Promise<UsersResponse>{
+    return new Promise((resolve, reject) => {
+      this.networkService.post("user", filter, false).then((response: any) => {
+          resolve(response);
+      }, error => {
+          reject(error);
+      }
+      );
+    });
+  }
 
   
 

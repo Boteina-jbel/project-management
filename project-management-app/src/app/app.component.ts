@@ -6,7 +6,7 @@ import { MetaService } from './services/meta.service';
 import { filter, map, mergeMap, tap } from 'rxjs/operators';
 import { SecurityServiceService } from './services/security-service.service';
 import { GlobalConfig } from './models/GlobalConfig';
-import { User } from './models/Person';
+import { User } from './models/User';
 import { TranslateService } from '@ngx-translate/core';
 
 register();

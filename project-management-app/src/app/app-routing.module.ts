@@ -27,7 +27,7 @@ const routes: Routes = [
     }
   },
   {
-    path: 'users-management', component: UsersManagementComponent,
+    path: 'users', component: UsersManagementComponent,
     data: {
       title: "users",
     }
