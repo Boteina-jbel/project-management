@@ -27,7 +27,7 @@ export class AppComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private metaService: MetaService,
     public utilsService: UtilsService,
-    private securityService: SecurityServiceService,
+    public securityService: SecurityServiceService,
     private translate       : TranslateService,
 
   ) { }

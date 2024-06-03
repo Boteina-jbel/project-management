@@ -51,12 +51,17 @@ public class GenericFilter implements Filter {
         HttpServletRequest httpRequest = (HttpServletRequest) request;
         HttpServletResponse httpResponse = (HttpServletResponse) response;
 
+        String origin = httpRequest.getHeader("Origin");
+        httpResponse.setHeader("Access-Control-Allow-Origin", origin);
+        httpResponse.setHeader("Access-Control-Allow-Credentials", "true");
+        httpResponse.setHeader("Access-Control-Allow-Methods", "*");
+        httpResponse.setHeader("Access-Control-Allow-Headers", "*");
+
         String method = httpRequest.getMethod();
         if ("OPTIONS".equalsIgnoreCase(method)) {
             chain.doFilter(request, response);
             return;
         }
-
 
         ObjectMapper objectMapper = new ObjectMapper();
 
@@ -88,8 +93,7 @@ public class GenericFilter implements Filter {
 
                 if (!isValidToken) {
                     // Token is invalid, return unauthorized status
-                    httpResponse.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-                    return;
+                    throw new ProjectManagementException(ErrorCode.unauthorized, "You are not authorized. Please login.");
                 }
 
                 Endpoint endpoint   = getEndpoint(httpRequest.getMethod(), uriWithoutContext);
@@ -99,8 +103,8 @@ public class GenericFilter implements Filter {
                 profileEndpointService.checkProfileEndpointGranted(user.getProfile(), endpoint);
 
                 openingHoursService.checkOpeningHoursAccess(user);
-
             }
+
             chain.doFilter(request, response);
         } catch (Throwable throwable) {
             throwable.printStackTrace();
@@ -126,12 +130,6 @@ public class GenericFilter implements Filter {
             errorResponse.put("errorCode", errorCode);
             errorResponse.put("errorMessage", errorMessage);
             errorResponse.put("status", String.valueOf(HttpServletResponse.SC_INTERNAL_SERVER_ERROR));
-
-            // Set the CORS headers
-            httpResponse.setHeader("Access-Control-Allow-Origin", "http://localhost:4200");
-            httpResponse.setHeader("Access-Control-Allow-Methods", "*");
-            httpResponse.setHeader("Access-Control-Allow-Headers", "*");
-            httpResponse.setHeader("Access-Control-Allow-Credentials", "true");
 
             httpResponse.setContentType(MediaType.APPLICATION_JSON_VALUE);
             PrintWriter writer = httpResponse.getWriter();

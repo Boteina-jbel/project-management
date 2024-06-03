@@ -51,7 +51,7 @@ export class NetworkServiceService {
       headers: this.createHttpOptions(),
       params: undefined,
       reportProgress: false,
-      withCredentials: true
+      withCredentials: false
     }
 
     return new Promise((resolve, reject) => {
@@ -78,7 +78,7 @@ export class NetworkServiceService {
       headers: this.createHttpOptions(),
       params: undefined,
       reportProgress: false,
-      withCredentials: true
+      withCredentials: false
     }
 
     return new Promise((resolve, reject) => {
@@ -108,7 +108,7 @@ export class NetworkServiceService {
       headers: this.createHttpOptions(),
       params: undefined,
       reportProgress: false,
-      withCredentials: true
+      withCredentials: false
     }
 
     return new Promise((resolve, reject) => {
