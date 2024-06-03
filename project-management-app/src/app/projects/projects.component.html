@@ -1,2 +1,52 @@
 <app-base>
+
+    <ion-header>
+        <ion-toolbar>
+            <div>
+                <span><ion-icon name="briefcase-outline"></ion-icon></span>
+                <h1>{{ 'projects_management' | translate }}</h1>
+            </div>
+            <ion-buttons slot="end">
+                <ion-button fill="clear">
+                    <ion-icon name="refresh-outline"></ion-icon> &nbsp; {{ 'reload' | translate }}
+                </ion-button>
+
+                &nbsp;
+                <ion-button fill="clear" (click)="openAddCourseModal()">
+                    <ng-container>
+                        <ion-icon name="person-add-outline"></ion-icon> &nbsp; {{ 'add_projet' | translate }}
+                    </ng-container>
+                </ion-button>
+            </ion-buttons>
+        </ion-toolbar>
+    </ion-header>
+
+    <!-- Search -->
+
+    <!-- List of projects -->
+    <section>
+        <div class="project-card">
+            <span class="float-card-button" (click)="openAddCourseModal()">
+                <ion-icon name="create-outline"></ion-icon>
+            </span>
+            <div class="image-container">
+                <img [src]="getBackground(6)"/>
+            </div>
+            <div class="card-content">
+                <ion-card-header>
+                    <ion-card-title>Project Name Example</ion-card-title>
+                    <br />
+                    <ion-card-subtitle><ion-icon name="person-outline"></ion-icon> &nbsp; Managed by FirstName LastName</ion-card-subtitle>
+                </ion-card-header>
+                <ion-card-content>
+                    <p> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. </p>
+                </ion-card-content>
+                <div class="card-bottom-buttons">
+                    <ion-button color="primary" fill="clear"> {{
+                        'moreDetailsLabel' | translate }} &nbsp; <ion-icon
+                            name="arrow-forward-outline"></ion-icon></ion-button>
+                </div>
+            </div>
+        </div>
+    </section>
 </app-base>

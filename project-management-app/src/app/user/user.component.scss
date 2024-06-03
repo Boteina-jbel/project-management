@@ -1,3 +1,31 @@
+.profile {
+    width: 100%;
+    padding-top: 100px;
+
+    .body-profile {
+        position: relative;
+        background-color: var(--white-color);
+        border-radius: 50px 50px 5px 5px;
+        min-height: 30vh;
+        padding-top: 100px;
+    
+        .titles {
+            text-align: center;
+        }
+    }
+
+    .profile-picture {
+        width: 200px;
+        height: 200px;
+        object-fit: cover;
+        border-radius: 50%;
+        position: absolute;
+        top: -100px;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+}
+
 .bloc {
     background-color: var(--white-color);
     padding: 20px;

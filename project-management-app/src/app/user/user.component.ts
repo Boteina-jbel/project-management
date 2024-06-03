@@ -4,6 +4,7 @@ import { KernelServiceService } from '../services/kernel-service.service';
 import { UtilsService } from '../services/utils.service';
 import { ModalController } from '@ionic/angular';
 import { ActivatedRoute, Router } from '@angular/router';
+import { User } from '../models/User';
 
 @Component({
   selector: 'app-user',
@@ -13,6 +14,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class UserComponent  implements OnInit {
 
   username  : string | null;
+  user      : User;
 
   constructor(
     private adminService: AdminServiceService,
@@ -29,7 +31,8 @@ export class UserComponent  implements OnInit {
     });
 
     if (this.username) {
-      // this.person = await this.kernelService.personByUsernameGet(this.username)
+      this.user = await this.kernelService.getUserByUsername(this.username);
+      console.log(this.user); 
     }
   }
 
