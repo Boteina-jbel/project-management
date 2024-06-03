@@ -144,6 +144,10 @@ ion-menu {
     color: var(--white-color);
     font-size: 30px;
 
+    @media screen and (max-width: 999px) {
+        width: 40px;
+        height: 40px;
+    }
 }
 
 ion-popover {

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { register } from 'swiper/element/bundle';
 import { UtilsService } from './services/utils.service';
 import { ActivatedRoute, Data, NavigationEnd, Router } from '@angular/router';
@@ -8,19 +8,22 @@ import { SecurityServiceService } from './services/security-service.service';
 import { GlobalConfig } from './models/GlobalConfig';
 import { User } from './models/User';
 import { TranslateService } from '@ngx-translate/core';
+import { Subscription } from 'rxjs';
 
 register();
+
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html',
   styleUrls: ['app.component.scss'],
 })
-export class AppComponent implements OnInit {
+export class AppComponent implements OnInit, OnDestroy {
 
-  pages           : any[];
-  global          : GlobalConfig;
-  user            : User;
+  pages: any[];
+  global: GlobalConfig;
+  user: User;
   currentYear: number = new Date().getFullYear();
+  private loginSubscription: Subscription;
 
   constructor(
     private router: Router,
@@ -28,22 +31,21 @@ export class AppComponent implements OnInit {
     private metaService: MetaService,
     public utilsService: UtilsService,
     public securityService: SecurityServiceService,
-    private translate       : TranslateService,
-
+    private translate: TranslateService,
   ) { }
 
-  async ngOnInit() {
-    this.utilsService.setDefaultLanguage();
-    this.pages = this.utilsService.pagesConfigGet();
-    this.global = this.utilsService.globalGet();
+  ngOnInit() {
+    this.initializeComponent();
 
-    this.user = this.securityService.getSecurityInfo();
-    if (! this.user) {
-      this.router.navigateByUrl('/login');
-    }
+    this.loginSubscription = this.securityService.loginState$.subscribe(loggedIn => {
+      if (loggedIn) {
+        this.initializeComponent();
+      }
+    });
 
     this.router.events
-      .pipe(filter((event) => event instanceof NavigationEnd),
+      .pipe(
+        filter((event) => event instanceof NavigationEnd),
         map(() => this.activatedRoute),
         map((route) => {
           while (route.firstChild) {
@@ -54,15 +56,31 @@ export class AppComponent implements OnInit {
         filter((route) => route.outlet === 'primary'),
         mergeMap((route) => route.data),
         tap(({ title }: Data) => {
-          this.translate.get( 'menu.'+ title).subscribe((translatedTitle: string) => {
+          this.translate.get('menu.' + title).subscribe((translatedTitle: string) => {
             this.metaService.setTitle(translatedTitle);
-        });
+          });
         })
       ).subscribe();
   }
-  
+
+  ngOnDestroy() {
+    if (this.loginSubscription) {
+      this.loginSubscription.unsubscribe();
+    }
+  }
+
+  private initializeComponent() {
+    this.utilsService.setDefaultLanguage();
+    this.pages = this.utilsService.pagesConfigGet();
+    this.global = this.utilsService.globalGet();
+
+    this.user = this.securityService.getSecurityInfo();
+    if (!this.user) {
+      this.router.navigateByUrl('/login');
+    }
+  }
+
   async logoutAction() {
     await this.securityService.logout(this.user.username, this.user.token);
   }
-
 }
