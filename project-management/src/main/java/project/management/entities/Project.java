@@ -22,8 +22,11 @@ public class Project implements Serializable {
     @Column(name = "name", nullable = false)
     private String name;
 
-    @Column(name = "description", nullable = false)
+    @Column(name = "description", nullable = false, columnDefinition = "LONGTEXT")
     private String description;
+
+    @Column(name= "thumbnail", columnDefinition = "LONGTEXT")
+    private String thumbnail;
 
     @Column(name = "created_at", nullable = false)
     private Date createdAt;
@@ -31,6 +34,10 @@ public class Project implements Serializable {
     @ManyToOne(cascade = CascadeType.DETACH, fetch = FetchType.EAGER)
     @JoinColumn(name = "created_by")
     private User createdBy;
+
+    @ManyToOne(cascade = CascadeType.DETACH, fetch = FetchType.EAGER)
+    @JoinColumn(name = "managed_by")
+    private User managedBy;
 
     private static final long serialVersionUID = 1L;
 }

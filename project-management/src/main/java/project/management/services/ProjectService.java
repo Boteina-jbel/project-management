@@ -7,7 +7,7 @@ import project.management.dto.ProjectResponseDto;
 
 public interface ProjectService {
 
-    ProjectResponseDto save(ProjectRequestDto projectRequestDto);
+    ProjectResponseDto save(ProjectRequestDto projectRequestDto, String username);
 
     ProjectResponseDto findById(Long id);
 

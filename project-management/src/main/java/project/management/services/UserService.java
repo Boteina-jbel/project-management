@@ -6,6 +6,7 @@ import org.springframework.data.domain.Page;
 import project.management.dto.Filter;
 import project.management.dto.UserRequestDto;
 import project.management.dto.UserResponseDto;
+import project.management.entities.User;
 
 public interface UserService {
 
@@ -26,4 +27,5 @@ public interface UserService {
     List<UserResponseDto> findAll();
     Page<UserResponseDto> findAll(Filter filter);
 
+    List<User> getByProfileCode(String profileCode);
 }

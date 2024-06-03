@@ -27,8 +27,8 @@ public class ProjectController {
     }
 
     @PostMapping("")
-    public ResponseEntity<ProjectResponseDto> save(@RequestBody() ProjectRequestDto projectRequestDto){
-        ProjectResponseDto projectResponseDto = projectService.save(projectRequestDto);
+    public ResponseEntity<ProjectResponseDto> save(@RequestBody() ProjectRequestDto projectRequestDto, @RequestHeader(name = "username") String username){
+        ProjectResponseDto projectResponseDto = projectService.save(projectRequestDto, username);
         return new ResponseEntity<>(projectResponseDto, HttpStatus.CREATED);
     }
 

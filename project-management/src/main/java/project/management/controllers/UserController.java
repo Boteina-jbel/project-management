@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import project.management.dto.Filter;
 import project.management.dto.UserRequestDto;
 import project.management.dto.UserResponseDto;
+import project.management.entities.User;
 import project.management.services.UserService;
 
 import java.util.List;
@@ -65,4 +66,12 @@ public class UserController {
         Page<UserResponseDto> userResponseDtos = userService.findAll(filter);
         return ResponseEntity.accepted().body(userResponseDtos);
     }
+
+    @GetMapping("/profileCode/{profileCode}")
+    public ResponseEntity<List<User>> findByProfileId(@PathVariable() String profileCode) {
+        List<User> users = userService.getByProfileCode(profileCode);
+        return ResponseEntity.accepted().body(users);
+    }
 }
+
+

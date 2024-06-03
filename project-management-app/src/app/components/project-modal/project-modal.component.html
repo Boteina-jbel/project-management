@@ -6,9 +6,49 @@
 
 <div class="form-container">
   <div class="form-header">
-    <h1>{{ 'promotionRegistrationTitle' | translate }}</h1>
-    <p>{{ 'promotionRegistrationDescription' | translate }}</p>
+    <h1>{{ 'projectRegistrationTitle' | translate }}</h1>
+    <p>{{ 'projectRegistrationDescription' | translate }}</p>
   </div>
 
+  <form [formGroup]="projectForm" (ngSubmit)="submitForm()" novalidate>
+
+    <div class="thumbnail-container">
+      <ion-img *ngIf="projectForm.get('thumbnail')?.value" [src]="projectForm.get('thumbnail')?.value" class="thumbnail"></ion-img>
+      <ion-button (click)="fileInput.click()">   
+        {{ 'selectProjectImage' | translate }} &nbsp; <ion-icon name="create-outline"></ion-icon>
+      </ion-button>
+      <input type="file" #fileInput (change)="onFileSelected($event)" accept="image/*" class="hidden-input">
+    </div>
+
+    <div class="form-controls">
+      <ion-item lines="full">
+        <ion-label position="stacked">{{ 'nameLabel' | translate }}</ion-label>
+        <ion-input formControlName="name" placeholder="{{ 'enterNamePlaceholder' | translate }}" ngDefaultControl></ion-input>
+      </ion-item>
+
+      <ion-item lines="full">
+        <ion-label position="stacked">{{ 'descriptionLabel' | translate }}</ion-label>
+        <ion-textarea rows="4" formControlName="description" placeholder="{{ 'enterDescriptionPlaceholder' | translate }}" type="text" ngDefaultControl></ion-textarea>
+      </ion-item>
+
+      <ion-item lines="full">
+        <ion-select formControlName="managedBy"  [(ngModel)]="managedBy" label="{{ 'managedByLabel' | translate }}" placeholder="{{ 'selectManagersLabel' | translate }}">
+          <ion-select-option *ngFor="let manager of managers" [value]="manager">{{ manager.firstName }}  {{ manager.lastName }}</ion-select-option>
+        </ion-select>
+      </ion-item>
+    </div>
+
+    <div class="form-buttons" [style.justify-content]="(this.project && this.project.id) ? 'space-between' : 'flex-end'">
+      <ion-button color="danger" fill="clear" *ngIf="this.project && this.project.id " (click)="delete()">
+        <ion-icon name="trash-outline" slot="start"></ion-icon>
+        &nbsp;{{ 'deleteButtonLabel' | translate }} 
+      </ion-button>
+
+      <ion-button type="submit">
+        <ion-icon name="send-outline" slot="end"></ion-icon>
+        {{ 'saveButtonLabel' | translate }} &nbsp;
+      </ion-button>
+    </div>
+  </form>
 
 </div>

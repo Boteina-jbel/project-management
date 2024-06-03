@@ -202,3 +202,11 @@ INSERT INTO endpoint (method, value, hold) Values
 
 INSERT INTO profile_endpoint (profile_id, endpoint_id, `hold`) values
 ((select id from profile where code = 'ADMIN'), (select id from endpoint where method = 'POST' and value = '/user/usersGet'), 0);
+
+
+-- New new
+INSERT INTO endpoint (method, value, hold) Values
+    ('GET', '/user/profileCode/*', 0);
+
+INSERT INTO profile_endpoint (profile_id, endpoint_id, `hold`) values
+    ((select id from profile where code = 'ADMIN'), (select id from endpoint where method = 'GET' and value = '/user/profileCode/*'), 0);

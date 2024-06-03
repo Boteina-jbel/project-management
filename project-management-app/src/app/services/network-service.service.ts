@@ -127,6 +127,36 @@ export class NetworkServiceService {
     });
   }
 
+  public put(module: string, data: any, toBeLoaded: boolean): Promise<any> {
+    if (toBeLoaded) this.spinner.show();
+    const endPointUrl = this.configuration.configuration.serverUrl + module;
+  
+    let httpOptions = {
+      headers: this.createHttpOptions(),
+      reportProgress: false,
+      withCredentials: false
+    };
+  
+    return new Promise((resolve, reject) => {
+      this.http.put(endPointUrl, data, httpOptions).subscribe({
+        next: (response: any) => {
+          this.spinner.hide();
+          resolve(response);
+        },
+        error: (error) => {
+          if (toBeLoaded) this.spinner.hide();
+          if (error.error && error.error.errorCode === 'unauthorized') {
+            this.router.navigateByUrl('/login');
+          } else {
+            this.presentAlert('Oops!', error.error.errorCode && error.error.errorMessage ? error.error.errorCode + ' : ' + error.error.errorMessage : 'Something went wrong. Please try again');
+          }
+          reject(error);
+        }
+      });
+    });
+  }
+  
+
   private async presentAlert(title: string, message: string) {
     const alert = await this.alertController.create({
       header: title,
@@ -149,10 +179,3 @@ export class NetworkServiceService {
   }
 }
 
-
-export enum ServerCode {
-  ACCEPTED = 'Accepted',
-  DECLINED = 'Declined',
-  INPROGRESS = 'InProgress',
-  ERROR = 'Error',
-}

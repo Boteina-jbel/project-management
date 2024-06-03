@@ -8,7 +8,9 @@ import project.management.repositories.ProjectRepository;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
+import project.management.repositories.UserRepository;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -18,15 +20,19 @@ public class ProjectServiceImpl implements ProjectService{
 
     private ProjectRepository projectRepository;
     private ModelMapper modelMapper;
+    private UserRepository userRepository;
 
-    public ProjectServiceImpl(ProjectRepository projectRepository, ModelMapper modelMapper) {
+    public ProjectServiceImpl(ProjectRepository projectRepository, ModelMapper modelMapper, UserRepository userRepository) {
         this.projectRepository = projectRepository;
         this.modelMapper = modelMapper;
+        this.userRepository = userRepository;
     }
 
     @Override
-    public ProjectResponseDto save(ProjectRequestDto projectRequestDto) {
+    public ProjectResponseDto save(ProjectRequestDto projectRequestDto, String username) {
         Project project = modelMapper.map(projectRequestDto, Project.class);
+        project.setCreatedBy(userRepository.findByUsername(username));
+        project.setCreatedAt(new Date());
         Project saved = projectRepository.save(project);
         return modelMapper.map(saved, ProjectResponseDto.class);
     }
@@ -54,6 +60,8 @@ public class ProjectServiceImpl implements ProjectService{
         if (projectOptional.isPresent()){
             Project project = modelMapper.map(projectRequestDto, Project.class);
             project.setId(id);
+            project.setCreatedBy(projectOptional.get().getCreatedBy());
+            project.setCreatedAt(projectOptional.get().getCreatedAt());
             Project updated = projectRepository.save(project);
             return modelMapper.map(updated, ProjectResponseDto.class);
         } else {

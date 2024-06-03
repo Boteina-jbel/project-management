@@ -12,8 +12,9 @@ import java.util.Date;
 public class ProjectRequestDto {
 
     private String name;
+    private String thumbnail;
     private String description;
     private Date createdAt;
-    private Long createdById;
+    private UserRequestDto managedBy;
 
 }

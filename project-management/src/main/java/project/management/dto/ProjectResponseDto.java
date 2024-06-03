@@ -13,8 +13,10 @@ public class ProjectResponseDto {
 
     private Long id;
     private String name;
+    private String thumbnail;
     private String description;
     private Date createdAt;
     private UserResponseDto createdBy;
+    private UserResponseDto managedBy;
 
 }

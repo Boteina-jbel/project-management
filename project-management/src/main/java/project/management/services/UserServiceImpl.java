@@ -185,4 +185,9 @@ public class UserServiceImpl implements UserService{
         return pageable;
     }
 
+    @Override
+    public List<User> getByProfileCode(String profileCode){
+        return userRepository.findByProfileCode(profileCode);
+    }
+
 }

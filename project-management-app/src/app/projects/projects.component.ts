@@ -15,7 +15,7 @@ import { ProjectModalComponent } from '../components/project-modal/project-modal
   templateUrl: './projects.component.html',
   styleUrls: ['./projects.component.scss'],
 })
-export class ProjectsComponent  implements OnInit {
+export class ProjectsComponent implements OnInit {
 
   projects: Project[];
 
@@ -30,8 +30,13 @@ export class ProjectsComponent  implements OnInit {
     private router                  : Router
   ) {}
 
-  ngOnInit() {}
+  async ngOnInit() {
+    this.projects = await this.kernelServiceService.getProjects();
+  }
 
+  async reload(){
+    this.projects = await this.kernelServiceService.getProjects();
+  }
   getBackground(indice : number) {
     return this.utilsService.generateRandomSvgBackground(indice);
   }
@@ -49,7 +54,7 @@ export class ProjectsComponent  implements OnInit {
     if(data && data.role === 'save') this.projects.push(data.course);
   }
 
-  async openCourseModal(project : Project) {
+  async openProjectModal(project : Project) {
     const modal = await this.modalCtrl.create({
       component: ProjectModalComponent,
       cssClass: 'card-modal',

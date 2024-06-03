@@ -18,6 +18,8 @@ public interface UserRepository extends JpaRepository<User,Long> {
     User findByUsername(String username);
     List<User> findByUsernameContaining(String username);
 
+    List<User> findByProfileCode(String profileCode);
+
     @Query("SELECT new project.management.dto.UserResponseDto(u.firstName, u.lastName, u.username, u.email, u.thumbnail, u.profile)" +
             "FROM User u " +
             "INNER JOIN u.profile pr " +
