@@ -1,8 +1,8 @@
 ion-header {
     margin: 10px 0;
     border-radius: 5px;
-    
-    div {
+
+    .title {
         display: flex;
         align-items: center;
         gap: 8px;
@@ -21,11 +21,19 @@ ion-header {
             margin: 0;
         }
     }
-    ion-toolbar{
+
+    ion-toolbar {
         --background: var(--ion-color-primary);
         padding: 0 10px;
         color: var(--white-color);
         border-radius: 5px;
+    }
+
+    ion-buttons {
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 5px;
     }
 
     ion-button {
@@ -33,7 +41,19 @@ ion-header {
         color: var(--ion-color-primary);
         border-radius: 5px;
     }
+
+    .header {
+        display: flex;
+        justify-content: space-between;
+
+        @media screen and (max-width: 999px) {
+            margin: 10px 0;
+            gap: 10px;
+            flex-direction: column !important;
+        }
+    }
 }
+
 
 .table-container {
     margin: 20px 0;

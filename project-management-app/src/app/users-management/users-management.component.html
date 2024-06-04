@@ -1,39 +1,42 @@
 <app-base>
-    
+
     <ion-header>
         <ion-toolbar>
-            <div>
-                <span><ion-icon name="people-outline"></ion-icon> </span>
-                <h1>{{ 'users_management' | translate }}</h1>
+            <div class="header">
+                <div class="title">
+                    <span><ion-icon name="people-outline"></ion-icon> </span>
+                    <h1>{{ 'users_management' | translate }}</h1>
+                </div>
+                <ion-buttons slot="end">
+                    <ion-button fill="clear" (click)="refresh()">
+                        <ion-icon name="refresh-outline"></ion-icon> &nbsp; {{ 'reload' | translate }}
+                    </ion-button>
+                    &nbsp;
+
+                    <ion-button (click)="toggleFilterForm()">
+                        <ng-container *ngIf="!showFilterForm">
+                            <ion-icon name="eye-outline"></ion-icon> &nbsp; {{ 'showFilterButtonLabel' | translate }}
+                        </ng-container>
+                        <ng-container *ngIf="showFilterForm">
+                            <ion-icon name="eye-off-outline"></ion-icon> &nbsp; {{ 'hideFilterButtonLabel' | translate
+                            }}
+                        </ng-container>
+                    </ion-button>
+
+                    &nbsp;
+                    <ion-button fill="clear" (click)="toggleForm()">
+                        <ng-container *ngIf="!showForm">
+                            <ion-icon name="person-add-outline"></ion-icon> &nbsp; {{ 'add_user' | translate }}
+                        </ng-container>
+                        <ng-container *ngIf="showForm">
+                            <ion-icon name="eye-off-outline"></ion-icon> &nbsp; {{ 'hide_form' | translate }}
+                        </ng-container>
+                    </ion-button>
+                </ion-buttons>
             </div>
-            <ion-buttons slot="end">
-                <ion-button fill="clear" (click)="refresh()">
-                    <ion-icon name="refresh-outline"></ion-icon> &nbsp; {{ 'reload' | translate }}
-                </ion-button>
-                &nbsp;
-    
-                <ion-button (click)="toggleFilterForm()">
-                    <ng-container *ngIf="!showFilterForm">
-                        <ion-icon name="eye-outline"></ion-icon> &nbsp; {{ 'showFilterButtonLabel' | translate }}
-                    </ng-container>
-                    <ng-container *ngIf="showFilterForm">
-                        <ion-icon name="eye-off-outline"></ion-icon> &nbsp; {{ 'hideFilterButtonLabel' | translate }}
-                    </ng-container>
-                </ion-button>
-                
-                &nbsp;
-                <ion-button fill="clear" (click)="toggleForm()">
-                    <ng-container *ngIf="!showForm">
-                        <ion-icon name="person-add-outline"></ion-icon> &nbsp; {{ 'add_user' | translate }}
-                    </ng-container>
-                    <ng-container *ngIf="showForm">
-                        <ion-icon name="eye-off-outline"></ion-icon> &nbsp; {{ 'hide_form' | translate }}
-                    </ng-container>
-                </ion-button>
-            </ion-buttons>
         </ion-toolbar>
     </ion-header>
-    
+
     <div class="form-enrollment" *ngIf="showForm">
         <div class="form-header">
             <h1>{{ 'addUserTitle' | translate }}</h1>
@@ -42,7 +45,7 @@
         <form [formGroup]="userForm" (ngSubmit)="submitUserForm()" novalidate>
             <app-profile-picture [fileBase64]="userForm.get('thumbnail')?.value"
                 (fileBase64Selected)="handleFileSelected($event)"></app-profile-picture>
-    
+
             <div class="form-row">
                 <ion-item lines="full">
                     <ion-label position="stacked">{{ 'firstNameLabel' | translate }}</ion-label>
@@ -55,23 +58,24 @@
                         type="text" ngDefaultControl></ion-input>
                 </ion-item>
             </div>
-    
+
             <div class="form-row">
                 <ion-item lines="full">
                     <ion-label position="stacked">{{ 'emailLabel' | translate }}</ion-label>
-                    <ion-input formControlName="email" placeholder="{{ 'enterEmailPlaceholder' | translate }}" type="email"
-                        ngDefaultControl></ion-input>
+                    <ion-input formControlName="email" placeholder="{{ 'enterEmailPlaceholder' | translate }}"
+                        type="email" ngDefaultControl></ion-input>
                 </ion-item>
-                
+
             </div>
-    
+
             <ion-item lines="full">
                 <ion-select *ngIf="profiles" formControlName="profile" label="{{ 'profileLabel' | translate }}"
                     placeholder="{{ 'selectProfilePlaceholder' | translate }}">
-                    <ion-select-option *ngFor="let profile of profiles" [value]="profile">{{ profile.name | translate }}</ion-select-option>
+                    <ion-select-option *ngFor="let profile of profiles" [value]="profile">{{ profile.name | translate
+                        }}</ion-select-option>
                 </ion-select>
             </ion-item>
-            
+
             <div class="form-buttons">
                 <ion-button fill="outline" (click)="toggleForm()">
                     <ion-icon name="arrow-back-outline" slot="start"></ion-icon>
@@ -82,21 +86,21 @@
                     {{ 'saveButtonLabel' | translate }} &nbsp;
                 </ion-button>
             </div>
-    
+
         </form>
     </div>
-    
-    
-    
+
+
+
     <div class="form-enrollment" *ngIf="showFilterForm">
-    
+
         <div class="form-header">
             <h1>{{ 'filterUserTitle' | translate }}</h1>
             <p>{{ 'filterDescription' | translate }}</p>
         </div>
-    
+
         <form [formGroup]="filterForm" (ngSubmit)="submitFilterForm()" novalidate>
-    
+
             <div class="form-row">
                 <ion-item lines="full">
                     <ion-label position="stacked">{{ 'firstNameLabel' | translate }}</ion-label>
@@ -109,7 +113,7 @@
                         type="text" ngDefaultControl></ion-input>
                 </ion-item>
             </div>
-    
+
             <div class="form-row">
                 <ion-item lines="full">
                     <ion-label position="stacked">{{ 'usernameLabel' | translate }}</ion-label>
@@ -118,12 +122,13 @@
                 </ion-item>
                 <ion-item lines="full">
                     <ion-select *ngIf="profiles" formControlName="profileCode" label="{{ 'profileLabel' | translate }}"
-                    placeholder="{{ 'selectProfilePlaceholder' | translate }}">
-                    <ion-select-option *ngFor="let profile of profiles" [value]="profile.code">{{ profile.name | translate }}</ion-select-option>
-                </ion-select>
+                        placeholder="{{ 'selectProfilePlaceholder' | translate }}">
+                        <ion-select-option *ngFor="let profile of profiles" [value]="profile.code">{{ profile.name |
+                            translate }}</ion-select-option>
+                    </ion-select>
                 </ion-item>
             </div>
-    
+
             <div class="form-buttons">
                 <div>
                     <ion-button fill="outline" (click)="toggleFilterForm()">
@@ -131,12 +136,12 @@
                         &nbsp; {{ 'cancelButtonLabel' | translate }}
                     </ion-button>
                     &nbsp;
-                    <ion-button fill="outline"  (click)="clearFilter()">
+                    <ion-button fill="outline" (click)="clearFilter()">
                         <ion-icon name="sync-circle-outline" slot="start"></ion-icon>
                         &nbsp; {{ 'clearFilter' | translate }}
                     </ion-button>
                 </div>
-                
+
                 <ion-button type="submit">
                     <ion-icon name="send-outline" slot="end"></ion-icon>
                     {{ 'submitFilterLabel' | translate }} &nbsp;
@@ -144,8 +149,8 @@
             </div>
         </form>
     </div>
-    
-    
+
+
     <div class="table-container" *ngIf="usersResponse && usersResponse.content && usersResponse.content.length !== 0">
         <div class="table-responsive">
             <table class="table table-striped">
@@ -164,7 +169,7 @@
                     <tr *ngFor="let user of usersResponse.content">
                         <td>
                             <img *ngIf="user.thumbnail" alt="" [src]="user?.thumbnail" />
-                            <div class="user-avatar" *ngIf="! user.thumbnail"slot="start">
+                            <div class="user-avatar" *ngIf="! user.thumbnail" slot="start">
                                 <ion-icon name="person-outline"></ion-icon>
                             </div>
                         </td>
@@ -174,20 +179,22 @@
                         <td>{{ user.email }}</td>
                         <td>{{ user.profile.name }}</td>
                         <td>
-                            <ion-button color="primary" fill="clear" (click)="openPersonPage(user.username)"> 
+                            <ion-button color="primary" fill="clear" (click)="openPersonPage(user.username)">
                                 {{ 'moreDetailsLabel' | translate }} &nbsp; <ion-icon name="open-outline"></ion-icon>
                             </ion-button>
                         </td>
-                        
+
                     </tr>
                 </tbody>
             </table>
         </div>
-    
+
         <div class="paggination">
-            <ion-button fill="solid" (click)="paginate('prev')"> <ion-icon name="chevron-back-outline"></ion-icon> </ion-button>
+            <ion-button fill="solid" (click)="paginate('prev')"> <ion-icon name="chevron-back-outline"></ion-icon>
+            </ion-button>
             <p>Page {{ usersResponse.number+1 }} of {{ usersResponse.totalPages }}</p>
-            <ion-button fill="solid" (click)="paginate('next')"> <ion-icon name="chevron-forward-outline"></ion-icon> </ion-button>
+            <ion-button fill="solid" (click)="paginate('next')"> <ion-icon name="chevron-forward-outline"></ion-icon>
+            </ion-button>
         </div>
     </div>
 

@@ -2,22 +2,25 @@
 
     <ion-header>
         <ion-toolbar>
-            <div>
-                <span><ion-icon name="briefcase-outline"></ion-icon></span>
-                <h1>{{ 'projects_management' | translate }}</h1>
+            <div class="header">
+                <div class="title">
+                    <span><ion-icon name="briefcase-outline"></ion-icon></span>
+                    <h1>{{ 'projects_management' | translate }}</h1>
+                </div>
+                <ion-buttons slot="end">
+                    <ion-button fill="clear" (click)="reload()">
+                        <ion-icon name="refresh-outline"></ion-icon> &nbsp; {{ 'reload' | translate }}
+                    </ion-button>
+    
+                    &nbsp;
+                    <ion-button fill="clear" (click)="openAddCourseModal()">
+                        <ng-container>
+                            <ion-icon name="person-add-outline"></ion-icon> &nbsp; {{ 'add_project' | translate }}
+                        </ng-container>
+                    </ion-button>
+                </ion-buttons>
             </div>
-            <ion-buttons slot="end">
-                <ion-button fill="clear" (click)="reload()">
-                    <ion-icon name="refresh-outline"></ion-icon> &nbsp; {{ 'reload' | translate }}
-                </ion-button>
-
-                &nbsp;
-                <ion-button fill="clear" (click)="openAddCourseModal()">
-                    <ng-container>
-                        <ion-icon name="person-add-outline"></ion-icon> &nbsp; {{ 'add_project' | translate }}
-                    </ng-container>
-                </ion-button>
-            </ion-buttons>
+            
         </ion-toolbar>
     </ion-header>
 
@@ -30,13 +33,14 @@
                 <ion-icon name="create-outline"></ion-icon>
             </span>
             <div class="image-container">
-                <img [src]="project?.thumbnail ? project?.thumbnail : getBackground(6)"/>
+                <img [src]="project?.thumbnail ? project?.thumbnail : getBackground(6)" />
             </div>
             <div class="card-content">
                 <ion-card-header>
                     <ion-card-title> {{project.name}} </ion-card-title>
                     <br />
-                    <ion-card-subtitle><ion-icon name="person-outline"></ion-icon> &nbsp; {{ managedBy | translate}} {{project?.managedBy?.firstName}} {{project?.managedBy?.lastName}}</ion-card-subtitle>
+                    <ion-card-subtitle><ion-icon name="person-outline"></ion-icon> &nbsp; {{ managedBy | translate}}
+                        {{project?.managedBy?.firstName}} {{project?.managedBy?.lastName}}</ion-card-subtitle>
                 </ion-card-header>
                 <ion-card-content>
                     <p> {{project.description}} </p>

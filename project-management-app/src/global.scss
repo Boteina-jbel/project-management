@@ -52,8 +52,8 @@ ion-content.content-md:not([padding]) .scroll-content {
   padding-bottom: 0 !important;
 }
 
-ion-content{
-  --ion-background-color:#F2F3F7;
+ion-content {
+  --ion-background-color: #F2F3F7;
 }
 
 .app-content {
@@ -139,6 +139,12 @@ ion-footer {
     --offset-top: unset !important;
     --offset-bottom: unset !important;
     overflow: auto !important;
+
+    @media screen and (max-width: 999px) {
+      min-width: 85%;
+      max-width: 85%;
+      max-height: 100%;
+    }
   }
 
   app-university-modal {
@@ -194,7 +200,6 @@ ion-footer {
     justify-content: flex-end;
 
     ion-button {
-      width: 30%;
       margin: 30px 0 0 0;
     }
   }
@@ -256,7 +261,8 @@ app-spinner {
   gap: 20px;
 
 
-  .card, ion-card {
+  .card,
+  ion-card {
     background-color: var(--white-color);
     padding: 20px;
     border-radius: 8px;
@@ -285,8 +291,8 @@ app-spinner {
       justify-content: center;
       align-items: center;
       position: relative;
-      
-      .semester{
+
+      .semester {
         position: absolute;
         background-color: var(--white-color);
         color: var(--ion-color-primary);
@@ -354,35 +360,35 @@ app-spinner {
   border-radius: 15px;
 
   img {
-      height: 150px;
+    height: 150px;
   }
 
   h1 {
-      font-size: 24px;
-      margin-bottom: 5px;
+    font-size: 24px;
+    margin-bottom: 5px;
   }
 
   p {
-      font-size: 16px;
-      color: #666;
-      text-align: left;
+    font-size: 16px;
+    color: #666;
+    text-align: left;
   }
 
   .edit-button {
-      cursor: pointer;
-      position: absolute !important;
-      background: var(--ion-color-primary);
-      width: 35px;
-      height: 35px;
-      border-radius: 50%;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      color: var(--white-color);
-      right: -10px;
-      top: -10px;
-      transition: 0.5 ease-in-out;
-      z-index: 10;
+    cursor: pointer;
+    position: absolute !important;
+    background: var(--ion-color-primary);
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--white-color);
+    right: -10px;
+    top: -10px;
+    transition: 0.5 ease-in-out;
+    z-index: 10;
   }
 }
 
@@ -505,6 +511,17 @@ app-spinner {
     ion-button {
       min-width: 15%;
     }
+
+    @media screen and (max-width: 999px) {
+      gap: 10px;
+      flex-direction: column !important;
+
+      div {
+        display: flex;
+        justify-content: space-between;
+      }
+    }
+
   }
 
 }
