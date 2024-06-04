@@ -55,7 +55,7 @@ export class ProjectModalComponent  implements OnInit {
       else project = await this.adminServiceService.saveProject(this.projectForm.value);
 
       this.projectForm.reset();
-      this.modalCtrl.dismiss({ project : project });
+      this.modalCtrl.dismiss({ project : project, role : 'save'});
     } else {
       this.spinnerService.presentAlert('error','Form is not valid')
     }

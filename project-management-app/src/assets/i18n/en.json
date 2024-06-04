@@ -5,7 +5,9 @@
         "feature-tasks": "Feature tasks",
         "schedules": "Schedules",
         "bug-tasks": "Bug tasks",
-        "users": "Users"
+        "users": "Users",
+        "user": "User",
+        "login": "Login"
     },
     "en": "English",
     "fr": "Frensh",
@@ -51,5 +53,12 @@
     "forgotPasswordButtonLabel": "Forgot Password ?",
     "add_user": "Add user",
     "filterUserTitle": "Users Filter",
-    "cancelButtonLabel": "Cancel"
+    "cancelButtonLabel": "Cancel",
+    "projects_management": "Project Management",
+    "add_project": "Add Project",
+    "projectRegistrationTitle": "Project Registration",
+    "projectRegistrationDescription": "Register a new project",
+    "deleteButtonLabel": "Delete",
+    "managedByLabel": "Managed By",
+    "selectManagersLabel": "Select Managers"
 }

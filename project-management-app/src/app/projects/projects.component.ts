@@ -51,7 +51,7 @@ export class ProjectsComponent implements OnInit {
     });
     await modal.present();
     const { data } = await modal.onWillDismiss();
-    if(data && data.role === 'save') this.projects.push(data.course);
+    if(data && data.role === 'save') this.projects.push(data.project);
   }
 
   async openProjectModal(project : Project) {
@@ -73,7 +73,7 @@ export class ProjectsComponent implements OnInit {
     } else if (data.role === 'save' && data.project) {
       const index = this.projects.findIndex(e => e.id === data.project.id);
       if (index !== -1) {
-        this.projects[index] = data.course;
+        this.projects[index] = data.project;
       }
     }
   }

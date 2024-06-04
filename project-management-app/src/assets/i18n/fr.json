@@ -5,7 +5,9 @@
         "feature-tasks": "Tâches de fonctionnalité",
         "schedules": "Calendriers",
         "bug-tasks": "Tâches de bogue",
-        "users": "Utilisateurs"
+        "users": "Utilisateurs",
+        "user": "Utilisateur",
+        "login": "Connexion"
     },
     "en": "Anglais",
     "fr": "Francais",
@@ -51,6 +53,13 @@
     "forgotPasswordButtonLabel": "Mot de passe oublié ?",
     "add_user": "Ajouter un autre utilisateur",
     "filterUserTitle": "Filtrer les utilisateurs",
-    "cancelButtonLabel": "Annuler"
+    "cancelButtonLabel": "Annuler",
+    "projects_management": "Gestion des projets",
+    "add_project": "Ajouter un projet",
+    "projectRegistrationTitle": "Enregistrement de projet",
+    "projectRegistrationDescription": "Enregistrer un nouveau projet",
+    "deleteButtonLabel": "Supprimer",
+    "managedByLabel": "Géré par",
+    "selectManagersLabel": "Sélectionner des gestionnaires"
 
 }
