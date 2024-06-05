@@ -60,5 +60,6 @@
     "projectRegistrationDescription": "Register a new project",
     "deleteButtonLabel": "Delete",
     "managedByLabel": "Managed By",
-    "selectManagersLabel": "Select Managers"
+    "selectManagersLabel": "Select Managers",
+    "add_feature_task": "Add new feature task"
 }

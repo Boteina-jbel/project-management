@@ -41,7 +41,7 @@ export class ProjectsComponent implements OnInit {
     return this.utilsService.generateRandomSvgBackground(indice);
   }
 
-  async openAddCourseModal() {
+  async openAddProjectModal() {
     const modal = await this.modalCtrl.create({
       component: ProjectModalComponent,
       cssClass: 'card-modal',
