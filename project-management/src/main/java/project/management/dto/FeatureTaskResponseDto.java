@@ -3,10 +3,7 @@ package project.management.dto;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import project.management.entities.FeatureTask;
-import project.management.entities.Project;
-import project.management.entities.TaskStatus;
-import project.management.entities.User;
+import project.management.entities.*;
 
 import java.util.Date;
 
@@ -22,7 +19,7 @@ public class FeatureTaskResponseDto {
         private Date createdAt;
         private User assignedTo;
         private Project project;
-        private String priority;
+        private Priority priority;
         private String acceptanceCriteria;
 
 }

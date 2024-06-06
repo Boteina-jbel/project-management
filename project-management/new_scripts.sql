@@ -1,3 +1,42 @@
+-- 06/06/2024
+----------------------------------------------------------------------------------
+INSERT INTO task_status (code, name, color, position) VALUES
+('TODO', 'To Do', '#FF0000', 1),       -- Red for tasks that are to be done
+('IN_PROGRESS', 'In Progress', '#FFFF00', 2),  -- Yellow for tasks that are in progress
+('COMPLETED', 'Completed', '#00FF00', 3),      -- Green for tasks that are completed
+('BLOCKED', 'Blocked', '#0000FF', 4);          -- Blue for tasks that are blocked
+
+
+INSERT INTO priority (code, name, color) VALUES
+    ('LOW', 'Low', '#00FF00'),         -- Green for low priority tasks
+('MEDIUM', 'Medium', '#FFFF00'),   -- Yellow for medium priority tasks
+('HIGH', 'High', '#FFA500'),       -- Orange for high priority tasks
+('URGENT', 'Urgent', '#FF0000');   -- Red for urgent priority tasks
+
+INSERT INTO endpoint (method, value, hold) Values
+    ('POST', '/priority', 0),
+    ('GET', '/priority', 0),
+    ('GET', '/priority/*', 0),
+    ('DELETE', '/priority/*', 0);
+
+
+INSERT INTO profile_endpoint (profile_id, endpoint_id, `hold`) values
+((select id from profile where code = 'ADMIN'), (select id from endpoint where method = 'GET' and value = '/priority'), 0),
+((select id from profile where code = 'PM'), (select id from endpoint where method = 'GET' and value = '/priority'), 0),
+((select id from profile where code = 'TM'), (select id from endpoint where method = 'GET' and value = '/priority'), 0),
+((select id from profile where code = 'SH'), (select id from endpoint where method = 'GET' and value = '/priority'), 0);
+
+INSERT INTO profile_endpoint (profile_id, endpoint_id, `hold`) values
+((select id from profile where code = 'ADMIN'), (select id from endpoint where method = 'GET' and value = '/priority/*'), 0),
+((select id from profile where code = 'PM'), (select id from endpoint where method = 'GET' and value = '/priority/*'), 0),
+((select id from profile where code = 'TM'), (select id from endpoint where method = 'GET' and value = '/priority/*'), 0),
+((select id from profile where code = 'SH'), (select id from endpoint where method = 'GET' and value = '/priority/*'), 0);
+
+INSERT INTO profile_endpoint (profile_id, endpoint_id, `hold`) values
+((select id from profile where code = 'ADMIN'), (select id from endpoint where method = 'POST' and value = '/priority'), 0),
+((select id from profile where code = 'ADMIN'), (select id from endpoint where method = 'DELETE' and value = '/priority/*'), 0);
+----------------------------------------------------------------------------------
+
 INSERT INTO profile (code, name, hold) VALUES
    ('ADMIN', 'Admin', 0),
    ('PM', 'Project Manager', 0),

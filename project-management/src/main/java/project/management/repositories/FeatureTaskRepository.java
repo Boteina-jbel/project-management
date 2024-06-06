@@ -9,6 +9,6 @@ import java.util.List;
 @Repository
 public interface FeatureTaskRepository extends JpaRepository<FeatureTask, Long> {
     List<FeatureTask> findByProjectId(Long projectId);
-    List<FeatureTask> findByPriority(String priority);
+    List<FeatureTask> findByPriorityCode(String priorityCode);
     List<FeatureTask> findByAcceptanceCriteriaContaining(String acceptanceCriteria);
 }

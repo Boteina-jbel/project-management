@@ -12,12 +12,6 @@ public class ModelMapperConfig {
     @Bean
     public ModelMapper modelMapper() {
         ModelMapper modelMapper = new ModelMapper();
-
-        // Add explicit mappings for projectId and userAssignedToId
-        modelMapper.typeMap(FeatureTaskRequestDto.class, Task.class)
-                .addMapping(FeatureTaskRequestDto::getProjectId, Task::setProject)
-                .addMapping(FeatureTaskRequestDto::getUserAssignedToId, Task::setAssignedTo)
-                .addMapping(FeatureTaskRequestDto::getStatusId, Task::setStatus);
         // Other configuration settings (if needed)
         return modelMapper;
     }

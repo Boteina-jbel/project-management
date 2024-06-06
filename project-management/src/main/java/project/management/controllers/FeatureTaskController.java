@@ -24,8 +24,8 @@ public class FeatureTaskController {
     }
 
     @PostMapping("")
-    public ResponseEntity<FeatureTaskResponseDto> addFeatureTask(@RequestBody FeatureTaskRequestDto featureTaskRequestDto) {
-        FeatureTaskResponseDto featureTaskResponseDto = featureTaskService.addFeatureTask(featureTaskRequestDto);
+    public ResponseEntity<FeatureTaskResponseDto> addFeatureTask(@RequestBody FeatureTaskRequestDto featureTaskRequestDto, @RequestHeader(name = "username") String username) {
+        FeatureTaskResponseDto featureTaskResponseDto = featureTaskService.addFeatureTask(featureTaskRequestDto, username);
         return new ResponseEntity<>(featureTaskResponseDto, HttpStatus.CREATED);
     }
 
@@ -54,9 +54,9 @@ public class FeatureTaskController {
         return new ResponseEntity<>(featureTasks, HttpStatus.OK);
     }
 
-    @GetMapping("/priority/{priority}")
-    public ResponseEntity<List<FeatureTaskResponseDto>> getFeatureTasksByPriority(@PathVariable("priority") String priority) {
-        List<FeatureTaskResponseDto> featureTasks = featureTaskService.getFeatureTasksByPriority(priority);
+    @GetMapping("/priority/{priorityCode}")
+    public ResponseEntity<List<FeatureTaskResponseDto>> getFeatureTasksByPriority(@PathVariable("priorityCode") String priorityCode) {
+        List<FeatureTaskResponseDto> featureTasks = featureTaskService.getFeatureTasksByPriority(priorityCode);
         return new ResponseEntity<>(featureTasks, HttpStatus.OK);
     }
 

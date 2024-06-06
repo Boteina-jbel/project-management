@@ -19,13 +19,16 @@ public class TaskStatus {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "code")
+    @Column(name = "code", nullable = false, unique = true)
     private String code;
 
-    @Column(name = "name")
+    @Column(name = "name", nullable = false)
     private String name;
 
-    @Column(name = "color")
+    @Column(name = "position")
+    private String position;
+
+    @Column(name = "color", nullable = false)
     private String color;
 
 }

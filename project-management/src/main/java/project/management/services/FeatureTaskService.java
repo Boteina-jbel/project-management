@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface FeatureTaskService {
 
-    FeatureTaskResponseDto addFeatureTask(FeatureTaskRequestDto featureTaskRequestDto);
+    FeatureTaskResponseDto addFeatureTask(FeatureTaskRequestDto featureTaskRequestDto, String username);
 
     FeatureTaskResponseDto getFeatureTaskById(Long taskId);
 

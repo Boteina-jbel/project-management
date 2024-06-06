@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 
 import project.management.dto.BugTaskRequestDto;
 import project.management.dto.BugTaskResponseDto;
+import project.management.dto.FeatureTaskResponseDto;
 import project.management.services.BugTaskService;
 
 import java.util.List;
@@ -23,8 +24,8 @@ public class BugTaskController {
     }
 
     @PostMapping("")
-    public ResponseEntity<BugTaskResponseDto> addBugTask(@RequestBody BugTaskRequestDto bugTaskRequestDto) {
-        BugTaskResponseDto bugTaskResponseDto = bugTaskService.addBugTask(bugTaskRequestDto);
+    public ResponseEntity<BugTaskResponseDto> addBugTask(@RequestBody BugTaskRequestDto bugTaskRequestDto, @RequestHeader(name = "username") String username) {
+        BugTaskResponseDto bugTaskResponseDto = bugTaskService.addBugTask(bugTaskRequestDto, username);
         return new ResponseEntity<>(bugTaskResponseDto, HttpStatus.CREATED);
     }
 
@@ -52,11 +53,18 @@ public class BugTaskController {
         return new ResponseEntity<>(bugTasks, HttpStatus.OK);
     }
 
-    @GetMapping("/severity/{severity}")
+    /*@GetMapping("/severity/{severity}")
     public ResponseEntity<List<BugTaskResponseDto>> getBugTasksBySeverity(@PathVariable("severity") String severity) {
         List<BugTaskResponseDto> bugTasks = bugTaskService.getBugTasksBySeverity(severity);
         return new ResponseEntity<>(bugTasks, HttpStatus.OK);
+    }*/
+
+    @GetMapping("/priority/{priorityCode}")
+    public ResponseEntity<List<BugTaskResponseDto>> getFeatureTasksByPriority(@PathVariable("priorityCode") String priorityCode) {
+        List<BugTaskResponseDto> featureTasks = bugTaskService.getFeatureTasksByPriority(priorityCode);
+        return new ResponseEntity<>(featureTasks, HttpStatus.OK);
     }
+
 
     @PutMapping("/{taskId}/assign")
     public ResponseEntity<BugTaskResponseDto> assignTaskToUser(@PathVariable Long taskId, @RequestParam Long userId) {

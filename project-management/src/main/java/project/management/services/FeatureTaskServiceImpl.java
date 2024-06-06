@@ -12,6 +12,7 @@ import project.management.repositories.FeatureTaskRepository;
 import project.management.repositories.TaskStatusRepository;
 import project.management.repositories.UserRepository;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -34,8 +35,10 @@ public class FeatureTaskServiceImpl implements FeatureTaskService {
     }
 
     @Override
-    public FeatureTaskResponseDto addFeatureTask(FeatureTaskRequestDto featureTaskRequestDto) {
+    public FeatureTaskResponseDto addFeatureTask(FeatureTaskRequestDto featureTaskRequestDto, String username) {
         FeatureTask featureTask = modelMapper.map(featureTaskRequestDto, FeatureTask.class);
+        featureTask.setCreatedBy(userRepository.findByUsername(username));
+        featureTask.setCreatedAt(new Date());
         FeatureTask savedFeatureTask = featureTaskRepository.save(featureTask);
         return modelMapper.map(savedFeatureTask, FeatureTaskResponseDto.class);
     }
@@ -53,7 +56,9 @@ public class FeatureTaskServiceImpl implements FeatureTaskService {
         if (featureTaskOptional.isPresent()) {
             FeatureTask featureTask = modelMapper.map(featureTaskRequestDto, FeatureTask.class);
             // Set the ID of the task to update
-            featureTask.setId(taskId);
+            featureTask.setId(featureTaskOptional.get().getId());
+            featureTask.setCreatedBy(featureTaskOptional.get().getCreatedBy());
+            featureTask.setCreatedAt(featureTaskOptional.get().getCreatedAt());
             FeatureTask updatedFeatureTask = featureTaskRepository.save(featureTask);
             return modelMapper.map(updatedFeatureTask, FeatureTaskResponseDto.class);
         } else {
@@ -75,8 +80,8 @@ public class FeatureTaskServiceImpl implements FeatureTaskService {
     }
 
     @Override
-    public List<FeatureTaskResponseDto> getFeatureTasksByPriority(String priority) {
-        return featureTaskRepository.findByPriority(priority)
+    public List<FeatureTaskResponseDto> getFeatureTasksByPriority(String priorityCode) {
+        return featureTaskRepository.findByPriorityCode(priorityCode)
                 .stream()
                 .map(featureTask -> modelMapper.map(featureTask, FeatureTaskResponseDto.class))
                 .collect(Collectors.toList());

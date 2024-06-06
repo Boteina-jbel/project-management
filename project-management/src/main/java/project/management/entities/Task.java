@@ -21,18 +21,22 @@ public class Task implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "name")
+    @Column(name = "name", nullable = false)
     private String name;
 
-    @Column(name = "description")
+    @Column(name = "description", nullable = false, columnDefinition = "LONGTEXT")
     private String description;
 
     @ManyToOne
     @JoinColumn(name = "status_id")
     private TaskStatus status;
 
-    @Column(name = "created_at")
+    @Column(name = "created_at", nullable = false)
     private Date createdAt;
+
+    @ManyToOne
+    @JoinColumn(name = "created_by", nullable = false)
+    private User createdBy;
 
     @ManyToOne
     @JoinColumn(name = "assigned_to")
@@ -41,6 +45,10 @@ public class Task implements Serializable {
     @ManyToOne
     @JoinColumn(name = "project_id")
     private Project project;
+
+    @ManyToOne
+    @JoinColumn(name = "priority_id")
+    private Priority priority;
 
     private static final long serialVersionUID = 1L;
 }

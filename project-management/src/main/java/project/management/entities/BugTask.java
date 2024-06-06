@@ -14,9 +14,6 @@ import lombok.NoArgsConstructor;
 @DiscriminatorValue("BUG")
 public class BugTask extends Task {
 
-    @Column(name = "severity")
-    private String severity;
-
     @Column(name = "steps_to_reproduce")
     private String stepsToReproduce;
 

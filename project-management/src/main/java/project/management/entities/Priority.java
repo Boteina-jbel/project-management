@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-public class Profile {
+public class Priority {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,10 +21,7 @@ public class Profile {
     @Column(name = "name", nullable = false)
     private String name;
 
-    @ManyToOne
-    @JoinColumn(name = "opening_hours_id")
-    private OpeningHours openingHours;
+    @Column(name = "color", nullable = false)
+    private String color;
 
-    @Column(name = "hold", nullable = false)
-    private Boolean hold = false;
 }

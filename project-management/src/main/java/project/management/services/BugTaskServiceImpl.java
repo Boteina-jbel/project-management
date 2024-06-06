@@ -5,6 +5,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import project.management.dto.BugTaskRequestDto;
 import project.management.dto.BugTaskResponseDto;
+import project.management.dto.FeatureTaskResponseDto;
 import project.management.entities.BugTask;
 import project.management.entities.TaskStatus;
 import project.management.entities.User;
@@ -12,6 +13,7 @@ import project.management.repositories.BugTaskRepository;
 import project.management.repositories.TaskStatusRepository;
 import project.management.repositories.UserRepository;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -32,8 +34,10 @@ public class BugTaskServiceImpl implements BugTaskService {
     }
 
     @Override
-    public BugTaskResponseDto addBugTask(BugTaskRequestDto bugTaskRequestDto) {
+    public BugTaskResponseDto addBugTask(BugTaskRequestDto bugTaskRequestDto, String username) {
         BugTask bugTask = modelMapper.map(bugTaskRequestDto, BugTask.class);
+        bugTask.setCreatedBy(userRepository.findByUsername(username));
+        bugTask.setCreatedAt(new Date());
         BugTask savedBugTask = bugTaskRepository.save(bugTask);
         return modelMapper.map(savedBugTask, BugTaskResponseDto.class);
     }
@@ -51,7 +55,9 @@ public class BugTaskServiceImpl implements BugTaskService {
         if (bugTaskOptional.isPresent()) {
             BugTask bugTask = modelMapper.map(bugTaskRequestDto, BugTask.class);
             // Set the ID of the task to update
-            bugTask.setId(taskId);
+            bugTask.setId(bugTaskOptional.get().getId());
+            bugTask.setCreatedBy(bugTaskOptional.get().getCreatedBy());
+            bugTask.setCreatedAt(bugTaskOptional.get().getCreatedAt());
             BugTask updatedBugTask = bugTaskRepository.save(bugTask);
             return modelMapper.map(updatedBugTask, BugTaskResponseDto.class);
         } else {
@@ -72,9 +78,17 @@ public class BugTaskServiceImpl implements BugTaskService {
                 .collect(Collectors.toList());
     }
 
-    @Override
+    /*@Override
     public List<BugTaskResponseDto> getBugTasksBySeverity(String severity) {
         return bugTaskRepository.findBySeverity(severity)
+                .stream()
+                .map(bugTask -> modelMapper.map(bugTask, BugTaskResponseDto.class))
+                .collect(Collectors.toList());
+    }*/
+
+    @Override
+    public List<BugTaskResponseDto> getFeatureTasksByPriority(String priorityCode) {
+        return bugTaskRepository.findByPriorityCode(priorityCode)
                 .stream()
                 .map(bugTask -> modelMapper.map(bugTask, BugTaskResponseDto.class))
                 .collect(Collectors.toList());

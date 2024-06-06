@@ -2,12 +2,13 @@ package project.management.services;
 
 import project.management.dto.BugTaskRequestDto;
 import project.management.dto.BugTaskResponseDto;
+import project.management.dto.FeatureTaskResponseDto;
 
 import java.util.List;
 
 public interface BugTaskService {
 
-    BugTaskResponseDto addBugTask(BugTaskRequestDto bugTaskRequestDto);
+    BugTaskResponseDto addBugTask(BugTaskRequestDto bugTaskRequestDto, String username);
 
     BugTaskResponseDto getBugTaskById(Long taskId);
 
@@ -17,7 +18,9 @@ public interface BugTaskService {
 
     List<BugTaskResponseDto> getBugTasksByProjectId(Long projectId);
 
-    List<BugTaskResponseDto> getBugTasksBySeverity(String severity);
+    // List<BugTaskResponseDto> getBugTasksBySeverity(String severity);
+
+    List<BugTaskResponseDto> getFeatureTasksByPriority(String priority);
 
     BugTaskResponseDto assignTaskToUser(Long taskId, Long userId);
 
