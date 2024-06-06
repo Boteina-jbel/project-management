@@ -1,9 +1,6 @@
 
-
-export class TaskStatus {
-
+export class Priority {
     id: number;
-    position: number;
     code: string;
     name: string;
     color: string;

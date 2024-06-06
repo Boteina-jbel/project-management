@@ -1,7 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ModalController } from '@ionic/angular';
-import { FeatureTaskResponse } from 'src/app/models/FeatureTaskResponse';
+import { FeatureTask } from 'src/app/models/FeatureTask';
+import { Priority } from 'src/app/models/Priority';
 import { Project } from 'src/app/models/Project';
 import { TaskStatus } from 'src/app/models/TaskStatus';
 import { User } from 'src/app/models/User';
@@ -16,15 +17,17 @@ import { SpinnerService } from 'src/app/services/spinner.service';
 })
 export class FeaturetaskModalComponent  implements OnInit {
 
-  @Input() featuretask    : FeatureTaskResponse;
-  featuretaskForm         : FormGroup;
+  @Input() featureTask    : FeatureTask;
+  featureTaskForm         : FormGroup;
   teamMembers             : User[];
   assignedTo              : User;
   selectedFile            : File;
   projects                : Project[];
   project                 : Project;
+  statuses                : TaskStatus[];
   status                  : TaskStatus;
-  statuses                :TaskStatus[];
+  priorities              : Priority[];
+  priority                : Priority;
 
   constructor(
     private modalCtrl: ModalController,
@@ -36,15 +39,15 @@ export class FeaturetaskModalComponent  implements OnInit {
 
 
   async ngOnInit() {
-    this.featuretaskForm = this.formBuilder.group({
-      id             : [this.featuretask ? this.featuretask.id           : '' ],
-      priority       : [this.featuretask ? this.featuretask.priority    : '' , Validators.required],
-      name           : [this.featuretask ? this.featuretask.name         : '' , [Validators.required]],
-      description    : [this.featuretask ? this.featuretask.description  : '' , [Validators.required]],
-      assignedTo     : [this.featuretask ? this.featuretask.assignedTo    : '' , [Validators.required]],
-      status         : [this.featuretask ? this.featuretask.status    : '' , [Validators.required]],
-      project         : [this.featuretask ? this.featuretask.project    : '' , [Validators.required]],
-      acceptanceCriteria         : [this.featuretask ? this.featuretask.acceptanceCriteria    : '' , [Validators.required]],
+    this.featureTaskForm = this.formBuilder.group({
+      id             : [this.featureTask ? this.featureTask.id           : '' ],
+      priority       : [this.featureTask ? this.featureTask.priority    : '' , Validators.required],
+      name           : [this.featureTask ? this.featureTask.name         : '' , [Validators.required]],
+      description    : [this.featureTask ? this.featureTask.description  : '' , [Validators.required]],
+      assignedTo     : [this.featureTask ? this.featureTask.assignedTo    : '' , [Validators.required]],
+      status         : [this.featureTask ? this.featureTask.status    : '' , [Validators.required]],
+      project         : [this.featureTask ? this.featureTask.project    : '' , [Validators.required]],
+      acceptanceCriteria         : [this.featureTask ? this.featureTask.acceptanceCriteria    : ''],
     });
 
     
@@ -52,12 +55,14 @@ export class FeaturetaskModalComponent  implements OnInit {
     this.teamMembers = await this.adminServiceService.getByProfileCode('TM');
     this.projects = await this.kernelService.getProjects();
     this.statuses = await this.kernelService.getTaskStatuses();
+    this.priorities = await this.kernelService.getPriorities();
 
 
-    if (this.featuretask) {
-      this.assignedTo = this.teamMembers[this.teamMembers.findIndex(e => e.id === this.featuretask.assignedTo.id)];
-      this.project = this.projects[this.projects.findIndex(e => e.id === this.featuretask.project.id)];
-      this.status = this.statuses[this.statuses.findIndex(e => e.id === this.featuretask.status.id)];
+    if (this.featureTask) {
+      this.assignedTo = this.teamMembers[this.teamMembers.findIndex(e => e.id === this.featureTask.assignedTo.id)];
+      this.project = this.projects[this.projects.findIndex(e => e.id === this.featureTask.project.id)];
+      this.status = this.statuses[this.statuses.findIndex(e => e.id === this.featureTask.status.id)];
+      this.priority = this.priorities[this.priorities.findIndex(e => e.id === this.featureTask.priority.id)];
     }
   }
 
@@ -66,13 +71,13 @@ export class FeaturetaskModalComponent  implements OnInit {
   }
 
   async submitForm(){
-    if (this.featuretaskForm.valid) {
-      let featuretask;
-      if(this.featuretask && this.featuretask.id) featuretask = await this.adminServiceService.updateFeatureTask(this.featuretaskForm.value);
-      else featuretask = await this.adminServiceService.saveFeatureTask(this.featuretaskForm.value);
+    if (this.featureTaskForm.valid) {
+      let featureTask;
+      if(this.featureTask && this.featureTask.id) featureTask = await this.adminServiceService.updateFeatureTask(this.featureTaskForm.value);
+      else featureTask = await this.adminServiceService.saveFeatureTask(this.featureTaskForm.value);
 
-      this.featuretaskForm.reset();
-      this.modalCtrl.dismiss({ featuretask : featuretask, role : 'save'});
+      this.featureTaskForm.reset();
+      this.modalCtrl.dismiss({ featureTask : featureTask, role : 'save'});
     } else {
       this.spinnerService.presentAlert('error','Form is not valid')
     }
@@ -80,9 +85,9 @@ export class FeaturetaskModalComponent  implements OnInit {
 
 
   async delete() {
-    await this.adminServiceService.deleteFeatureTask(this.featuretask.id);
-    this.featuretaskForm.reset();
-    this.modalCtrl.dismiss({ featuretask : this.featuretask, role : 'delete'});
+    await this.adminServiceService.deleteFeatureTask(this.featureTask.id);
+    this.featureTaskForm.reset();
+    this.modalCtrl.dismiss({ featureTask : this.featureTask, role : 'delete'});
   }
 
 }

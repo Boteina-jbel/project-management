@@ -10,7 +10,7 @@
     <p>{{ 'featureTaskRegistrationDescription' | translate }}</p>
   </div>
 
-  <form [formGroup]="featuretaskForm" (ngSubmit)="submitForm()" novalidate>
+  <form [formGroup]="featureTaskForm" (ngSubmit)="submitForm()" novalidate>
 
     <div class="form-controls">
       <ion-item lines="full">
@@ -36,14 +36,20 @@
       </ion-item>
 
       <ion-item lines="full">
-        <ion-select formControlName="status"  [(ngModel)]="status" label="{{ 'statusLabel' | translate }}" placeholder="{{ 'selectStatusrLabel' | translate }}">
+        <ion-select formControlName="priority"  [(ngModel)]="priority" label="{{ 'priorityLabel' | translate }}" placeholder="{{ 'selectPriorityLabel' | translate }}">
+          <ion-select-option *ngFor="let priority of priorities" [value]="priority">{{ priority.name }}</ion-select-option>
+        </ion-select>
+      </ion-item>
+
+      <ion-item lines="full">
+        <ion-select formControlName="status"  [(ngModel)]="status" label="{{ 'statusLabel' | translate }}" placeholder="{{ 'selectStatusLabel' | translate }}">
           <ion-select-option *ngFor="let status of statuses" [value]="status">{{ status.name }}</ion-select-option>
         </ion-select>
       </ion-item>
     </div>
 
-    <div class="form-buttons" [style.justify-content]="(this.featuretask && this.featuretask.id) ? 'space-between' : 'flex-end'">
-      <ion-button color="danger" fill="clear" *ngIf="this.featuretask && this.featuretask.id " (click)="delete()">
+    <div class="form-buttons" [style.justify-content]="(this.featureTask && this.featureTask.id) ? 'space-between' : 'flex-end'">
+      <ion-button color="danger" fill="clear" *ngIf="this.featureTask && this.featureTask.id " (click)="delete()">
         <ion-icon name="trash-outline" slot="start"></ion-icon>
         &nbsp;{{ 'deleteButtonLabel' | translate }} 
       </ion-button>

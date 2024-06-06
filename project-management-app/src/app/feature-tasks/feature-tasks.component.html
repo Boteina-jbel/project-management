@@ -13,7 +13,7 @@
                     </ion-button>
     
                     &nbsp;
-                    <ion-button fill="clear" (click)="openAddCourseModal()">
+                    <ion-button fill="clear" (click)="openAddFeaturetaskModal()">
                         <ng-container>
                             <ion-icon name="person-add-outline"></ion-icon> &nbsp; {{ 'add_featuretask' | translate }}
                         </ng-container>
@@ -28,13 +28,22 @@
 
     <!-- List of featuretasks -->
     <section>
-        <div class="featuretask-card" *ngFor="let featuretask of featureTaskResponse">
+
+        <div class="statuses">
+            <div class="status" *ngFor="let status of statuses" [ngStyle]="{'width': getWidth(statuses.length) + '%'}">
+                <div class="header">
+                    <h4>{{status.name}}</h4>
+                </div>
+                <div class="tasks">
+
+                </div>
+            </div>
+        </div>
+
+        <div class="featuretask-card" *ngFor="let featuretask of featureTasks">
             <span class="float-card-button" (click)="openFeatureTaskModal(featuretask)">
                 <ion-icon name="create-outline"></ion-icon>
             </span>
-            <div class="image-container">
-                <img [src]="featuretask?.thumbnail ? featuretask?.thumbnail : getBackground(6)" />
-            </div>
             <div class="card-content">
                 <ion-card-header>
                     <ion-card-title> {{featuretask.name}} </ion-card-title>

@@ -7,9 +7,10 @@ import { KernelServiceService } from '../services/kernel-service.service';
 import { AdminServiceService } from '../services/admin-service.service';
 import { SpinnerService } from '../services/spinner.service';
 import { Router } from '@angular/router';
-import { FeatureTaskResponse } from '../models/FeatureTaskResponse';
+import { FeatureTask } from '../models/FeatureTask';
 import { FeatureTaskRequest } from '../models/FeatureTaskRequest';
 import { FeaturetaskModalComponent } from '../components/featuretask-modal/featuretask-modal.component';
+import { TaskStatus } from '../models/TaskStatus';
 
 @Component({
   selector: 'app-feature-tasks',
@@ -18,30 +19,32 @@ import { FeaturetaskModalComponent } from '../components/featuretask-modal/featu
 })
 export class FeatureTasksComponent  implements OnInit {
 
-  featureTaskResponse: FeatureTaskResponse[];
-  featureTaskRequest: FeatureTaskRequest[];
+  featureTasks          : FeatureTask[];
+  statuses              : TaskStatus[];
 
   constructor( private utilsService            : UtilsService,
     private modalCtrl               : ModalController,
     private userServiceService      : UserServiceService,
     private formBuilder             : FormBuilder,
-    private kernelServiceService    : KernelServiceService,
+    private kernelService    : KernelServiceService,
     private adminServiceService     : AdminServiceService,
     private spinnerService          : SpinnerService,
     private router                  : Router) { }
 
   async ngOnInit() {
-    this.featureTaskResponse = await this.kernelServiceService.getFeatureTasks();
+    this.featureTasks = await this.kernelService.getFeatureTasks();
+    this.statuses     = await this.kernelService.getTaskStatuses();
+    this.statuses.sort((a, b) => a.position - b.position);
   }
 
   async reload(){
-    this.featureTaskResponse = await this.kernelServiceService.getFeatureTasks();
+    this.featureTasks = await this.kernelService.getFeatureTasks();
   }
   getBackground(indice : number) {
     return this.utilsService.generateRandomSvgBackground(indice);
   }
 
-  async openAddCourseModal() {
+  async openAddFeaturetaskModal() {
     const modal = await this.modalCtrl.create({
       component: FeaturetaskModalComponent,
       cssClass: 'card-modal',
@@ -51,30 +54,35 @@ export class FeatureTasksComponent  implements OnInit {
     });
     await modal.present();
     const { data } = await modal.onWillDismiss();
-    if(data && data.role === 'save') this.featureTaskResponse.push(data.featureTaskResponse);
+    if(data && data.role === 'save') this.featureTasks.push(data.featureTask);
   }
 
-  async openFeatureTasktModal(featureTaskResponse : FeatureTaskResponse) {
+  async openFeatureTaskModal(featureTask : FeatureTask) {
     const modal = await this.modalCtrl.create({
       component: FeaturetaskModalComponent,
       cssClass: 'card-modal',
       componentProps: {
-        featureTaskResponse: featureTaskResponse,
+        featureTask: featureTask,
       }
     });
     await modal.present();
     const { data } = await modal.onWillDismiss();
 
     if (data.role === 'delete') {
-      const index = this.featureTaskResponse.findIndex(e => e.id === featureTaskResponse.id);
+      const index = this.featureTasks.findIndex(e => e.id === featureTask.id);
       if (index !== -1) {
-        this.featureTaskResponse.splice(index, 1);
+        this.featureTasks.splice(index, 1);
       }
-    } else if (data.role === 'save' && data.featureTaskResponse) {
-      const index = this.featureTaskResponse.findIndex(e => e.id === data.featureTaskResponse.id);
+    } else if (data.role === 'save' && data.featureTask) {
+      console.log(data);
+      const index = this.featureTasks.findIndex(e => e.id === data.featureTask.id);
       if (index !== -1) {
-        this.featureTaskResponse[index] = data.featureTaskResponse;
+        this.featureTasks[index] = data.featureTask;
       }
     }
+  }
+
+  getWidth(length: number): number {
+    return 100 / length;
   }
 }

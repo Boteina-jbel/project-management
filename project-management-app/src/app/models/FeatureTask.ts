@@ -1,9 +1,10 @@
 import { User } from "./User";
 import { ProjectResponse } from "./ProjectResponse";
 import { TaskStatus } from "./TaskStatus";
+import { Priority } from "./Priority";
 
 
-export class FeatureTaskResponse {
+export class FeatureTask {
 
     id: number;
     name: string;
@@ -11,8 +12,9 @@ export class FeatureTaskResponse {
     status: TaskStatus;
     createdAt: Date;
     assignedTo: User;
+    createdBy: User;
     project: ProjectResponse;
-    priority: string;
+    priority: Priority;
     acceptanceCriteria: string;
 
 }
