@@ -17,6 +17,8 @@ export class ProjectModalComponent  implements OnInit {
   @Input() project    : Project;
   projectForm         : FormGroup;
   managers            : User[];
+  teamMembers         : User[];
+  stakeholders        : User[];
   selectedFile        : File;
   managedBy           : User;
 
@@ -38,6 +40,8 @@ export class ProjectModalComponent  implements OnInit {
     });
 
     this.managers = await this.adminServiceService.getByProfileCode('PM');
+    this.teamMembers = await this.adminServiceService.getByProfileCode('TM');
+    this.stakeholders = await this.adminServiceService.getByProfileCode('SH');
 
     if (this.project) {
       this.managedBy = this.managers[this.managers.findIndex(e => e.id === this.project.managedBy.id)];

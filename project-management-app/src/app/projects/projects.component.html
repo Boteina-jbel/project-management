@@ -13,7 +13,7 @@
                     </ion-button>
     
                     &nbsp;
-                    <ion-button fill="clear" (click)="openAddCourseModal()">
+                    <ion-button fill="clear" (click)="openAddProjectModal()">
                         <ng-container>
                             <ion-icon name="person-add-outline"></ion-icon> &nbsp; {{ 'add_project' | translate }}
                         </ng-container>
@@ -39,8 +39,7 @@
                 <ion-card-header>
                     <ion-card-title> {{project.name}} </ion-card-title>
                     <br />
-                    <ion-card-subtitle><ion-icon name="person-outline"></ion-icon> &nbsp; {{ managedBy | translate}}
-                        {{project?.managedBy?.firstName}} {{project?.managedBy?.lastName}}</ion-card-subtitle>
+                    <ion-card-subtitle><ion-icon name="person-outline"></ion-icon> &nbsp; {{ managedBy | translate}} {{project?.managedBy?.firstName}} {{project?.managedBy?.lastName}} </ion-card-subtitle>
                 </ion-card-header>
                 <ion-card-content>
                     <p> {{project.description}} </p>
