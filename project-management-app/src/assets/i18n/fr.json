@@ -60,6 +60,8 @@
     "projectRegistrationDescription": "Enregistrer un nouveau projet",
     "deleteButtonLabel": "Supprimer",
     "managedByLabel": "Géré par",
-    "selectManagersLabel": "Sélectionner des gestionnaires"
+    "selectManagersLabel": "Sélectionner des gestionnaires",
+    "featureTaskRegistrationTitle": "Enregistrement d'une tache",
+    "featureTaskRegistrationDescription":"Enregistrer une nouvelle tache"
 
 }

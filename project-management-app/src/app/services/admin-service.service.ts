@@ -7,6 +7,7 @@ import { UsersResponse } from '../models/UsersResponse';
 import { Filter } from '../models/Filter';
 import { User } from '../models/User';
 import { Project } from '../models/Project';
+import { FeatureTaskResponse } from '../models/FeatureTaskResponse';
 @Injectable({
   providedIn: 'root'
 })
@@ -74,6 +75,7 @@ export class AdminServiceService {
     });
   }
 
+
   deleteProject(projectId: number): Promise<Project> {
     return new Promise((resolve, reject) => {
       this.networkService.delete("project/id/" + projectId, true).then((response: any) => {
@@ -85,4 +87,36 @@ export class AdminServiceService {
     });
   }
 
+  saveFeatureTask(featuretask: FeatureTaskResponse): Promise<FeatureTaskResponse> {
+    return new Promise((resolve, reject) => {
+      this.networkService.post("featuretask", featuretask, true).then((response: any) => {
+        resolve(response);
+      }, error => {
+        reject(error);
+      }
+      );
+    });
+  }
+
+  updateFeatureTask(featuretask: FeatureTaskResponse): Promise<FeatureTaskResponse> {
+    return new Promise((resolve, reject) => {
+      this.networkService.put("featuretask/id/" + featuretask.id, featuretask, true).then((response: any) => {
+        resolve(response);
+      }, error => {
+        reject(error);
+      }
+      );
+    });
+  }
+
+  deleteFeatureTask(featuretaskId: number): Promise<FeatureTaskResponse> {
+    return new Promise((resolve, reject) => {
+      this.networkService.delete("featuretask/id/" + featuretaskId, true).then((response: any) => {
+        resolve(response);
+      }, error => {
+        reject(error);
+      }
+      );
+    });
+  }
 }
