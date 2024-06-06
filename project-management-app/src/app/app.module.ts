@@ -30,6 +30,7 @@ import { ProjectsComponent } from './projects/projects.component';
 import { FeatureTasksComponent } from './feature-tasks/feature-tasks.component';
 import { BugTasksComponent } from './bug-tasks/bug-tasks.component';
 import { ProjectModalComponent } from './components/project-modal/project-modal.component';
+import { FeaturetaskModalComponent } from './components/featuretask-modal/featuretask-modal.component';
 
 export function ConfigLoader(configurationService: ConfigurationService) {
   return () => configurationService.load(environment.configFile);
@@ -59,6 +60,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     FeatureTasksComponent,
     BugTasksComponent,
     ProjectModalComponent,
+    FeaturetaskModalComponent,
   ],
   imports: [
     BrowserModule,

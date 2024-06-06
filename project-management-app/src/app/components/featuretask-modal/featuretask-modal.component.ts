@@ -2,6 +2,8 @@ import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ModalController } from '@ionic/angular';
 import { FeatureTaskResponse } from 'src/app/models/FeatureTaskResponse';
+import { Project } from 'src/app/models/Project';
+import { TaskStatus } from 'src/app/models/TaskStatus';
 import { User } from 'src/app/models/User';
 import { AdminServiceService } from 'src/app/services/admin-service.service';
 import { KernelServiceService } from 'src/app/services/kernel-service.service';
@@ -16,10 +18,13 @@ export class FeaturetaskModalComponent  implements OnInit {
 
   @Input() featuretask    : FeatureTaskResponse;
   featuretaskForm         : FormGroup;
-  managers                : User[];
+  teamMembers             : User[];
   assignedTo              : User;
   selectedFile            : File;
-  managedBy               : User;
+  projects                : Project[];
+  project                 : Project;
+  status                  : TaskStatus;
+  statuses                :TaskStatus[];
 
   constructor(
     private modalCtrl: ModalController,
@@ -28,6 +33,7 @@ export class FeaturetaskModalComponent  implements OnInit {
     private spinnerService: SpinnerService,
     private adminServiceService: AdminServiceService
   ) { }
+
 
   async ngOnInit() {
     this.featuretaskForm = this.formBuilder.group({
@@ -41,10 +47,17 @@ export class FeaturetaskModalComponent  implements OnInit {
       acceptanceCriteria         : [this.featuretask ? this.featuretask.acceptanceCriteria    : '' , [Validators.required]],
     });
 
-    this.managers = await this.adminServiceService.getByProfileCode('PM');
+    
+
+    this.teamMembers = await this.adminServiceService.getByProfileCode('TM');
+    this.projects = await this.kernelService.getProjects();
+    this.statuses = await this.kernelService.getTaskStatuses();
+
 
     if (this.featuretask) {
-      this.assignedTo = this.managers[this.managers.findIndex(e => e.id === this.featuretask.assignedTo.id)];
+      this.assignedTo = this.teamMembers[this.teamMembers.findIndex(e => e.id === this.featuretask.assignedTo.id)];
+      this.project = this.projects[this.projects.findIndex(e => e.id === this.featuretask.project.id)];
+      this.status = this.statuses[this.statuses.findIndex(e => e.id === this.featuretask.status.id)];
     }
   }
 
@@ -65,21 +78,6 @@ export class FeaturetaskModalComponent  implements OnInit {
     }
   }
 
-  onFileSelected(event: any) {
-    const file = event.target.files[0];
-    this.selectedFile = file;
-    this.previewImage(file);
-  }
-
-  previewImage(file: File) {
-    const reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.onload = () => {
-      this.featuretaskForm.patchValue({
-        thumbnail: reader.result as string
-      });
-    };
-  }
 
   async delete() {
     await this.adminServiceService.deleteFeatureTask(this.featuretask.id);

@@ -24,8 +24,20 @@
       </ion-item>
 
       <ion-item lines="full">
-        <ion-select formControlName="managedBy"  [(ngModel)]="managedBy" label="{{ 'managedByLabel' | translate }}" placeholder="{{ 'selectManagersLabel' | translate }}">
-          <ion-select-option *ngFor="let manager of managers" [value]="manager">{{ manager.firstName }}  {{ manager.lastName }}</ion-select-option>
+        <ion-select formControlName="project"  [(ngModel)]="project" label="{{ 'projectLabel' | translate }}" placeholder="{{ 'selectProjectLabel' | translate }}">
+          <ion-select-option *ngFor="let project of projects" [value]="project">{{ project.name }}</ion-select-option>
+        </ion-select>
+      </ion-item>
+
+      <ion-item lines="full">
+        <ion-select formControlName="assignedTo"  [(ngModel)]="assignedTo" label="{{ 'assignedToLabel' | translate }}" placeholder="{{ 'selectTeamMemberLabel' | translate }}">
+          <ion-select-option *ngFor="let teamMember of teamMembers" [value]="teamMember">{{ teamMember.firstName }}  {{ teamMember.lastName }}</ion-select-option>
+        </ion-select>
+      </ion-item>
+
+      <ion-item lines="full">
+        <ion-select formControlName="status"  [(ngModel)]="status" label="{{ 'statusLabel' | translate }}" placeholder="{{ 'selectStatusrLabel' | translate }}">
+          <ion-select-option *ngFor="let status of statuses" [value]="status">{{ status.name }}</ion-select-option>
         </ion-select>
       </ion-item>
     </div>

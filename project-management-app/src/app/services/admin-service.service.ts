@@ -89,7 +89,7 @@ export class AdminServiceService {
 
   saveFeatureTask(featuretask: FeatureTaskResponse): Promise<FeatureTaskResponse> {
     return new Promise((resolve, reject) => {
-      this.networkService.post("featuretask", featuretask, true).then((response: any) => {
+      this.networkService.post("feature-task", featuretask, true).then((response: any) => {
         resolve(response);
       }, error => {
         reject(error);
@@ -100,7 +100,7 @@ export class AdminServiceService {
 
   updateFeatureTask(featuretask: FeatureTaskResponse): Promise<FeatureTaskResponse> {
     return new Promise((resolve, reject) => {
-      this.networkService.put("featuretask/id/" + featuretask.id, featuretask, true).then((response: any) => {
+      this.networkService.put("feature-task/id/" + featuretask.id, featuretask, true).then((response: any) => {
         resolve(response);
       }, error => {
         reject(error);
@@ -111,7 +111,7 @@ export class AdminServiceService {
 
   deleteFeatureTask(featuretaskId: number): Promise<FeatureTaskResponse> {
     return new Promise((resolve, reject) => {
-      this.networkService.delete("featuretask/id/" + featuretaskId, true).then((response: any) => {
+      this.networkService.delete("feature-task/id/" + featuretaskId, true).then((response: any) => {
         resolve(response);
       }, error => {
         reject(error);

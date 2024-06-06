@@ -112,4 +112,10 @@ public class FeatureTaskServiceImpl implements FeatureTaskService {
         return modelMapper.map(updatedTask, FeatureTaskResponseDto.class);
     }
 
+    @Override
+    public List<FeatureTaskResponseDto> findAll() {
+        return featureTaskRepository.findAll()
+                .stream().map(el -> modelMapper.map(el, FeatureTaskResponseDto.class))
+                .collect(Collectors.toList());
+    }
 }

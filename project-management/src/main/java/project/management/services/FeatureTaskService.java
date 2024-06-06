@@ -24,4 +24,7 @@ public interface FeatureTaskService {
     FeatureTaskResponseDto assignTaskToUser(Long taskId, Long userId);
 
     FeatureTaskResponseDto changeTaskStatus(Long taskId, String status);
+
+    List<FeatureTaskResponseDto> findAll();
+
 }
