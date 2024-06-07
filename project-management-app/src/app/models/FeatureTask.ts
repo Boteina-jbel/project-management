@@ -9,6 +9,7 @@ export class FeatureTask {
     id: number;
     name: string;
     description: string;
+    estimatedTime: string;
     status: TaskStatus;
     createdAt: Date;
     assignedTo: User;

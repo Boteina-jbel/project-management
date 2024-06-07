@@ -19,6 +19,11 @@
       </ion-item>
 
       <ion-item lines="full">
+        <ion-label position="stacked">{{ 'estimatedTimeLabel' | translate }}</ion-label>
+        <ion-input formControlName="estimatedTime" placeholder="{{ 'enterEstimatedTimePlaceholder' | translate }}" ngDefaultControl (ionBlur)="validateTimeFormat()"></ion-input>
+      </ion-item>
+
+      <ion-item lines="full">
         <ion-label position="stacked">{{ 'descriptionLabel' | translate }}</ion-label>
         <ion-textarea rows="4" formControlName="description" placeholder="{{ 'enterDescriptionPlaceholder' | translate }}" type="text" ngDefaultControl></ion-textarea>
       </ion-item>

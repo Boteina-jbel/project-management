@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ModalController } from '@ionic/angular';
 import { FeatureTask } from 'src/app/models/FeatureTask';
 import { Priority } from 'src/app/models/Priority';
@@ -44,6 +44,7 @@ export class FeaturetaskModalComponent  implements OnInit {
       priority       : [this.featureTask ? this.featureTask.priority    : '' , Validators.required],
       name           : [this.featureTask ? this.featureTask.name         : '' , [Validators.required]],
       description    : [this.featureTask ? this.featureTask.description  : '' , [Validators.required]],
+      estimatedTime    : [this.featureTask ? this.featureTask.estimatedTime  : '' , [Validators.required, this.timeValidator]],
       assignedTo     : [this.featureTask ? this.featureTask.assignedTo    : '' , [Validators.required]],
       status         : [this.featureTask ? this.featureTask.status    : '' , [Validators.required]],
       project         : [this.featureTask ? this.featureTask.project    : '' , [Validators.required]],
@@ -68,6 +69,25 @@ export class FeaturetaskModalComponent  implements OnInit {
 
   closeModal() {
     this.modalCtrl.dismiss({ role : 'nothing'});
+  }
+
+
+  get estimatedTimeControl(): AbstractControl {
+    return this.featureTaskForm.get('estimatedTime')!;
+  }
+
+  validateTimeFormat() {
+    this.estimatedTimeControl.updateValueAndValidity();
+    if (this.estimatedTimeControl.invalid && (this.estimatedTimeControl.dirty || this.estimatedTimeControl.touched)) {
+      this.spinnerService.presentAlert('error', 'The time format should be HH:mm');
+    }
+  }
+
+
+  timeValidator(control: AbstractControl): { [key: string]: any } | null {
+    const validTimeRegex = /^([0-1]\d|2[0-3]):[0-5]\d$/;
+    const valid = validTimeRegex.test(control.value);
+    return valid ? null : { invalidTime: { value: control.value } };
   }
 
   async submitForm(){

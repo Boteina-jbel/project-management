@@ -15,6 +15,7 @@ public class FeatureTaskResponseDto {
         private Long id;
         private String name;
         private String description;
+        private String EstimatedTime;
         private TaskStatus status;
         private Date createdAt;
         private User assignedTo;

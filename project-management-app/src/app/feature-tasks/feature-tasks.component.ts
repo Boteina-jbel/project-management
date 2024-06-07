@@ -39,6 +39,8 @@ export class FeatureTasksComponent  implements OnInit {
 
   async reload(){
     this.featureTasks = await this.kernelService.getFeatureTasks();
+    this.statuses     = await this.kernelService.getTaskStatuses();
+    this.statuses.sort((a, b) => a.position - b.position);
   }
   getBackground(indice : number) {
     return this.utilsService.generateRandomSvgBackground(indice);

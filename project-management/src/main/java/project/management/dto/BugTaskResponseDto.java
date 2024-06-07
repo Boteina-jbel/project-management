@@ -15,6 +15,7 @@ public class BugTaskResponseDto {
     private Long id;
     private String name;
     private String description;
+    private String EstimatedTime;
     private String statusName;
     private Long assignedToId;
     private String assignedToName;

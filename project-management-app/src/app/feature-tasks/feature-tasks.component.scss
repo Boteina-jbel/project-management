@@ -54,11 +54,17 @@ ion-header {
     gap: 10px;
     justify-content: space-between;
 
+    .status {
+        background-color: var(--white-color);
+        border-radius: 10px;
+
+    }
+
     .header {
         padding: 10px;
         border-radius: 10px 10px 0 0;
         text-align: center;
-        background-color: var(--white-color);
+        box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
     }
 }
 
@@ -71,21 +77,32 @@ section {
     width: 100%;
     position: relative;
     background-color: var(--white-color);
-    border-radius: 10px;
     display: flex;
-    margin: 20px 0;
     padding: 30px;
+    cursor: pointer;
 
-    ion-card-header {
+    .card-header {
         margin: 10px 0;
 
         ion-card-title {
-            font-size: var(--text-large-font-size);
+            display: -webkit-box;
+            -webkit-line-clamp: 1;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            
+            font-size: var(--h3-font-size);
+            margin-bottom: 5px;
         }
     }
 
     ion-card-subtitle {
-        font-size: var(--text-small-font-size);
+        display: -webkit-box;
+        -webkit-line-clamp: 1;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        font-size: var(--h5-font-size);
     }
 
     ion-card-content p {
@@ -94,7 +111,7 @@ section {
         -webkit-box-orient: vertical;
         overflow: hidden;
         text-overflow: ellipsis;
-        font-size: var(--text-font-size);
+        font-size: var(--h4-font-size);
     }
 
     .card-bottom-buttons {

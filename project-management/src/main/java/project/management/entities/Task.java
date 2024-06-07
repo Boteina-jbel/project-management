@@ -34,6 +34,9 @@ public class Task implements Serializable {
     @Column(name = "created_at", nullable = false)
     private Date createdAt;
 
+    @Column(name = "EstimatedTime", nullable = false)
+    private String EstimatedTime;
+
     @ManyToOne
     @JoinColumn(name = "created_by", nullable = false)
     private User createdBy;

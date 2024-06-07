@@ -6,6 +6,7 @@ export class BugTaskResponse {
     id: number;
     name: string;
     description: string;
+    estimatedTime: string;
     statusName: string;
     assignedToId: number;
     assignedToName: string;

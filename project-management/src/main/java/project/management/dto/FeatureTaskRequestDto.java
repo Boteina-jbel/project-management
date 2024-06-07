@@ -17,6 +17,7 @@ public class FeatureTaskRequestDto {
 
     private String name;
     private String description;
+    private String EstimatedTime;
     private Date createdAt;
     private User assignedTo;
     private Project project;
