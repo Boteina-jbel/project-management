@@ -86,4 +86,36 @@ export class KernelServiceService {
     });
   }
 
+
+  assignTaskToUser(taskId: number, userId: number): Promise<FeatureTask> {
+    return new Promise((resolve, reject) => {
+      this.networkService.put(`feature-task/${taskId}/assign?userId=${userId}`, null, true).then((response: any) => {
+        resolve(response);
+      }).catch(error => {
+        reject(error);
+      });
+    });
+  }
+
+  
+  changeTaskStatus(taskId: number, taskStatusId: number): Promise<FeatureTask> {
+    return new Promise((resolve, reject) => {
+      this.networkService.put(`feature-task/${taskId}/status?taskStatusId=${taskStatusId}`, null, true).then((response: any) => {
+        resolve(response);
+      }).catch(error => {
+        reject(error);
+      });
+    });
+  }
+  
+  changeTaskPriority(taskId: number, priorityId: number): Promise<FeatureTask> {
+    return new Promise((resolve, reject) => {
+      this.networkService.put(`feature-task/${taskId}/priority?priorityId=${priorityId}`, null, true).then((response: any) => {
+        resolve(response);
+      }).catch(error => {
+        reject(error);
+      });
+    });
+  }
+  
 }

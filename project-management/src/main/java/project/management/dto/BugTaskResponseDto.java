@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import project.management.entities.Project;
+import project.management.entities.User;
 
 import java.util.Date;
 
@@ -18,10 +19,12 @@ public class BugTaskResponseDto {
     private String EstimatedTime;
     private String statusName;
     private Long assignedToId;
+    private User createdBy;
     private String assignedToName;
     private Project project;
     private String projectName;
     private Date createdAt;
     private String severity;
     private String stepsToReproduce;
+
 }

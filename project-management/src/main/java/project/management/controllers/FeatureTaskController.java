@@ -7,7 +7,9 @@ import org.springframework.web.bind.annotation.*;
 
 import project.management.dto.FeatureTaskRequestDto;
 import project.management.dto.FeatureTaskResponseDto;
+import project.management.dto.ProjectRequestDto;
 import project.management.dto.ProjectResponseDto;
+import project.management.entities.TaskStatus;
 import project.management.services.FeatureTaskService;
 
 import java.util.List;
@@ -72,8 +74,13 @@ public class FeatureTaskController {
     }
 
     @PutMapping("/{taskId}/status")
-    public ResponseEntity<FeatureTaskResponseDto> changeTaskStatus(@PathVariable Long taskId, @RequestParam String status) {
-        return ResponseEntity.ok(featureTaskService.changeTaskStatus(taskId, status));
+    public ResponseEntity<FeatureTaskResponseDto> changeTaskStatus(@PathVariable Long taskId, @RequestParam Long taskStatusId) {
+        return ResponseEntity.ok(featureTaskService.changeTaskStatus(taskId, taskStatusId));
+    }
+
+    @PutMapping("/{taskId}/priority")
+    public ResponseEntity<FeatureTaskResponseDto> changeTaskPriority(@PathVariable Long taskId, @RequestParam Long priorityId) {
+        return ResponseEntity.ok(featureTaskService.changeTaskPriority(taskId, priorityId));
     }
 
     @GetMapping("")

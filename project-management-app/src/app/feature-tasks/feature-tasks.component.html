@@ -35,33 +35,44 @@
                     <h4>{{status.name}}</h4>
                 </div>
                 <div class="tasks">
-                    <div class="featuretask-card" *ngFor="let featuretask of featureTasks">
-                        <div class="card-content" *ngIf="featuretask.status.id === status.id">
-                            <span>
-                                <div class="card-header" style="display: flex; justify-content: space-between;">
-                                    <div (click)="openFeatureTaskModal(featuretask)">
-                                        <ion-card-title> {{featuretask.name}} </ion-card-title>
-                                        <ion-card-subtitle>
-                                        <ion-icon name="person-outline"></ion-icon> 
-                                            &nbsp; {{'assignedTo'| translate}} {{featuretask?.assignedTo?.firstName}} {{featuretask?.assignedTo?.lastName}}
-                                        </ion-card-subtitle>
+                    <ng-container *ngFor="let featureTask of featureTasks">
+                        <div class="featuretask-card" *ngIf="featureTask.status && featureTask.status.id === status.id">
+                            <div class="card-content">
+                                <span>
+                                    <div class="card-header" style="display: flex; justify-content: space-between;">
+                                        <div (click)="openFeatureTaskModal(featureTask)">
+                                            <ion-card-title> {{featureTask.name}} </ion-card-title>
+                                            <ion-card-subtitle *ngIf="featureTask?.assignedTo">
+                                                <ion-icon name="person-outline"></ion-icon>
+                                                &nbsp; {{'assignedTo'| translate}}
+                                                {{featureTask?.assignedTo?.firstName}}
+                                                {{featureTask?.assignedTo?.lastName}}
+                                            </ion-card-subtitle>
+                                            <ion-card-subtitle>
+                                                <ion-icon name="person-outline"></ion-icon>
+                                                &nbsp; {{'createdBy'| translate}} {{featureTask?.createdBy?.firstName}}
+                                                {{featureTask?.createdBy?.lastName}}
+                                            </ion-card-subtitle>
+                                        </div>
+                                        <ion-button color="primary" fill="clear"
+                                            (click)="presentPopover($event, featureTask)">
+                                            <ion-icon name="ellipsis-vertical-outline"></ion-icon>
+                                        </ion-button>
                                     </div>
-                                    <ion-button color="primary" fill="clear">
-                                        <ion-icon name="ellipsis-vertical-outline"></ion-icon>
-                                    </ion-button>
-                                </div>
-                                <ion-card-content (click)="openFeatureTaskModal(featuretask)">
-                                    <p> {{featuretask.description}} </p>
-                                </ion-card-content>
-                                <ion-badge [ngStyle]="{'padding': '3px 8px'}">
-                                    <ion-icon name="briefcase-outline"></ion-icon> &nbsp;  {{featuretask.project.name}}
-                                </ion-badge>
-                                &nbsp; 
-                                <ion-badge [ngStyle]="{'--background': featuretask.priority.color, 'padding': '3px 8px'}">
-                                    {{featuretask.priority.name}}
-                                </ion-badge>
-                            </span>
-                            <!-- <div class="card-bottom-buttons">
+                                    <ion-card-content (click)="openFeatureTaskModal(featureTask)">
+                                        <p> {{featureTask?.description}} </p>
+                                    </ion-card-content>
+                                    <ion-badge *ngIf="featureTask?.project" [ngStyle]="{'padding': '3px 8px'}">
+                                        <ion-icon name="briefcase-outline"></ion-icon> &nbsp;
+                                        {{featureTask?.project?.name}}
+                                    </ion-badge>
+                                    &nbsp;
+                                    <ion-badge *ngIf="featureTask?.priority"
+                                        [ngStyle]="{'--background': featureTask.priority.color, 'padding': '3px 8px'}">
+                                        {{featureTask?.priority?.name}}
+                                    </ion-badge>
+                                </span>
+                                <!-- <div class="card-bottom-buttons">
                                 <ion-button color="primary" fill="clear">
                                     <ion-icon name="ellipsis-vertical-outline"></ion-icon>
                                 </ion-button>
@@ -69,10 +80,65 @@
                                     <ion-icon name="arrow-forward-outline"></ion-icon>
                                 </ion-button>
                             </div> -->
+                            </div>
                         </div>
-                    </div>
+                    </ng-container>
                 </div>
             </div>
         </div>
+
+        <h1> {{ 'backlog' | translate }} </h1>
+
+        <ng-container *ngFor="let featureTask of featureTasks">
+            <div class="featuretask-card featuretask-card-backlog" *ngIf="!featureTask.status">
+
+                <ion-accordion-group>
+                    <ion-accordion value="first">
+                        <ion-item slot="header" color="white">
+                            <ion-label>{{featureTask.name}}</ion-label>
+                        </ion-item>
+                        <div class="ion-padding" slot="content">
+                            <div class="card-content">
+                                <span>
+                                    <div class="card-header" style="display: flex; justify-content: space-between;">
+                                        <div (click)="openFeatureTaskModal(featureTask)">
+                                            <ion-card-title> {{featureTask.name}} </ion-card-title>
+                                            <ion-card-subtitle *ngIf="featureTask?.assignedTo">
+                                                <ion-icon name="person-outline"></ion-icon>
+                                                &nbsp; {{'assignedTo'| translate}}
+                                                {{featureTask?.assignedTo?.firstName}}
+                                                {{featureTask?.assignedTo?.lastName}}
+                                            </ion-card-subtitle>
+                                            <ion-card-subtitle>
+                                                <ion-icon name="person-outline"></ion-icon>
+                                                &nbsp; {{'createdBy'| translate}} {{featureTask?.createdBy?.firstName}}
+                                                {{featureTask?.createdBy?.lastName}}
+                                            </ion-card-subtitle>
+                                        </div>
+                                        <ion-button color="primary" fill="clear" (click)="presentPopover($event, featureTask)">
+                                            <ion-icon name="ellipsis-vertical-outline"></ion-icon>
+                                        </ion-button>
+                                    </div>
+                                    <ion-card-content (click)="openFeatureTaskModal(featureTask)">
+                                        <p> {{featureTask?.description}} </p>
+                                    </ion-card-content>
+                                    <ion-badge *ngIf="featureTask?.project" [ngStyle]="{'padding': '3px 8px'}">
+                                        <ion-icon name="briefcase-outline"></ion-icon> &nbsp;
+                                        {{featureTask?.project?.name}}
+                                    </ion-badge>
+                                    &nbsp;
+                                    <ion-badge *ngIf="featureTask?.priority"
+                                        [ngStyle]="{'--background': featureTask.priority.color, 'padding': '3px 8px'}">
+                                        {{featureTask?.priority?.name}}
+                                    </ion-badge>
+                                </span>
+                            </div>
+                        </div>
+                    </ion-accordion>
+                </ion-accordion-group>
+
+
+            </div>
+        </ng-container>
     </section>
 </app-base>
