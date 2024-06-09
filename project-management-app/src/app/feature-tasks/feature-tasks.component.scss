@@ -55,9 +55,17 @@ ion-header {
     justify-content: space-between;
     margin: 10px 0;
 
+    @media screen and (max-width: 999px) {
+        margin: 10px 0;
+        gap: 10px;
+        justify-content: center;
+        flex-direction: column !important;
+    }
+
     .status {
         background-color: var(--white-color);
         // border-radius: 10px;
+        border-radius: 10px 10px 0 0;
     }
 
     .tasks {

@@ -9,6 +9,15 @@
     </ion-card-subtitle>
   </ion-item>
   <ion-item lines="full">
+    <ion-select [(ngModel)]="assignedTo" [label]="('assignedTo' | translate)" (ionChange)="changeAssignedTo($event)" interface="popover"
+      label-placement="floating">
+      <ion-select-option *ngFor="let teamMember of teamMembers" [value]="teamMember">
+        {{ teamMember.firstName }} {{ teamMember.lastName }}
+      </ion-select-option>
+    </ion-select>
+  </ion-item>
+  
+  <ion-item lines="full">
     <ion-select [(ngModel)]="status" [label]="('status' | translate)" (ionChange)="changeStatus($event)" interface="popover"
       label-placement="floating">
       <ion-select-option *ngFor="let status of statuses" [value]="status">
@@ -18,7 +27,7 @@
   </ion-item>
 
   <ion-item lines="full">
-    <ion-select [(ngModel)]="priority" [label]="('status' | translate)" interface="popover" (ionChange)="changePriority($event)"
+    <ion-select [(ngModel)]="priority" [label]="('priority' | translate)" interface="popover" (ionChange)="changePriority($event)"
       label-placement="floating">
       <ion-select-option *ngFor="let priority of priorities" [value]="priority">
         {{ priority.name | translate }}

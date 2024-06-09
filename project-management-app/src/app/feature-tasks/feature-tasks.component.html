@@ -30,7 +30,7 @@
     <section>
 
         <div class="statuses">
-            <div class="status" *ngFor="let status of statuses" [ngStyle]="{'width': getWidth(statuses.length) + '%'}">
+            <div class="status" *ngFor="let status of statuses" [ngStyle]="{'width': width + '%'}">
                 <div class="header" [ngStyle]="{'background-color': status.color}">
                     <h4>{{status.name}}</h4>
                 </div>
@@ -40,7 +40,7 @@
                             <div class="card-content">
                                 <span>
                                     <div class="card-header" style="display: flex; justify-content: space-between;">
-                                        <div (click)="openFeatureTaskModal(featureTask)">
+                                        <div>
                                             <ion-card-title> {{featureTask.name}} </ion-card-title>
                                             <ion-card-subtitle *ngIf="featureTask?.assignedTo">
                                                 <ion-icon name="person-outline"></ion-icon>
@@ -59,7 +59,7 @@
                                             <ion-icon name="ellipsis-vertical-outline"></ion-icon>
                                         </ion-button>
                                     </div>
-                                    <ion-card-content (click)="openFeatureTaskModal(featureTask)">
+                                    <ion-card-content>
                                         <p> {{featureTask?.description}} </p>
                                     </ion-card-content>
                                     <ion-badge *ngIf="featureTask?.project" [ngStyle]="{'padding': '3px 8px'}">
@@ -72,14 +72,15 @@
                                         {{featureTask?.priority?.name}}
                                     </ion-badge>
                                 </span>
-                                <!-- <div class="card-bottom-buttons">
-                                <ion-button color="primary" fill="clear">
-                                    <ion-icon name="ellipsis-vertical-outline"></ion-icon>
-                                </ion-button>
-                                <ion-button color="primary" fill="clear">
-                                    <ion-icon name="arrow-forward-outline"></ion-icon>
-                                </ion-button>
-                            </div> -->
+                                <div class="card-bottom-buttons">
+                                    <ion-button color="primary" fill="clear"
+                                        (click)="openFeatureTaskModal(featureTask)">
+                                        <ion-icon name="create-outline"></ion-icon>
+                                    </ion-button>
+                                    <ion-button color="primary" fill="clear">
+                                        <ion-icon name="arrow-forward-outline"></ion-icon>
+                                    </ion-button>
+                                </div>
                             </div>
                         </div>
                     </ng-container>
@@ -101,7 +102,7 @@
                             <div class="card-content">
                                 <span>
                                     <div class="card-header" style="display: flex; justify-content: space-between;">
-                                        <div (click)="openFeatureTaskModal(featureTask)">
+                                        <div>
                                             <ion-card-title> {{featureTask.name}} </ion-card-title>
                                             <ion-card-subtitle *ngIf="featureTask?.assignedTo">
                                                 <ion-icon name="person-outline"></ion-icon>
@@ -115,11 +116,12 @@
                                                 {{featureTask?.createdBy?.lastName}}
                                             </ion-card-subtitle>
                                         </div>
-                                        <ion-button color="primary" fill="clear" (click)="presentPopover($event, featureTask)">
+                                        <ion-button color="primary" fill="clear"
+                                            (click)="presentPopover($event, featureTask)">
                                             <ion-icon name="ellipsis-vertical-outline"></ion-icon>
                                         </ion-button>
                                     </div>
-                                    <ion-card-content (click)="openFeatureTaskModal(featureTask)">
+                                    <ion-card-content>
                                         <p> {{featureTask?.description}} </p>
                                     </ion-card-content>
                                     <ion-badge *ngIf="featureTask?.project" [ngStyle]="{'padding': '3px 8px'}">
@@ -132,6 +134,15 @@
                                         {{featureTask?.priority?.name}}
                                     </ion-badge>
                                 </span>
+                                <div class="card-bottom-buttons">
+                                    <ion-button color="primary" fill="clear"
+                                        (click)="openFeatureTaskModal(featureTask)">
+                                        <ion-icon name="create-outline"></ion-icon>
+                                    </ion-button>
+                                    <!-- <ion-button color="primary" fill="clear">
+                                        <ion-icon name="arrow-forward-outline"></ion-icon>
+                                    </ion-button> -->
+                                </div>
                             </div>
                         </div>
                     </ion-accordion>
