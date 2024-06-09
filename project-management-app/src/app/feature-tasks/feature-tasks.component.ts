@@ -1,4 +1,4 @@
-import { Component, HostListener, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { UtilsService } from '../services/utils.service';
 import { ModalController, PopoverController } from '@ionic/angular';
 import { UserServiceService } from '../services/user-service.service';
@@ -23,7 +23,6 @@ export class FeatureTasksComponent implements OnInit {
   popover: HTMLIonPopoverElement;
   featureTasks: FeatureTask[];
   statuses: TaskStatus[];
-  width: number;
 
   constructor(private utilsService: UtilsService,
     private modalCtrl: ModalController,
@@ -42,19 +41,6 @@ export class FeatureTasksComponent implements OnInit {
     this.statuses.sort((a, b) => a.position - b.position);
   }
 
-  @HostListener('window:resize', ['$event'])
-  onResize(event: any) {
-    this.updateWidth(event.target.innerWidth, this.statuses.length);
-  }
-
-  updateWidth(windowWidth: number, length: number): void {
-    if (windowWidth <= 999) {
-      this.width = 100;
-    } else {
-      this.width = 100 / length;
-    }
-  }
-  
   async reload() {
     this.featureTasks = await this.kernelService.getFeatureTasks();
     this.statuses = await this.kernelService.getTaskStatuses();

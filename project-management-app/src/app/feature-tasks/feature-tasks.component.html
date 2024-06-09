@@ -30,7 +30,7 @@
     <section>
 
         <div class="statuses">
-            <div class="status" *ngFor="let status of statuses" [ngStyle]="{'width': width + '%'}">
+            <div class="status" *ngFor="let status of statuses" [ngStyle]="{'width': getWidth(statuses.length) + '%', 'min-width': '300px'}">
                 <div class="header" [ngStyle]="{'background-color': status.color}">
                     <h4>{{status.name}}</h4>
                 </div>

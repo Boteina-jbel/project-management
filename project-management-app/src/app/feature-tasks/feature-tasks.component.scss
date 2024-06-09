@@ -54,13 +54,7 @@ ion-header {
     gap: 10px;
     justify-content: space-between;
     margin: 10px 0;
-
-    @media screen and (max-width: 999px) {
-        margin: 10px 0;
-        gap: 10px;
-        justify-content: center;
-        flex-direction: column !important;
-    }
+    overflow-x: scroll;
 
     .status {
         background-color: var(--white-color);
@@ -69,7 +63,7 @@ ion-header {
     }
 
     .tasks {
-        padding: 10px;
+        padding: 5px;
     }
 
     .header {
@@ -92,8 +86,13 @@ section {
     position: relative;
     background-color: var(--white-color);
     display: flex;
-    padding: 30px;
+    padding: 10px;
     cursor: pointer;
+
+
+    @media screen and (max-width: 999px) {
+        padding: 0 !important;
+    }
 
     .card-header {
         margin: 10px 0;
