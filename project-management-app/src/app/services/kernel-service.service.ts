@@ -65,10 +65,31 @@ export class KernelServiceService {
     });
   }
 
+  getFeatureTask(id: number): Promise<FeatureTask> {
+    return new Promise((resolve, reject) => {
+      this.networkService.get("feature-task/" + id, true).then((response: any) => {
+        resolve(response);
+      }, error => {
+        reject(error);
+      }
+      );
+    });
+  }
 
   getBugTasks(): Promise<BugTask[]> {
     return new Promise((resolve, reject) => {
       this.networkService.get("bug-task", true).then((response: any) => {
+        resolve(response);
+      }, error => {
+        reject(error);
+      }
+      );
+    });
+  }
+
+  getBugTask(id: number): Promise<BugTask> {
+    return new Promise((resolve, reject) => {
+      this.networkService.get("bug-task/" + id, true).then((response: any) => {
         resolve(response);
       }, error => {
         reject(error);

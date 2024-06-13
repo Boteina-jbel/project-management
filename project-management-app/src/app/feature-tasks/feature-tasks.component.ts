@@ -161,4 +161,8 @@ export class FeatureTasksComponent implements OnInit {
   openPersonPage(username: string) {
     this.router.navigate([`/user/${username}`]);
   }
+
+  openTaskPage(id: number) {
+    this.router.navigate([`/task/feature/${id}`]);
+  }
 }
