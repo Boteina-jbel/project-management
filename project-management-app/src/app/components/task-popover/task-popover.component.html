@@ -21,7 +21,7 @@
     <ion-select [(ngModel)]="status" [label]="('status' | translate)" (ionChange)="changeStatus($event)" interface="popover"
       label-placement="floating">
       <ion-select-option *ngFor="let status of statuses" [value]="status">
-        {{ status.name | translate }}
+      {{ status.name.toUpperCase() | translate }}
       </ion-select-option>
     </ion-select>
   </ion-item>
@@ -30,7 +30,7 @@
     <ion-select [(ngModel)]="priority" [label]="('priority' | translate)" interface="popover" (ionChange)="changePriority($event)"
       label-placement="floating">
       <ion-select-option *ngFor="let priority of priorities" [value]="priority">
-        {{ priority.name | translate }}
+        {{ priority.name.toUpperCase() | translate }}
       </ion-select-option>
     </ion-select>
   </ion-item>

@@ -1,3 +1,16 @@
+-- 10/06/2024
+----------------------------------------------------------------------------------
+INSERT INTO profile_endpoint (profile_id, endpoint_id, `hold`) values
+    ((select id from profile where code = 'PM'), (select id from endpoint where method = 'GET' and value = '/user/profileCode/*'), 0),
+((select id from profile where code = 'TM'), (select id from endpoint where method = 'GET' and value = '/user/profileCode/*'), 0),
+((select id from profile where code = 'SH'), (select id from endpoint where method = 'GET' and value = '/user/profileCode/*'), 0);
+
+
+INSERT INTO profile_endpoint (profile_id, endpoint_id, `hold`) values
+    ((select id from profile where code = 'PM'), (select id from endpoint where method = 'GET' and value = '/user/profileCode/*'), 0),
+    ((select id from profile where code = 'TM'), (select id from endpoint where method = 'GET' and value = '/user/profileCode/*'), 0),
+    ((select id from profile where code = 'SH'), (select id from endpoint where method = 'GET' and value = '/user/profileCode/*'), 0);
+
 -- 06/06/2024
 ----------------------------------------------------------------------------------
 INSERT INTO task_status (code, name, color, position) VALUES

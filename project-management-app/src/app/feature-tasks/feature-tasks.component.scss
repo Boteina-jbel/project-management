@@ -178,3 +178,29 @@ ion-item {
     }
 }
 
+
+.search {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    background-color: var(--white-color);
+    padding: 20px 0;
+    border-radius: 5px;
+
+    ion-select {
+        width: 20% !important;
+        margin: 8px 0;
+        --padding-start: 10px;
+        --padding-end: 10px;
+        border-radius: 5px;
+        box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+
+        @media screen and (max-width: 999px) {
+            width: 95% !important;
+        }
+    }
+
+    ion-button {
+        margin: 8px 0;
+    }
+}

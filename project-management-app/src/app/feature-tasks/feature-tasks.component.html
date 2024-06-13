@@ -15,7 +15,7 @@
                     &nbsp;
                     <ion-button fill="clear" (click)="openAddFeaturetaskModal()">
                         <ng-container>
-                            <ion-icon name="person-add-outline"></ion-icon> &nbsp; {{ 'add_featuretask' | translate }}
+                            <ion-icon name="person-add-outline"></ion-icon> &nbsp; {{ 'add_featureTask' | translate }}
                         </ng-container>
                     </ion-button>
                 </ion-buttons>
@@ -25,17 +25,53 @@
     </ion-header>
 
     <!-- Search -->
+    <div class="search">
 
+        <ion-select [(ngModel)]="project" [label]="('projectLabel' | translate)" (ionChange)="trackChange($event)" interface="popover" label-placement="floating">
+            <ion-select-option *ngFor="let project of projects" [value]="project">
+                {{ project.name }}
+            </ion-select-option>
+        </ion-select>
+
+        <!-- <ion-select [(ngModel)]="managedBy" [label]="('managedByLabel' | translate)" (ionChange)="trackChange($event)" interface="popover" label-placement="floating">
+            <ion-select-option *ngFor="let manager of managers" [value]="manager">
+                {{ manager.firstName }} {{ manager.lastName }}
+            </ion-select-option>
+        </ion-select> -->
+
+        <ion-select [(ngModel)]="assignedTo" [label]="('assignedTo' | translate)" (ionChange)="trackChange($event)" interface="popover" label-placement="floating">
+            <ion-select-option *ngFor="let teamMember of teamMembers" [value]="teamMember">
+                {{ teamMember.firstName }} {{ teamMember.lastName }}
+            </ion-select-option>
+        </ion-select>
+
+        <ion-select [(ngModel)]="status" [label]="('status' | translate)" (ionChange)="trackChange($event)" interface="popover" label-placement="floating">
+            <ion-select-option *ngFor="let status of statuses" [value]="status">
+                {{ status.name.toUpperCase() | translate }}
+            </ion-select-option>
+        </ion-select>
+
+        <ion-select [(ngModel)]="priority" [label]="('priority' | translate)" interface="popover" (ionChange)="trackChange($event)" label-placement="floating">
+            <ion-select-option *ngFor="let priority of priorities" [value]="priority">
+                {{ priority.name.toUpperCase() | translate }}
+            </ion-select-option>
+        </ion-select>
+
+        <ion-button color="primary" fill="clear" (click)="clearFilter()">
+            {{ 'clearFilter' | translate }} &nbsp; <ion-icon name="refresh-outline"></ion-icon>
+        </ion-button>
+    </div>
     <!-- List of featuretasks -->
     <section>
 
         <div class="statuses">
-            <div class="status" *ngFor="let status of statuses" [ngStyle]="{'width': getWidth(statuses.length) + '%', 'min-width': '300px'}">
+            <div class="status" *ngFor="let status of statuses"
+                [ngStyle]="{'width': getWidth(statuses.length) + '%', 'min-width': '300px'}">
                 <div class="header" [ngStyle]="{'background-color': status.color}">
-                    <h4>{{status.name}}</h4>
+                    <h4> {{ status.name.toUpperCase() | translate }} </h4>
                 </div>
                 <div class="tasks">
-                    <ng-container *ngFor="let featureTask of featureTasks">
+                    <ng-container *ngFor="let featureTask of filteredTasks">
                         <div class="featuretask-card" *ngIf="featureTask.status && featureTask.status.id === status.id">
                             <div class="card-content">
                                 <span>
@@ -69,7 +105,7 @@
                                     &nbsp;
                                     <ion-badge *ngIf="featureTask?.priority"
                                         [ngStyle]="{'--background': featureTask.priority.color, 'padding': '3px 8px'}">
-                                        {{featureTask?.priority?.name}}
+                                        {{ featureTask?.priority?.name.toUpperCase() | translate }}
                                     </ion-badge>
                                 </span>
                                 <div class="card-bottom-buttons">
@@ -78,6 +114,7 @@
                                         <ion-icon name="create-outline"></ion-icon>
                                     </ion-button>
                                     <ion-button color="primary" fill="clear">
+                                        {{ 'moreDetailsLabel' | translate }} &nbsp;
                                         <ion-icon name="arrow-forward-outline"></ion-icon>
                                     </ion-button>
                                 </div>
