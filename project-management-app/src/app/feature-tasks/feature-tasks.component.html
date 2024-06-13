@@ -78,13 +78,13 @@
                                     <div class="card-header" style="display: flex; justify-content: space-between;">
                                         <div>
                                             <ion-card-title> {{featureTask.name}} </ion-card-title>
-                                            <ion-card-subtitle *ngIf="featureTask?.assignedTo">
+                                            <ion-card-subtitle *ngIf="featureTask?.assignedTo" (click)="openPersonPage(featureTask?.assignedTo?.username)">
                                                 <ion-icon name="person-outline"></ion-icon>
                                                 &nbsp; {{'assignedTo'| translate}}
                                                 {{featureTask?.assignedTo?.firstName}}
                                                 {{featureTask?.assignedTo?.lastName}}
                                             </ion-card-subtitle>
-                                            <ion-card-subtitle>
+                                            <ion-card-subtitle (click)="openPersonPage(featureTask?.createdBy?.username)">
                                                 <ion-icon name="person-outline"></ion-icon>
                                                 &nbsp; {{'createdBy'| translate}} {{featureTask?.createdBy?.firstName}}
                                                 {{featureTask?.createdBy?.lastName}}

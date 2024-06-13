@@ -32,6 +32,7 @@ import { BugTasksComponent } from './bug-tasks/bug-tasks.component';
 import { ProjectModalComponent } from './components/project-modal/project-modal.component';
 import { FeaturetaskModalComponent } from './components/featuretask-modal/featuretask-modal.component';
 import { TaskPopoverComponent } from './components/task-popover/task-popover.component';
+import { BugTaskModalComponent } from './components/bug-task-modal/bug-task-modal.component';
 
 export function ConfigLoader(configurationService: ConfigurationService) {
   return () => configurationService.load(environment.configFile);
@@ -62,7 +63,9 @@ export function HttpLoaderFactory(http: HttpClient) {
     BugTasksComponent,
     ProjectModalComponent,
     FeaturetaskModalComponent,
-    TaskPopoverComponent
+    TaskPopoverComponent,
+    BugTaskModalComponent,
+    FeaturetaskModalComponent,
   ],
   imports: [
     BrowserModule,

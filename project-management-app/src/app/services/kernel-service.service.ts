@@ -8,6 +8,7 @@ import { Project } from '../models/Project';
 import { FeatureTask } from '../models/FeatureTask';
 import { TaskStatus } from '../models/TaskStatus';
 import { Priority } from '../models/Priority';
+import { BugTask } from '../models/BugTask';
 
 @Injectable({
   providedIn: 'root'
@@ -56,6 +57,18 @@ export class KernelServiceService {
   getFeatureTasks(): Promise<FeatureTask[]> {
     return new Promise((resolve, reject) => {
       this.networkService.get("feature-task", true).then((response: any) => {
+        resolve(response);
+      }, error => {
+        reject(error);
+      }
+      );
+    });
+  }
+
+
+  getBugTasks(): Promise<BugTask[]> {
+    return new Promise((resolve, reject) => {
+      this.networkService.get("bug-task", true).then((response: any) => {
         resolve(response);
       }, error => {
         reject(error);

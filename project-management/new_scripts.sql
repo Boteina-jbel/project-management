@@ -1,3 +1,13 @@
+
+INSERT INTO endpoint (method, value, hold) Values
+('GET', '/bug-task', 0);
+
+INSERT INTO profile_endpoint (profile_id, endpoint_id, `hold`) values
+((select id from profile where code = 'ADMIN'), (select id from endpoint where method = 'GET' and value = '/bug-task'), 0),
+((select id from profile where code = 'PM'), (select id from endpoint where method = 'GET' and value = '/bug-task'), 0),
+((select id from profile where code = 'TM'), (select id from endpoint where method = 'GET' and value = '/bug-task'), 0),
+((select id from profile where code = 'SH'), (select id from endpoint where method = 'GET' and value = '/bug-task'), 0);
+
 -- 10/06/2024
 ----------------------------------------------------------------------------------
 INSERT INTO profile_endpoint (profile_id, endpoint_id, `hold`) values

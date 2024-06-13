@@ -157,4 +157,8 @@ export class FeatureTasksComponent implements OnInit {
     this.filteredTasks = [...this.featureTasks]; // Reset to original list
   }
 
+
+  openPersonPage(username: string) {
+    this.router.navigate([`/user/${username}`]);
+  }
 }
