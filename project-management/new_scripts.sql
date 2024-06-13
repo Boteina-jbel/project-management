@@ -14,17 +14,17 @@ INSERT INTO profile_endpoint (profile_id, endpoint_id, `hold`) values
 -- 06/06/2024
 ----------------------------------------------------------------------------------
 INSERT INTO task_status (code, name, color, position) VALUES
-('TODO', 'To Do', '#FF0000', 1),       -- Red for tasks that are to be done
-('IN_PROGRESS', 'In Progress', '#FFFF00', 2),  -- Yellow for tasks that are in progress
-('COMPLETED', 'Completed', '#00FF00', 3),      -- Green for tasks that are completed
-('BLOCKED', 'Blocked', '#0000FF', 4);          -- Blue for tasks that are blocked
+('TODO', 'To Do', '#e0e1dd', 1),       -- Red for tasks that are to be done
+('IN_PROGRESS', 'In Progress', '#ffc300', 2),  -- Yellow for tasks that are in progress
+('COMPLETED', 'Completed', '#38b000', 3),      -- Green for tasks that are completed
+('BLOCKED', 'Blocked', '#e5383b', 4);          -- Blue for tasks that are blocked
 
 
 INSERT INTO priority (code, name, color) VALUES
     ('LOW', 'Low', '#00FF00'),         -- Green for low priority tasks
-('MEDIUM', 'Medium', '#FFFF00'),   -- Yellow for medium priority tasks
+('MEDIUM', 'Medium', '#ffc300'),   -- Yellow for medium priority tasks
 ('HIGH', 'High', '#FFA500'),       -- Orange for high priority tasks
-('URGENT', 'Urgent', '#FF0000');   -- Red for urgent priority tasks
+('URGENT', 'Urgent', '#E23636');   -- Red for urgent priority tasks
 
 INSERT INTO endpoint (method, value, hold) Values
     ('POST', '/priority', 0),
