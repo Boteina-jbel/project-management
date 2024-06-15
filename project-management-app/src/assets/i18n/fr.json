@@ -84,5 +84,12 @@
     "statusLabel": "Statut",
     "selectStatusLabel": "Sélectionnez le statut",
     "projectLabel": "Projet",
-    "selectProjectLabel": "Sélectionnez le projet"
+    "selectProjectLabel": "Sélectionnez le projet",
+    "add_bugTask": "Ajouter une tache de bogue",
+    "priority": "Priorité",
+    "status": "Statut",
+    "bugTaskRegistrationTitle": "Enregistrement d'une bogue tache",
+    "bugTaskRegistrationDescription": "Enregistrer une nouvelle bogue tache",
+    "addUserTitle": "Ajouter un utilisateur",
+    "addUserDescription": "Ajouter un nouveau utilisateur"
 }
