@@ -84,5 +84,8 @@
     "statusLabel": "Status",
     "selectStatusLabel": "Select status",
     "projectLabel": "Project",
-    "selectProjectLabel": "Select project"
+    "selectProjectLabel": "Select project",
+    "add_bugTask": "Add bug task",
+    "priority": "Priority",
+    "status": "Status"
 }
