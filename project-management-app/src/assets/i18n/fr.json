@@ -87,5 +87,7 @@
     "selectProjectLabel": "Sélectionnez le projet",
     "add_bugTask": "Ajouter une tache de bogue",
     "priority": "Priorité",
-    "status": "Statut"
+    "status": "Statut",
+    "bugTaskRegistrationTitle": "Enregistrement d'une bogue tache",
+    "bugTaskRegistrationDescription": "Enregistrer une nouvelle bogue tache"
 }
