@@ -3,6 +3,7 @@ package project.management.dto;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import project.management.entities.User;
 
 import java.util.Date;
 
@@ -14,7 +15,6 @@ public class CommentResponseDto {
     private Long id;
     private String content;
     private Date createdAt;
-    private Long authorId;
-    private String authorFirstName;
+    private User author;
     private Long taskId;
 }

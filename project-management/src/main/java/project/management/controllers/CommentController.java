@@ -22,8 +22,8 @@ public class CommentController {
     }
 
     @PostMapping("")
-    public ResponseEntity<CommentResponseDto> addComment(@RequestBody CommentRequestDto commentRequestDto) {
-        CommentResponseDto addedComment = commentService.save(commentRequestDto);
+    public ResponseEntity<CommentResponseDto> addComment(@RequestBody CommentRequestDto commentRequestDto, @RequestHeader(name = "username") String username) {
+        CommentResponseDto addedComment = commentService.save(commentRequestDto, username);
         return ResponseEntity.status(HttpStatus.CREATED).body(addedComment);
     }
 

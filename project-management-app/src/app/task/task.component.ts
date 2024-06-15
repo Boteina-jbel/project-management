@@ -6,6 +6,7 @@ import { ModalController } from '@ionic/angular';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BugTask } from '../models/BugTask';
 import { FeatureTask } from '../models/FeatureTask';
+import { Comment } from '../models/Comment';
 
 @Component({
   selector: 'app-task',
@@ -18,6 +19,8 @@ export class TaskComponent  implements OnInit {
   id                : number | null;
   bugTask           : BugTask;
   featureTask       : FeatureTask;
+  comment           : string;
+  comments           : Comment[];
 
   constructor(
     private adminService: AdminServiceService,
@@ -40,9 +43,20 @@ export class TaskComponent  implements OnInit {
     } else if(this.type && this.type === 'bug' && this.id) {
       this.bugTask = await this.kernelService.getBugTask(this.id);
     }
+
+    if(this.id) this.comments = await this.kernelService.getComments(this.id);
+
   }
 
   openPersonPage(username: string) {
     this.router.navigate([`/user/${username}`]);
+  }
+
+  async addComment() {
+    const comment = new Comment();
+    comment.content = this.comment; 
+    if(this.bugTask) comment.task = this.bugTask; 
+    if(this.featureTask) comment.task = this.featureTask; 
+    await this.kernelService.addCommment(comment);
   }
 }

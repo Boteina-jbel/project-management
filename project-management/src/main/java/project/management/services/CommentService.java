@@ -7,7 +7,7 @@ import project.management.dto.CommentResponseDto;
 
 public interface CommentService {
 
-    CommentResponseDto save(CommentRequestDto commentRequestDto);
+    CommentResponseDto save(CommentRequestDto commentRequestDto, String username);
 
     CommentResponseDto findById(Long id);
 

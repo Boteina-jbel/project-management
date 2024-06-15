@@ -8,7 +8,11 @@ import project.management.repositories.CommentRepository;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
+import project.management.repositories.UserRepository;
+import project.management.utils.ErrorCode;
+import project.management.utils.ProjectManagementException;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -19,14 +23,20 @@ public class CommentServiceImpl implements CommentService {
     private final CommentRepository commentRepository;
     private final ModelMapper modelMapper;
 
-    public CommentServiceImpl(CommentRepository commentRepository, ModelMapper modelMapper) {
+    private final UserRepository userRepository;
+
+    public CommentServiceImpl(CommentRepository commentRepository, ModelMapper modelMapper, UserRepository userRepository) {
         this.commentRepository = commentRepository;
         this.modelMapper = modelMapper;
+        this.userRepository = userRepository;
     }
 
     @Override
-    public CommentResponseDto save(CommentRequestDto commentRequestDto) {
+    public CommentResponseDto save(CommentRequestDto commentRequestDto, String username) {
         Comment comment = modelMapper.map(commentRequestDto, Comment.class);
+        if(comment.getTask() != null || comment.getTask().getId() != null) throw new ProjectManagementException(ErrorCode.comment_task_null, "Comment task can't be null");
+        comment.setAuthor(userRepository.findByUsername(username));
+        comment.setCreatedAt(new Date());
         Comment saved = commentRepository.save(comment);
         return modelMapper.map(saved, CommentResponseDto.class);
     }

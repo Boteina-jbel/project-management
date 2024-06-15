@@ -6,10 +6,31 @@
           md="trending-up-outline"></ion-icon>
         &nbsp; {{featureTask.name}}
       </h1>
+      <br />
+      <h4>{{'description'| translate}}</h4>
+      <p>{{featureTask.description}}</p>
+
+      <h4>{{'comments'| translate}}</h4>
+      <div style="padding: 5px">
+        <ion-textarea rows="2" [(ngModel)]="comment" label="{{ 'comment' | translate}}" labelPlacement="floating" fill="outline" placeholder="{{ 'enterComment' | translate}}"></ion-textarea>
+      
+        <div style="display: flex; justify-content: flex-end; padding: 5px 0;">
+          <ion-button type="submit" (click)="addComment()">
+            <ion-icon name="send-outline" slot="end"></ion-icon>
+            {{ 'saveButtonLabel' | translate }} &nbsp;
+          </ion-button>
+        </div>
+      </div>
+
+      <div *ngFor="let comment of comments">
+          {{ comment.content }}
+      </div>
+
+
+
     </div>
     <div class="side-2">
       <h1>{{'details'| translate}}</h1>
-      <ion-list color="white">
         <ion-item color="white">
           <ion-label>
             <h4>{{'assignedTo'| translate}}</h4>
@@ -58,7 +79,6 @@
             <h5>&nbsp; {{featureTask?.createdAt}}</h5>
           </ion-label>
         </ion-item>
-      </ion-list>
     </div>
   </section>
   <section *ngIf="bugTask">

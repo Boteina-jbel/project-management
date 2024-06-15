@@ -9,6 +9,7 @@ import { FeatureTask } from '../models/FeatureTask';
 import { TaskStatus } from '../models/TaskStatus';
 import { Priority } from '../models/Priority';
 import { BugTask } from '../models/BugTask';
+import { Comment } from '../models/Comment';
 
 @Injectable({
   providedIn: 'root'
@@ -152,4 +153,43 @@ export class KernelServiceService {
     });
   }
   
+  getComments(taskId: number) : Promise<Comment[]> {
+    return new Promise((resolve, reject) => {
+      this.networkService.get(`comment/task/${taskId}`, true).then((response: any) => {
+        resolve(response);
+      }).catch(error => {
+        reject(error);
+      });
+    });
+  }
+
+  addCommment(comment: Comment): Promise<Comment> {
+    return new Promise((resolve, reject) => {
+      this.networkService.post(`comment`, comment, true).then((response: any) => {
+        resolve(response);
+      }).catch(error => {
+        reject(error);
+      });
+    });
+  }
+
+  saveCommment(comment: Comment): Promise<Comment> {
+    return new Promise((resolve, reject) => {
+      this.networkService.put(`comment//${comment.id}`, comment, true).then((response: any) => {
+        resolve(response);
+      }).catch(error => {
+        reject(error);
+      });
+    });
+  }
+
+  deleteCommment(commentId: number): Promise<Comment> {
+    return new Promise((resolve, reject) => {
+      this.networkService.delete(`comment/${commentId}`, true).then((response: any) => {
+        resolve(response);
+      }).catch(error => {
+        reject(error);
+      });
+    });
+  }
 }
