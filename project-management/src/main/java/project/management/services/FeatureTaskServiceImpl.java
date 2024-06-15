@@ -6,9 +6,11 @@ import org.springframework.stereotype.Service;
 import project.management.dto.FeatureTaskRequestDto;
 import project.management.dto.FeatureTaskResponseDto;
 import project.management.entities.FeatureTask;
+import project.management.entities.Priority;
 import project.management.entities.TaskStatus;
 import project.management.entities.User;
 import project.management.repositories.FeatureTaskRepository;
+import project.management.repositories.PriorityRepository;
 import project.management.repositories.TaskStatusRepository;
 import project.management.repositories.UserRepository;
 
@@ -26,12 +28,14 @@ public class FeatureTaskServiceImpl implements FeatureTaskService {
     private final ModelMapper modelMapper;
     private final UserRepository userRepository;
     private final TaskStatusRepository taskStatusRepository;
+    private final PriorityRepository priorityRepository;
 
-    public FeatureTaskServiceImpl(FeatureTaskRepository featureTaskRepository, ModelMapper modelMapper, UserRepository userRepository, TaskStatusRepository taskStatusRepository) {
+    public FeatureTaskServiceImpl(FeatureTaskRepository featureTaskRepository, ModelMapper modelMapper, UserRepository userRepository, TaskStatusRepository taskStatusRepository, PriorityRepository priorityRepository) {
         this.featureTaskRepository = featureTaskRepository;
         this.modelMapper = modelMapper;
         this.userRepository = userRepository;
         this.taskStatusRepository = taskStatusRepository;
+        this.priorityRepository = priorityRepository;
     }
 
     @Override
@@ -107,15 +111,25 @@ public class FeatureTaskServiceImpl implements FeatureTaskService {
     }
 
     @Override
-    public FeatureTaskResponseDto changeTaskStatus(Long taskId, String statusName) {
+    public FeatureTaskResponseDto changeTaskStatus(Long taskId, Long taskStatusId) {
         FeatureTask featureTask = featureTaskRepository.findById(taskId)
                 .orElseThrow(() -> new RuntimeException("Feature task not found"));
-        TaskStatus status = taskStatusRepository.findByName(statusName)
+        TaskStatus status = taskStatusRepository.findById(taskStatusId)
                 .orElseThrow(() -> new RuntimeException("Task status not found"));
         featureTask.setStatus(status);
         FeatureTask updatedTask = featureTaskRepository.save(featureTask);
         return modelMapper.map(updatedTask, FeatureTaskResponseDto.class);
     }
+
+    @Override
+    public FeatureTaskResponseDto changeTaskPriority(Long taskId, Long priorityId) {
+        FeatureTask featureTask = featureTaskRepository.findById(taskId)
+                .orElseThrow(() -> new RuntimeException("Feature task not found"));
+        Priority priority = priorityRepository.findById(priorityId)
+                .orElseThrow(() -> new RuntimeException("Task status not found"));
+        featureTask.setPriority(priority);
+        FeatureTask updatedTask = featureTaskRepository.save(featureTask);
+        return modelMapper.map(updatedTask, FeatureTaskResponseDto.class);    }
 
     @Override
     public List<FeatureTaskResponseDto> findAll() {

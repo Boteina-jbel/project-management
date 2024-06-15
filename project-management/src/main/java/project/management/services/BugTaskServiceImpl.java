@@ -115,4 +115,11 @@ public class BugTaskServiceImpl implements BugTaskService {
         BugTask updatedTask = bugTaskRepository.save(bugTask);
         return modelMapper.map(updatedTask, BugTaskResponseDto.class);
     }
+
+    @Override
+    public List<BugTaskResponseDto> findAll() {
+        return bugTaskRepository.findAll()
+                .stream().map(el -> modelMapper.map(el, BugTaskResponseDto.class))
+                .collect(Collectors.toList());
+    }
 }

@@ -47,7 +47,7 @@
       </ion-item>
 
       <ion-item lines="full">
-        <ion-select formControlName="status"  [(ngModel)]="status" label="{{ 'statusLabel' | translate }}" placeholder="{{ 'selectStatusLabel' | translate }}">
+        <ion-select formControlName="status"  [(ngModel)]="status" label="{{ 'statusLabel' | translate }}" placeholder="{{ 'selectStatusLabel' | translate }}" >
           <ion-select-option *ngFor="let status of statuses" [value]="status">{{ status.name }}</ion-select-option>
         </ion-select>
       </ion-item>

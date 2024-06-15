@@ -19,6 +19,7 @@ public class FeatureTaskResponseDto {
         private TaskStatus status;
         private Date createdAt;
         private User assignedTo;
+        private User createdBy;
         private Project project;
         private Priority priority;
         private String acceptanceCriteria;

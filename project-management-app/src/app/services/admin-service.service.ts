@@ -8,6 +8,7 @@ import { Filter } from '../models/Filter';
 import { User } from '../models/User';
 import { Project } from '../models/Project';
 import { FeatureTask } from '../models/FeatureTask';
+import { BugTask } from '../models/BugTask';
 @Injectable({
   providedIn: 'root'
 })
@@ -119,4 +120,38 @@ export class AdminServiceService {
       );
     });
   }
+
+  saveBugTask(bugTask: BugTask): Promise<BugTask> {
+    return new Promise((resolve, reject) => {
+      this.networkService.post("bug-task", bugTask, true).then((response: any) => {
+        resolve(response);
+      }, error => {
+        reject(error);
+      }
+      );
+    });
+  }
+
+  updateBugTask(bugTask: BugTask): Promise<BugTask> {
+    return new Promise((resolve, reject) => {
+      this.networkService.put("bug-task/" + bugTask.id, bugTask, true).then((response: any) => {
+        resolve(response);
+      }, error => {
+        reject(error);
+      }
+      );
+    });
+  }
+
+  deleteBugTask(bugTaskId: number): Promise<BugTask> {
+    return new Promise((resolve, reject) => {
+      this.networkService.delete("bug-task/" + bugTaskId, true).then((response: any) => {
+        resolve(response);
+      }, error => {
+        reject(error);
+      }
+      );
+    });
+  }
+
 }

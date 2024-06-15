@@ -62,6 +62,5 @@
     "managedByLabel": "Managed By",
     "selectManagersLabel": "Select Managers",
     "featureTaskRegistrationTitle": "Feature Task Registration",
-    "featureTaskRegistrationDescription":"Register a new feature task",
-    "featuretasks_management":"Feature tasks"
+    "featureTaskRegistrationDescription":"Register a new feature task"
 }

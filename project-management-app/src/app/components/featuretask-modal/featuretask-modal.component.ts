@@ -41,13 +41,13 @@ export class FeaturetaskModalComponent  implements OnInit {
   async ngOnInit() {
     this.featureTaskForm = this.formBuilder.group({
       id             : [this.featureTask ? this.featureTask.id           : '' ],
-      priority       : [this.featureTask ? this.featureTask.priority    : '' , Validators.required],
+      priority       : [this.featureTask ? this.featureTask.priority    : '' ],
       name           : [this.featureTask ? this.featureTask.name         : '' , [Validators.required]],
       description    : [this.featureTask ? this.featureTask.description  : '' , [Validators.required]],
-      estimatedTime    : [this.featureTask ? this.featureTask.estimatedTime  : '' , [Validators.required, this.timeValidator]],
-      assignedTo     : [this.featureTask ? this.featureTask.assignedTo    : '' , [Validators.required]],
-      status         : [this.featureTask ? this.featureTask.status    : '' , [Validators.required]],
-      project         : [this.featureTask ? this.featureTask.project    : '' , [Validators.required]],
+      estimatedTime    : [this.featureTask ? this.featureTask.estimatedTime  : ''],
+      assignedTo     : [this.featureTask ? this.featureTask.assignedTo    : ''],
+      status         : [this.featureTask ? this.featureTask.status    : '' ],
+      project         : [this.featureTask ? this.featureTask.project    : ''],
       acceptanceCriteria         : [this.featureTask ? this.featureTask.acceptanceCriteria    : ''],
     });
 
@@ -60,10 +60,10 @@ export class FeaturetaskModalComponent  implements OnInit {
 
 
     if (this.featureTask) {
-      this.assignedTo = this.teamMembers[this.teamMembers.findIndex(e => e.id === this.featureTask.assignedTo.id)];
-      this.project = this.projects[this.projects.findIndex(e => e.id === this.featureTask.project.id)];
-      this.status = this.statuses[this.statuses.findIndex(e => e.id === this.featureTask.status.id)];
-      this.priority = this.priorities[this.priorities.findIndex(e => e.id === this.featureTask.priority.id)];
+      if(this.featureTask.assignedTo) this.assignedTo = this.teamMembers[this.teamMembers.findIndex(e => e.id === this.featureTask.assignedTo.id)];
+      if(this.featureTask.project) this.project = this.projects[this.projects.findIndex(e => e.id === this.featureTask.project.id)];
+      if(this.featureTask.status) this.status = this.statuses[this.statuses.findIndex(e => e.id === this.featureTask.status.id)];
+      if(this.featureTask.priority) this.priority = this.priorities[this.priorities.findIndex(e => e.id === this.featureTask.priority.id)];
     }
   }
 

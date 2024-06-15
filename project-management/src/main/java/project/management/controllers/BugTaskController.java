@@ -75,4 +75,9 @@ public class BugTaskController {
     public ResponseEntity<BugTaskResponseDto> changeTaskStatus(@PathVariable Long taskId, @RequestParam String status) {
         return ResponseEntity.ok(bugTaskService.changeTaskStatus(taskId, status));
     }
+
+    @GetMapping("")
+    public ResponseEntity<List<BugTaskResponseDto>> getBugTasks(){
+        return new ResponseEntity<>(bugTaskService.findAll(), HttpStatus.OK);
+    }
 }

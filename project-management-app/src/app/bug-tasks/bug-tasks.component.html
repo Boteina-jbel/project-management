@@ -4,21 +4,189 @@
         <ion-toolbar>
             <div class="header">
                 <div class="title">
-                    <span><ion-icon name="trending-up-outline"></ion-icon> </span>
+                    <span><ion-icon name="briefcase-outline"></ion-icon></span>
                     <h1>{{ 'menu.feature-tasks' | translate }}</h1>
                 </div>
                 <ion-buttons slot="end">
-                    <ion-button fill="clear">
+                    <ion-button fill="clear" (click)="reload()">
                         <ion-icon name="refresh-outline"></ion-icon> &nbsp; {{ 'reload' | translate }}
                     </ion-button>
+
                     &nbsp;
-                    <ion-button fill="clear">
-                        <ion-icon name="person-add-outline"></ion-icon> &nbsp; {{ 'add_feature_task' | translate }}
+                    <ion-button fill="clear" (click)="openAddBugTaskModal()">
+                        <ng-container>
+                            <ion-icon name="person-add-outline"></ion-icon> &nbsp; {{ 'add_bugTask' | translate }}
+                        </ng-container>
                     </ion-button>
                 </ion-buttons>
             </div>
+
         </ion-toolbar>
     </ion-header>
 
+    <!-- Search -->
+    <div class="search">
 
+        <ion-select [(ngModel)]="project" [label]="('projectLabel' | translate)" (ionChange)="trackChange($event)" interface="popover" label-placement="floating">
+            <ion-select-option *ngFor="let project of projects" [value]="project">
+                {{ project.name }}
+            </ion-select-option>
+        </ion-select>
+
+        <!-- <ion-select [(ngModel)]="managedBy" [label]="('managedByLabel' | translate)" (ionChange)="trackChange($event)" interface="popover" label-placement="floating">
+            <ion-select-option *ngFor="let manager of managers" [value]="manager">
+                {{ manager.firstName }} {{ manager.lastName }}
+            </ion-select-option>
+        </ion-select> -->
+
+        <ion-select [(ngModel)]="assignedTo" [label]="('assignedTo' | translate)" (ionChange)="trackChange($event)" interface="popover" label-placement="floating">
+            <ion-select-option *ngFor="let teamMember of teamMembers" [value]="teamMember">
+                {{ teamMember.firstName }} {{ teamMember.lastName }}
+            </ion-select-option>
+        </ion-select>
+
+        <ion-select [(ngModel)]="status" [label]="('status' | translate)" (ionChange)="trackChange($event)" interface="popover" label-placement="floating">
+            <ion-select-option *ngFor="let status of statuses" [value]="status">
+                {{ status.name.toUpperCase() | translate }}
+            </ion-select-option>
+        </ion-select>
+
+        <ion-select [(ngModel)]="priority" [label]="('priority' | translate)" interface="popover" (ionChange)="trackChange($event)" label-placement="floating">
+            <ion-select-option *ngFor="let priority of priorities" [value]="priority">
+                {{ priority.name.toUpperCase() | translate }}
+            </ion-select-option>
+        </ion-select>
+
+        <ion-button color="primary" fill="clear" (click)="clearFilter()">
+            {{ 'clearFilter' | translate }} &nbsp; <ion-icon name="refresh-outline"></ion-icon>
+        </ion-button>
+    </div>
+    <!-- List of bugTasks -->
+    <section>
+
+        <div class="statuses">
+            <div class="status" *ngFor="let status of statuses"
+                [ngStyle]="{'width': getWidth(statuses.length) + '%', 'min-width': '300px'}">
+                <div class="header" [ngStyle]="{'background-color': status.color}">
+                    <h4> {{ status.name.toUpperCase() | translate }} </h4>
+                </div>
+                <div class="tasks">
+                    <ng-container *ngFor="let bugTask of filteredTasks">
+                        <div class="bugTask-card" *ngIf="bugTask.status && bugTask.status.id === status.id">
+                            <div class="card-content">
+                                <span>
+                                    <div class="card-header" style="display: flex; justify-content: space-between;">
+                                        <div>
+                                            <ion-card-title (click)="openTaskPage(bugTask.id)"> {{bugTask.name}} </ion-card-title>
+                                            <ion-card-subtitle *ngIf="bugTask?.assignedTo" (click)="openPersonPage(bugTask?.assignedTo?.username)">
+                                                <ion-icon name="person-outline"></ion-icon>
+                                                &nbsp; {{'assignedTo'| translate}}
+                                                {{bugTask?.assignedTo?.firstName}}
+                                                {{bugTask?.assignedTo?.lastName}}
+                                            </ion-card-subtitle>
+                                            <ion-card-subtitle (click)="openPersonPage(bugTask?.createdBy?.username)">
+                                                <ion-icon name="person-outline"></ion-icon>
+                                                &nbsp; {{'createdBy'| translate}} {{bugTask?.createdBy?.firstName}}
+                                                {{bugTask?.createdBy?.lastName}}
+                                            </ion-card-subtitle>
+                                        </div>
+                                        <ion-button color="primary" fill="clear"
+                                            (click)="presentPopover($event, bugTask)">
+                                            <ion-icon name="ellipsis-vertical-outline"></ion-icon>
+                                        </ion-button>
+                                    </div>
+                                    <ion-card-content (click)="openTaskPage(bugTask.id)">
+                                        <p> {{bugTask?.description}} </p>
+                                    </ion-card-content>
+                                    <ion-badge *ngIf="bugTask?.project" [ngStyle]="{'padding': '3px 8px'}">
+                                        <ion-icon name="briefcase-outline"></ion-icon> &nbsp;
+                                        {{bugTask?.project?.name}}
+                                    </ion-badge>
+                                    &nbsp;
+                                    <ion-badge *ngIf="bugTask?.priority"
+                                        [ngStyle]="{'--background': bugTask.priority.color, 'padding': '3px 8px'}">
+                                        {{ bugTask?.priority?.name.toUpperCase() | translate }}
+                                    </ion-badge>
+                                </span>
+                                <div class="card-bottom-buttons">
+                                    <ion-button color="primary" fill="clear"
+                                        (click)="openFeatureTaskModal(bugTask)">
+                                        <ion-icon name="create-outline"></ion-icon>
+                                    </ion-button>
+                                    <ion-button color="primary" fill="clear" (click)="openTaskPage(bugTask.id)">
+                                        {{ 'moreDetailsLabel' | translate }} &nbsp;
+                                        <ion-icon name="arrow-forward-outline"></ion-icon>
+                                    </ion-button>
+                                </div>
+                            </div>
+                        </div>
+                    </ng-container>
+                </div>
+            </div>
+        </div>
+
+        <h1> {{ 'backlog' | translate }} </h1>
+
+        <ng-container *ngFor="let bugTask of bugTasks">
+            <div class="bugTask-card bugTask-card-backlog" *ngIf="!bugTask.status">
+
+                <ion-accordion-group>
+                    <ion-accordion value="first">
+                        <ion-item slot="header" color="white">
+                            <ion-label>{{bugTask.name}}</ion-label>
+                        </ion-item>
+                        <div class="ion-padding" slot="content">
+                            <div class="card-content">
+                                <span>
+                                    <div class="card-header" style="display: flex; justify-content: space-between;">
+                                        <div>
+                                            <ion-card-title> {{bugTask.name}} </ion-card-title>
+                                            <ion-card-subtitle *ngIf="bugTask?.assignedTo">
+                                                <ion-icon name="person-outline"></ion-icon>
+                                                &nbsp; {{'assignedTo'| translate}}
+                                                {{bugTask?.assignedTo?.firstName}}
+                                                {{bugTask?.assignedTo?.lastName}}
+                                            </ion-card-subtitle>
+                                            <ion-card-subtitle>
+                                                <ion-icon name="person-outline"></ion-icon>
+                                                &nbsp; {{'createdBy'| translate}} {{bugTask?.createdBy?.firstName}}
+                                                {{bugTask?.createdBy?.lastName}}
+                                            </ion-card-subtitle>
+                                        </div>
+                                        <ion-button color="primary" fill="clear"
+                                            (click)="presentPopover($event, bugTask)">
+                                            <ion-icon name="ellipsis-vertical-outline"></ion-icon>
+                                        </ion-button>
+                                    </div>
+                                    <ion-card-content>
+                                        <p> {{bugTask?.description}} </p>
+                                    </ion-card-content>
+                                    <ion-badge *ngIf="bugTask?.project" [ngStyle]="{'padding': '3px 8px'}">
+                                        <ion-icon name="briefcase-outline"></ion-icon> &nbsp;
+                                        {{bugTask?.project?.name}}
+                                    </ion-badge>
+                                    &nbsp;
+                                    <ion-badge *ngIf="bugTask?.priority"
+                                        [ngStyle]="{'--background': bugTask.priority.color, 'padding': '3px 8px'}">
+                                        {{bugTask?.priority?.name}}
+                                    </ion-badge>
+                                </span>
+                                <div class="card-bottom-buttons">
+                                    <ion-button color="primary" fill="clear"
+                                        (click)="openFeatureTaskModal(bugTask)">
+                                        <ion-icon name="create-outline"></ion-icon>
+                                    </ion-button>
+                                    <!-- <ion-button color="primary" fill="clear">
+                                        <ion-icon name="arrow-forward-outline"></ion-icon>
+                                    </ion-button> -->
+                                </div>
+                            </div>
+                        </div>
+                    </ion-accordion>
+                </ion-accordion-group>
+
+
+            </div>
+        </ng-container>
+    </section>
 </app-base>

@@ -8,6 +8,7 @@ import { UserComponent } from './user/user.component';
 import { ProjectsComponent } from './projects/projects.component';
 import { FeatureTasksComponent } from './feature-tasks/feature-tasks.component';
 import { BugTasksComponent } from './bug-tasks/bug-tasks.component';
+import { TaskComponent } from './task/task.component';
 
 
 const routes: Routes = [
@@ -51,6 +52,12 @@ const routes: Routes = [
     path: 'bug-tasks', component: BugTasksComponent,
     data: {
       title: "bug-tasks",
+    }
+  },
+  {
+    path: 'task/:type/:id', component: TaskComponent,
+    data: {
+      title: "task",
     }
   }
 ];

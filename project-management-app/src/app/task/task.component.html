@@ -1,0 +1,76 @@
+<app-base>
+  <section *ngIf="featureTask">
+    <div class="side-1">
+      <h1>
+        <ion-icon class="icon" aria-hidden="true" slot="start" ios="trending-up-outline"
+          md="trending-up-outline"></ion-icon>
+        &nbsp; {{featureTask.name}}
+      </h1>
+    </div>
+    <div class="side-2">
+      <h1>{{'details'| translate}}</h1>
+      <ion-list color="white">
+        <ion-item color="white">
+          <ion-label>
+            <h4>{{'assignedTo'| translate}}</h4>
+            <h5 (click)="openPersonPage(featureTask?.assignedTo?.username)">&nbsp;
+              {{featureTask?.assignedTo?.firstName}}
+              {{featureTask?.assignedTo?.lastName}}</h5>
+          </ion-label>
+        </ion-item>
+        <ion-item color="white">
+          <ion-label>
+            <h4>{{'status'| translate}}</h4>
+            <h5 [ngStyle]="{'color': featureTask?.status?.color}">&nbsp; {{ featureTask?.status?.name.toUpperCase() |
+              translate }}</h5>
+          </ion-label>
+        </ion-item>
+        <ion-item color="white">
+          <ion-label>
+            <h4>{{'estimatedTime'| translate}}</h4>
+            <h5>&nbsp; {{featureTask?.estimatedTime}}</h5>
+          </ion-label>
+        </ion-item>
+        <ion-item color="white">
+          <ion-label>
+            <h4>{{'project'| translate}}</h4>
+            <h5>&nbsp; {{featureTask?.project?.name}}</h5>
+          </ion-label>
+        </ion-item>
+        <ion-item color="white">
+          <ion-label>
+            <h4>{{'priority'| translate}}</h4>
+            <h5 [ngStyle]="{'color': featureTask?.priority?.color}">&nbsp; {{ featureTask?.priority?.name.toUpperCase()
+              |
+              translate }}</h5>
+          </ion-label>
+        </ion-item>
+        <ion-item color="white">
+          <ion-label>
+            <h4>{{'createdBy'| translate}}</h4>
+            <h5 (click)="openPersonPage(featureTask?.createdBy?.username)">&nbsp; {{featureTask?.createdBy?.firstName}}
+              {{featureTask?.createdBy?.lastName}}</h5>
+          </ion-label>
+        </ion-item>
+        <ion-item color="white">
+          <ion-label>
+            <h4>{{'createdAt'| translate}}</h4>
+            <h5>&nbsp; {{featureTask?.createdAt}}</h5>
+          </ion-label>
+        </ion-item>
+      </ion-list>
+    </div>
+  </section>
+  <section *ngIf="bugTask">
+    <div class="side-1">
+      <h1>
+        <ion-icon class="icon" aria-hidden="true" slot="start" ios="bug-outline" md="bug-outline"></ion-icon>
+        &nbsp; {{bugTask.name}}
+      </h1>
+    </div>
+    <div class="side-2">
+
+    </div>
+  </section>
+
+</app-base>

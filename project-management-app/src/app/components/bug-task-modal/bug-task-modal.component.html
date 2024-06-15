@@ -1,3 +1,69 @@
-<p>
-  bug-task-modal works!
-</p>
+<div class="modal-header">
+  <span class="close-button" (click)="closeModal()">
+    <ion-icon name="close-outline"></ion-icon>
+  </span>
+</div>
+
+<div class="form-container">
+  <div class="form-header">
+    <h1>{{ 'bugTaskRegistrationTitle' | translate }}</h1>
+    <p>{{ 'bugTaskRegistrationDescription' | translate }}</p>
+  </div>
+
+  <form [formGroup]="bugTaskForm" (ngSubmit)="submitForm()" novalidate>
+
+    <div class="form-controls">
+      <ion-item lines="full">
+        <ion-label position="stacked">{{ 'nameLabel' | translate }}</ion-label>
+        <ion-input formControlName="name" placeholder="{{ 'enterNamePlaceholder' | translate }}" ngDefaultControl></ion-input>
+      </ion-item>
+
+      <ion-item lines="full">
+        <ion-label position="stacked">{{ 'estimatedTimeLabel' | translate }}</ion-label>
+        <ion-input formControlName="estimatedTime" placeholder="{{ 'enterEstimatedTimePlaceholder' | translate }}" ngDefaultControl (ionBlur)="validateTimeFormat()"></ion-input>
+      </ion-item>
+
+      <ion-item lines="full">
+        <ion-label position="stacked">{{ 'descriptionLabel' | translate }}</ion-label>
+        <ion-textarea rows="4" formControlName="description" placeholder="{{ 'enterDescriptionPlaceholder' | translate }}" type="text" ngDefaultControl></ion-textarea>
+      </ion-item>
+
+      <ion-item lines="full">
+        <ion-select formControlName="project"  [(ngModel)]="project" label="{{ 'projectLabel' | translate }}" placeholder="{{ 'selectProjectLabel' | translate }}">
+          <ion-select-option *ngFor="let project of projects" [value]="project">{{ project.name }}</ion-select-option>
+        </ion-select>
+      </ion-item>
+
+      <ion-item lines="full">
+        <ion-select formControlName="assignedTo"  [(ngModel)]="assignedTo" label="{{ 'assignedToLabel' | translate }}" placeholder="{{ 'selectTeamMemberLabel' | translate }}">
+          <ion-select-option *ngFor="let teamMember of teamMembers" [value]="teamMember">{{ teamMember.firstName }}  {{ teamMember.lastName }}</ion-select-option>
+        </ion-select>
+      </ion-item>
+
+      <ion-item lines="full">
+        <ion-select formControlName="priority"  [(ngModel)]="priority" label="{{ 'priorityLabel' | translate }}" placeholder="{{ 'selectPriorityLabel' | translate }}">
+          <ion-select-option *ngFor="let priority of priorities" [value]="priority">{{ priority.name }}</ion-select-option>
+        </ion-select>
+      </ion-item>
+
+      <ion-item lines="full">
+        <ion-select formControlName="status"  [(ngModel)]="status" label="{{ 'statusLabel' | translate }}" placeholder="{{ 'selectStatusLabel' | translate }}" >
+          <ion-select-option *ngFor="let status of statuses" [value]="status">{{ status.name }}</ion-select-option>
+        </ion-select>
+      </ion-item>
+    </div>
+
+    <div class="form-buttons" [style.justify-content]="(this.bugTask && this.bugTask.id) ? 'space-between' : 'flex-end'">
+      <ion-button color="danger" fill="clear" *ngIf="this.bugTask && this.bugTask.id " (click)="delete()">
+        <ion-icon name="trash-outline" slot="start"></ion-icon>
+        &nbsp;{{ 'deleteButtonLabel' | translate }} 
+      </ion-button>
+
+      <ion-button type="submit">
+        <ion-icon name="send-outline" slot="end"></ion-icon>
+        {{ 'saveButtonLabel' | translate }} &nbsp;
+      </ion-button>
+    </div>
+  </form>
+
+</div>
