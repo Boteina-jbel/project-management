@@ -175,7 +175,7 @@ export class KernelServiceService {
 
   saveCommment(comment: Comment): Promise<Comment> {
     return new Promise((resolve, reject) => {
-      this.networkService.put(`comment//${comment.id}`, comment, true).then((response: any) => {
+      this.networkService.put(`comment/${comment.id}`, comment, true).then((response: any) => {
         resolve(response);
       }).catch(error => {
         reject(error);

@@ -9,5 +9,7 @@ export class Comment {
     createdAt: Date;
     author: User;
     task: Task;
+    isEditing: boolean;
+    editedContent: string;
 
 }

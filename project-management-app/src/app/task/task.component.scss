@@ -7,12 +7,16 @@ section {
         margin: 0;
     }
 
+    ion-chip {
+        padding: 5px 10px ;
+    }
     .side-1 {
         width: 70%;
         overflow-y: scroll;
         background-color: var(--white-color);
         padding: 20px;
         border-radius: 5px;
+        max-height: 80vh;
     }
 
     .side-2 {
@@ -20,6 +24,47 @@ section {
         background-color: var(--white-color);
         padding: 20px;
         border-radius: 5px;
+    }
+}
+
+.comment{
+    display: flex;
+    gap: 8px;
+    width: 100%;
+    position: relative;
+
+    h1, h2, h5 {
+        margin: 0;
+    }
+
+    .user-avatar {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background-color: var(--gray-color);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: var(--white-color);
+        font-size: 20px;
+        position: relative;
+    }
+
+    img {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        display: block;
+    }
+
+    ion-button {
+        --background: transparent;
+        --background-hover: transparent;
+        --background-activated: transparent;
+        --background-focused: transparent;
+        --padding-top: 0;
+        --padding-bottom: 0;
+        font-size: var(--text-small-font-size);
     }
 }
 

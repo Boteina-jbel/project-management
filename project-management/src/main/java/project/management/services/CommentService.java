@@ -13,9 +13,9 @@ public interface CommentService {
 
     List<CommentResponseDto> findByTaskId(Long taskId);
 
-    void delete(Long id);
+    void delete(Long id, String username);
 
-    CommentResponseDto update(CommentRequestDto commentRequestDto, Long id);
+    CommentResponseDto update(CommentRequestDto commentRequestDto, Long id, String username);
 
     List<CommentResponseDto> findAll();
 

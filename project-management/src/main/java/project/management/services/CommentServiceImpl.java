@@ -4,6 +4,7 @@ import jakarta.persistence.EntityNotFoundException;
 import project.management.dto.CommentRequestDto;
 import project.management.dto.CommentResponseDto;
 import project.management.entities.Comment;
+import project.management.entities.User;
 import project.management.repositories.CommentRepository;
 
 import org.modelmapper.ModelMapper;
@@ -34,7 +35,8 @@ public class CommentServiceImpl implements CommentService {
     @Override
     public CommentResponseDto save(CommentRequestDto commentRequestDto, String username) {
         Comment comment = modelMapper.map(commentRequestDto, Comment.class);
-        if(comment.getTask() != null || comment.getTask().getId() != null) throw new ProjectManagementException(ErrorCode.comment_task_null, "Comment task can't be null");
+        if(comment.getContent() == null || "".equals(comment.getContent())) throw new ProjectManagementException(ErrorCode.commentcant_be_blank, "The content can't be blank");
+        if(comment.getTask() == null || comment.getTask().getId() == null) throw new ProjectManagementException(ErrorCode.comment_task_null, "Comment task can't be null");
         comment.setAuthor(userRepository.findByUsername(username));
         comment.setCreatedAt(new Date());
         Comment saved = commentRepository.save(comment);
@@ -57,17 +59,26 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
-    public void delete(Long id) {
+    public void delete(Long id, String username) {
+        User author = userRepository.findByUsername(username);
+        Optional<Comment> comment = commentRepository.findById(id);
+        if (! comment.isPresent()) throw new EntityNotFoundException("Comment not found");
+        if(! comment.get().getAuthor().getId().equals(author.getId())) throw new ProjectManagementException(ErrorCode.unauthorized_action, "This comment can only be deleted by the author");
         commentRepository.deleteById(id);
     }
 
     @Override
-    public CommentResponseDto update(CommentRequestDto commentRequestDto, Long id) {
+    public CommentResponseDto update(CommentRequestDto commentRequestDto, Long id, String username) {
+        User author = userRepository.findByUsername(username);
+
         Optional<Comment> commentOptional = commentRepository.findById(id);
         if (commentOptional.isPresent()) {
+            Comment commentDB = commentOptional.get();
             Comment comment = modelMapper.map(commentRequestDto, Comment.class);
-            comment.setId(id);
-            Comment updated = commentRepository.save(comment);
+            if(! commentDB.getAuthor().getId().equals(author.getId())) throw new ProjectManagementException(ErrorCode.unauthorized_action, "This comment can only be updated by the author");
+            if(comment.getContent() == null || "".equals(comment.getContent())) throw new ProjectManagementException(ErrorCode.commentcant_be_blank, "The content can't be blank");
+            commentDB.setContent(comment.getContent());
+            Comment updated = commentRepository.save(commentDB);
             return modelMapper.map(updated, CommentResponseDto.class);
         } else {
             throw new EntityNotFoundException("Comment not found");
