@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>project.management</groupId>
 	<artifactId>project-management</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>release-1</version>
 	<name>project-management</name>
 	<description>Project management with Spring Boot</description>
 	<packaging>jar</packaging>

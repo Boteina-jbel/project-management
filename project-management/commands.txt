@@ -1,23 +1,47 @@
+Why IONIC ?
+
+IONIC MULTIPLATFORM CROSS PLATFORM => one code => MultiOS
+
+ionic build
+npx cap add android
+npx cap open android
+
 ng generate component component-name (To generate a new component but we need to declare it on app.module.ts)
 ng generate service service-name
 
 
+----------------------------------------------------------------------------------------------------
+Phase 1 :
+----------------------------------------------------------------------------------------------------
 Java =>
 To build the project we used  => MAVEN (dependencies, package)
     => mvn clean install package
    in our case the package will be jar (see pom.xml the packaging tag you will find it as jar we can change it to war)
 we take the build (jar) and we upload it to amazon web service AWS E2C and there we have already installed the JDK 17 and MySql
 
+----------------------------------------------------------------------------------------------------
+Result la phase 1 est project-management-0.0.1-SNAPSHOT.jar
+----------------------------------------------------------------------------------------------------
 
+----------------------------------------------------------------------------------------------------
+Phase 2
+----------------------------------------------------------------------------------------------------
+sftp -i "aws-2.pem" ubuntu@ec2-23-22-108-80.compute-1.amazonaws.com
+put project-management-0.0.1-SNAPSHOT.jar
 
-
-nohup java -jar project-management-0.0.1-SNAPSHOT.jar > server.log 2>&1 &
-tail -f server.log
-
-
+ssh -i "aws-2.pem" ubuntu@ec2-23-22-108-80.compute-1.amazonaws.com
 
 sudo mysql -u root -p
 password
 USE project_planner;
+
+nohup java -jar project-management-0.0.1-SNAPSHOT.jar > server.log 2>&1 &
+tail -n 500 -f server.log
+----------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------
+
+
+
+
 
 
