@@ -63,6 +63,16 @@ INSERT INTO profile_endpoint (profile_id, endpoint_id, `hold`) values
 INSERT INTO profile_endpoint (profile_id, endpoint_id, `hold`) values
 ((select id from profile where code = 'ADMIN'), (select id from endpoint where method = 'POST' and value = '/priority'), 0),
 ((select id from profile where code = 'ADMIN'), (select id from endpoint where method = 'DELETE' and value = '/priority/*'), 0);
+
+
+
+
+
+
+
+
+
+
 ----------------------------------------------------------------------------------
 
 INSERT INTO profile (code, name, hold) VALUES
@@ -252,7 +262,7 @@ INSERT INTO profile_endpoint (profile_id, endpoint_id, `hold`) values
     ((select id from profile where code = 'SH'), (select id from endpoint where method = 'POST' and value = '/security/login'), 0),
     ((select id from profile where code = 'SH'), (select id from endpoint where method = 'POST' and value = '/security/logout'), 0);
 
-INSERT INTO users (email, first_name, last_name, password, username, profile_id) values ('admin@gmail.com', 'admin', 'admin', 'admin', 'admin', 1);
+INSERT INTO users (email, first_name, last_name, password, username, profile_id) values ('admin@gmail.com', 'admin', 'admin', 'admin', 'admin', (select id from profile where code = 'admin'));
 
 -- New
 INSERT INTO endpoint (method, value, hold) Values

@@ -135,16 +135,18 @@ public class BugTaskServiceImpl implements BugTaskService {
                 .collect(Collectors.toList());
     }
 
-
     @Override
-    public List<BugTaskResponseDto> getBugTasksByProjectName(String projectName) {
-        Project project = projectRepository.findByName(projectName);
-        if (project == null) {
-            throw new EntityNotFoundException("Project with name " + projectName + " not found");
+    public List<BugTaskResponseDto> getBugTasksByUserId(Long userId){
+        Optional<User> userOptional = userRepository.findById(userId);
+        if (! userOptional.isPresent()) {
+            throw new EntityNotFoundException("User with Id " + userId + " not found");
         }
-        List<BugTask> bugTasks = bugTaskRepository.findByProjectId(project.getId());
+        User user = userOptional.get();
+
+        List<BugTask>  bugTasks = bugTaskRepository.findByAssignedToId(user.getId());
         return bugTasks.stream()
-                .map(bugTask -> modelMapper.map(bugTask, BugTaskResponseDto.class))
+                .map(featureTask -> modelMapper.map(featureTask, BugTaskResponseDto.class))
                 .collect(Collectors.toList());
     }
+
 }

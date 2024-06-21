@@ -7,9 +7,6 @@ import org.springframework.web.bind.annotation.*;
 
 import project.management.dto.FeatureTaskRequestDto;
 import project.management.dto.FeatureTaskResponseDto;
-import project.management.dto.ProjectRequestDto;
-import project.management.dto.ProjectResponseDto;
-import project.management.entities.TaskStatus;
 import project.management.services.FeatureTaskService;
 
 import java.util.List;
@@ -89,9 +86,9 @@ public class FeatureTaskController {
     }
 
 
-    @GetMapping("/projectName/{projectName}")
-    public ResponseEntity<List<FeatureTaskResponseDto>> getFeatureTasksByProjectName(@PathVariable("projectName") String projectName) {
-        List<FeatureTaskResponseDto> featureTasks = featureTaskService.getFeatureTasksByProjectName(projectName);
+    @GetMapping("/userId/{userId}")
+    public ResponseEntity<List<FeatureTaskResponseDto>> getFeatureTasksByUserId(@PathVariable("userId") Long userId) {
+        List<FeatureTaskResponseDto> featureTasks = featureTaskService.getFeatureTasksByUserId(userId);
         return new ResponseEntity<>(featureTasks, HttpStatus.OK);
     }
 

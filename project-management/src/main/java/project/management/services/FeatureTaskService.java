@@ -2,7 +2,6 @@ package project.management.services;
 
 import project.management.dto.FeatureTaskRequestDto;
 import project.management.dto.FeatureTaskResponseDto;
-import project.management.entities.TaskStatus;
 
 import java.util.List;
 
@@ -28,6 +27,6 @@ public interface FeatureTaskService {
 
     FeatureTaskResponseDto changeTaskPriority(Long taskId, Long priorityId);
     List<FeatureTaskResponseDto> findAll();
-    List<FeatureTaskResponseDto> getFeatureTasksByProjectName(String projectName);
+    List<FeatureTaskResponseDto> getFeatureTasksByUserId(Long userId);
 
 }

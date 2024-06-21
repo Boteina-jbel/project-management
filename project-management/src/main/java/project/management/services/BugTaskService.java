@@ -30,7 +30,6 @@ public interface BugTaskService {
 
     List<BugTaskResponseDto> findAll();
 
-
-    List<BugTaskResponseDto> getBugTasksByProjectName(String projectName);
+    List<BugTaskResponseDto> getBugTasksByUserId(Long userId);
 
 }

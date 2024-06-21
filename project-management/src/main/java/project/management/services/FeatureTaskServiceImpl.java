@@ -138,12 +138,14 @@ public class FeatureTaskServiceImpl implements FeatureTaskService {
 
 
     @Override
-    public List<FeatureTaskResponseDto> getFeatureTasksByProjectName(String projectName) {
-        Project project = projectRepository.findByName(projectName);
-        if (project == null) {
-            throw new EntityNotFoundException("Project with name " + projectName + " not found");
+    public List<FeatureTaskResponseDto> getFeatureTasksByUserId(Long userId) {
+        Optional<User> userOptional = userRepository.findById(userId);
+        if (! userOptional.isPresent()) {
+            throw new EntityNotFoundException("User with Id " + userId + " not found");
         }
-        List<FeatureTask> featureTasks = featureTaskRepository.findByProjectId(project.getId());
+        User user = userOptional.get();
+
+        List<FeatureTask> featureTasks = featureTaskRepository.findByAssignedToId(user.getId());
         return featureTasks.stream()
                 .map(featureTask -> modelMapper.map(featureTask, FeatureTaskResponseDto.class))
                 .collect(Collectors.toList());

@@ -85,10 +85,9 @@ public class BugTaskController {
         return new ResponseEntity<>(bugTaskService.findAll(), HttpStatus.OK);
     }
 
-    @GetMapping("/projectName/{projectName}")
-    public ResponseEntity<List<BugTaskResponseDto>> getBugTasksByProjectName(@PathVariable("projectName") String projectName) {
-        List<BugTaskResponseDto> bugTasks = bugTaskService.getBugTasksByProjectName(projectName);
+    @GetMapping("/userId/{userId}")
+    public ResponseEntity<List<BugTaskResponseDto>> getBugTasksByUserId(@PathVariable("userId") Long userId) {
+        List<BugTaskResponseDto> bugTasks = bugTaskService.getBugTasksByUserId(userId);
         return new ResponseEntity<>(bugTasks, HttpStatus.OK);
     }
-
 }

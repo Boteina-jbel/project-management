@@ -1,0 +1,23 @@
+ng generate component component-name (To generate a new component but we need to declare it on app.module.ts)
+ng generate service service-name
+
+
+Java =>
+To build the project we used  => MAVEN (dependencies, package)
+    => mvn clean install package
+   in our case the package will be jar (see pom.xml the packaging tag you will find it as jar we can change it to war)
+we take the build (jar) and we upload it to amazon web service AWS E2C and there we have already installed the JDK 17 and MySql
+
+
+
+
+nohup java -jar project-management-0.0.1-SNAPSHOT.jar > server.log 2>&1 &
+tail -f server.log
+
+
+
+sudo mysql -u root -p
+password
+USE project_planner;
+
+
