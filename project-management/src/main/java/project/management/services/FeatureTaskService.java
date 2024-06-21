@@ -28,5 +28,6 @@ public interface FeatureTaskService {
 
     FeatureTaskResponseDto changeTaskPriority(Long taskId, Long priorityId);
     List<FeatureTaskResponseDto> findAll();
+    List<FeatureTaskResponseDto> getFeatureTasksByProjectName(String projectName);
 
 }

@@ -33,6 +33,7 @@
       <div style="padding: 5px">
         <ion-textarea rows="2" [(ngModel)]="comment" label="{{ 'comment' | translate}}" labelPlacement="floating"
           fill="outline" placeholder="{{ 'enterComment' | translate}}"></ion-textarea>
+          <br />
 
         <div style="display: flex; justify-content: flex-end; padding: 5px 0;">
           <ion-button type="submit" fill="clear" (click)="addComment()">
