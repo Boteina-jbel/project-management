@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ModalController } from '@ionic/angular';
+import { AlertController, ModalController } from '@ionic/angular';
+import { TranslateService } from '@ngx-translate/core';
 import { BugTask } from 'src/app/models/BugTask';
 import { Priority } from 'src/app/models/Priority';
 import { Project } from 'src/app/models/Project';
@@ -34,7 +35,9 @@ export class BugTaskModalComponent  implements OnInit {
     private formBuilder: FormBuilder,
     private kernelService: KernelServiceService,
     private spinnerService: SpinnerService,
-    private adminServiceService: AdminServiceService
+    private adminServiceService: AdminServiceService,
+    private translate: TranslateService,
+    private alertController: AlertController,
   ) { }
 
 
@@ -103,11 +106,24 @@ export class BugTaskModalComponent  implements OnInit {
     }
   }
 
-
   async delete() {
-    await this.adminServiceService.deleteBugTask(this.bugTask.id);
-    this.bugTaskForm.reset();
-    this.modalCtrl.dismiss({ bugTask : this.bugTask, role : 'delete'});
+    const alert = await this.alertController.create({
+      header: this.translate.instant('confirm_delete'),
+      message: this.translate.instant('delete_bug_task_message'),
+      buttons: [
+        {
+          text: this.translate.instant('cancel'),
+          role: 'cancel',
+        }, {
+          text: this.translate.instant('delete'),
+          handler: async () => {
+            await this.adminServiceService.deleteBugTask(this.bugTask.id);
+            this.bugTaskForm.reset();
+            this.modalCtrl.dismiss({ bugTask : this.bugTask, role : 'delete'});
+          }
+        }
+      ]
+    });
+    await alert.present();
   }
-
 }

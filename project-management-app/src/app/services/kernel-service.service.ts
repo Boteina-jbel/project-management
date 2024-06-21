@@ -121,8 +121,7 @@ export class KernelServiceService {
     });
   }
 
-
-  assignTaskToUser(taskId: number, userId: number): Promise<FeatureTask> {
+  assignFeatureTaskToUser(taskId: number, userId: number): Promise<FeatureTask> {
     return new Promise((resolve, reject) => {
       this.networkService.put(`feature-task/${taskId}/assign?userId=${userId}`, null, true).then((response: any) => {
         resolve(response);
@@ -131,9 +130,19 @@ export class KernelServiceService {
       });
     });
   }
-
   
-  changeTaskStatus(taskId: number, taskStatusId: number): Promise<FeatureTask> {
+
+  assignBugTaskToUser(taskId: number, userId: number): Promise<BugTask> {
+    return new Promise((resolve, reject) => {
+      this.networkService.put(`bug-task/${taskId}/assign?userId=${userId}`, null, true).then((response: any) => {
+        resolve(response);
+      }).catch(error => {
+        reject(error);
+      });
+    });
+  }
+  
+  changeFeatureTaskStatus(taskId: number, taskStatusId: number): Promise<FeatureTask> {
     return new Promise((resolve, reject) => {
       this.networkService.put(`feature-task/${taskId}/status?taskStatusId=${taskStatusId}`, null, true).then((response: any) => {
         resolve(response);
@@ -142,8 +151,18 @@ export class KernelServiceService {
       });
     });
   }
+
+  changeBugTaskStatus(taskId: number, taskStatusId: number): Promise<BugTask> {
+    return new Promise((resolve, reject) => {
+      this.networkService.put(`bug-task/${taskId}/status?taskStatusId=${taskStatusId}`, null, true).then((response: any) => {
+        resolve(response);
+      }).catch(error => {
+        reject(error);
+      });
+    });
+  }
   
-  changeTaskPriority(taskId: number, priorityId: number): Promise<FeatureTask> {
+  changeFeatureTaskPriority(taskId: number, priorityId: number): Promise<FeatureTask> {
     return new Promise((resolve, reject) => {
       this.networkService.put(`feature-task/${taskId}/priority?priorityId=${priorityId}`, null, true).then((response: any) => {
         resolve(response);
@@ -152,6 +171,17 @@ export class KernelServiceService {
       });
     });
   }
+
+  changeBugTaskPriority(taskId: number, priorityId: number): Promise<BugTask> {
+    return new Promise((resolve, reject) => {
+      this.networkService.put(`bug-task/${taskId}/priority?priorityId=${priorityId}`, null, true).then((response: any) => {
+        resolve(response);
+      }).catch(error => {
+        reject(error);
+      });
+    });
+  }
+  
   
   getComments(taskId: number) : Promise<Comment[]> {
     return new Promise((resolve, reject) => {

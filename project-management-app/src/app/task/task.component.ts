@@ -2,12 +2,15 @@ import { Component, OnInit } from '@angular/core';
 import { AdminServiceService } from '../services/admin-service.service';
 import { KernelServiceService } from '../services/kernel-service.service';
 import { UtilsService } from '../services/utils.service';
-import { ModalController, PopoverController } from '@ionic/angular';
+import { AlertController, ModalController, PopoverController } from '@ionic/angular';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BugTask } from '../models/BugTask';
 import { FeatureTask } from '../models/FeatureTask';
 import { Comment } from '../models/Comment';
 import { TaskPopoverComponent } from '../components/task-popover/task-popover.component';
+import { TranslateService } from '@ngx-translate/core';
+import { FeaturetaskModalComponent } from '../components/featuretask-modal/featuretask-modal.component';
+import { BugTaskModalComponent } from '../components/bug-task-modal/bug-task-modal.component';
 
 @Component({
   selector: 'app-task',
@@ -31,7 +34,9 @@ export class TaskComponent implements OnInit {
     private modalCtrl: ModalController,
     private route: ActivatedRoute,
     private router: Router,
-    private popoverController: PopoverController
+    private popoverController: PopoverController,
+    private translate: TranslateService,
+    private alertController: AlertController,
   ) { }
 
   formatDate(dateString: string): string {
@@ -78,11 +83,27 @@ export class TaskComponent implements OnInit {
   }
 
   async delete(comment: Comment) {
-    await this.kernelService.deleteCommment(comment.id);
-    const index = this.comments.findIndex(e => e.id === comment.id);
-    if (index !== -1) {
-      this.comments.splice(index, 1);
-    }
+    const alert = await this.alertController.create({
+      header: this.translate.instant('confirm_delete'),
+      message: this.translate.instant('delete_comment_message'),
+      buttons: [
+        {
+          text: this.translate.instant('cancel'),
+          role: 'cancel',
+        }, {
+          text: this.translate.instant('delete'),
+          handler: async () => {
+            await this.kernelService.deleteCommment(comment.id);
+            const index = this.comments.findIndex(e => e.id === comment.id);
+            if (index !== -1) {
+              this.comments.splice(index, 1);
+            }
+          }
+        }
+      ]
+    });
+  
+    await alert.present();
   }
 
   enableEdit(comment: any) {
@@ -141,6 +162,42 @@ export class TaskComponent implements OnInit {
       if (data?.role === 'save' && data.bugTask) {
         this.bugTask = data.bugTask;
       }
+    }
+  }
+
+  async openFeatureTaskModal() {
+    const modal = await this.modalCtrl.create({
+      component: FeaturetaskModalComponent,
+      cssClass: 'card-modal',
+      componentProps: {
+        featureTask: this.featureTask,
+      }
+    });
+    await modal.present();
+    const { data } = await modal.onWillDismiss();
+
+    if (data.role === 'delete') {
+      this.router.navigate([`/feature-tasks`]);
+    } else if (data.role === 'save' && data.featureTask) {
+      this.featureTask = data.featureTask;
+    }
+  }
+
+  async openBugTaskModal() {
+    const modal = await this.modalCtrl.create({
+      component: BugTaskModalComponent,
+      cssClass: 'card-modal',
+      componentProps: {
+        bugTask: this.bugTask,
+      }
+    });
+    await modal.present();
+    const { data } = await modal.onWillDismiss();
+
+    if (data.role === 'delete') {
+      this.router.navigate([`/bug-tasks`]);
+    } else if (data.role === 'save' && data.bugTask) {
+        this.bugTask = data.bugTask;
     }
   }
 

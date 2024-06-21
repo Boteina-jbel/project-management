@@ -129,11 +129,12 @@ public class FeatureTaskServiceImpl implements FeatureTaskService {
                 .orElseThrow(() -> new RuntimeException("Task status not found"));
         featureTask.setPriority(priority);
         FeatureTask updatedTask = featureTaskRepository.save(featureTask);
-        return modelMapper.map(updatedTask, FeatureTaskResponseDto.class);    }
+        return modelMapper.map(updatedTask, FeatureTaskResponseDto.class);
+    }
 
     @Override
     public List<FeatureTaskResponseDto> findAll() {
-        return featureTaskRepository.findAll()
+        return featureTaskRepository.findAllByOrderByCreatedAtDesc()
                 .stream().map(el -> modelMapper.map(el, FeatureTaskResponseDto.class))
                 .collect(Collectors.toList());
     }

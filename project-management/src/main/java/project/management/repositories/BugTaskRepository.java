@@ -13,4 +13,6 @@ public interface BugTaskRepository extends JpaRepository<BugTask, Long> {
 
     List<BugTask> findByPriorityCode(String priorityCode);
 
+    List<BugTask> findAllByOrderByCreatedAtDesc();
+
 }

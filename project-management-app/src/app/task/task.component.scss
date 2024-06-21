@@ -82,3 +82,24 @@ ion-item {
         --width: 100%;
     }
 }
+
+
+.user-avatar {
+    width: 30px;
+    height: 30px;
+    margin: auto 5px;
+    border-radius: 50%;
+    background-color: var(--gray-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--white-color);
+    font-size: 30px;
+    object-fit: cover;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+    
+    @media screen and (max-width: 999px) {
+        width: 40px;
+        height: 40px;
+    }
+}

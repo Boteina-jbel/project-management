@@ -1,11 +1,28 @@
 <ion-content class="ion-padding">
   <ion-item lines="full">
     <ion-card-subtitle>
-      <ion-card-title> {{featureTask.name}} </ion-card-title>
+      <ion-card-title> 
+        <ng-container *ngIf="featureTask">{{featureTask.name}}</ng-container>
+        <ng-container *ngIf="bugTask">{{bugTask.name}}</ng-container>
+      </ion-card-title>
+
       <ion-icon name="person-outline"></ion-icon>
       &nbsp; {{'assignedTo'| translate}}
-      {{featureTask?.assignedTo?.firstName}}
-      {{featureTask?.assignedTo?.lastName}}
+      <div style="display: flex; align-items: center; margin: 3px 0;">
+        <img *ngIf="featureTask" class="user-avatar" [src]="featureTask?.assignedTo?.thumbnail" alt="">
+        <img *ngIf="bugTask" class="user-avatar" [src]="bugTask?.assignedTo?.thumbnail" alt="">
+        <div *ngIf="!featureTask && !bugTask" class="user-avatar">
+          <ion-icon name="person-outline"></ion-icon>
+        </div>
+        <ng-container *ngIf="featureTask">
+          {{featureTask?.assignedTo?.firstName}}
+          {{featureTask?.assignedTo?.lastName}}
+        </ng-container>
+        <ng-container *ngIf="bugTask">
+          {{bugTask?.assignedTo?.firstName}}
+          {{bugTask?.assignedTo?.lastName}}
+        </ng-container>
+      </div>
     </ion-card-subtitle>
   </ion-item>
   <ion-item lines="full">

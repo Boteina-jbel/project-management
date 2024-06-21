@@ -65,15 +65,19 @@ public class BugTaskController {
         return new ResponseEntity<>(featureTasks, HttpStatus.OK);
     }
 
-
     @PutMapping("/{taskId}/assign")
     public ResponseEntity<BugTaskResponseDto> assignTaskToUser(@PathVariable Long taskId, @RequestParam Long userId) {
         return ResponseEntity.ok(bugTaskService.assignTaskToUser(taskId, userId));
     }
 
     @PutMapping("/{taskId}/status")
-    public ResponseEntity<BugTaskResponseDto> changeTaskStatus(@PathVariable Long taskId, @RequestParam String status) {
-        return ResponseEntity.ok(bugTaskService.changeTaskStatus(taskId, status));
+    public ResponseEntity<BugTaskResponseDto> changeTaskStatus(@PathVariable Long taskId, @RequestParam Long taskStatusId) {
+        return ResponseEntity.ok(bugTaskService.changeTaskStatus(taskId, taskStatusId));
+    }
+
+    @PutMapping("/{taskId}/priority")
+    public ResponseEntity<BugTaskResponseDto> changeTaskPriority(@PathVariable Long taskId, @RequestParam Long priorityId) {
+        return ResponseEntity.ok(bugTaskService.changeTaskPriority(taskId, priorityId));
     }
 
     @GetMapping("")

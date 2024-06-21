@@ -2,6 +2,7 @@ package project.management.services;
 
 import project.management.dto.BugTaskRequestDto;
 import project.management.dto.BugTaskResponseDto;
+import project.management.dto.FeatureTaskResponseDto;
 
 import java.util.List;
 
@@ -23,7 +24,9 @@ public interface BugTaskService {
 
     BugTaskResponseDto assignTaskToUser(Long taskId, Long userId);
 
-    BugTaskResponseDto changeTaskStatus(Long taskId, String status);
+    BugTaskResponseDto changeTaskStatus(Long taskId, Long taskStatusId);
+
+    BugTaskResponseDto changeTaskPriority(Long taskId, Long priorityId);
 
     List<BugTaskResponseDto> findAll();
 

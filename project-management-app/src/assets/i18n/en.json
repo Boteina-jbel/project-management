@@ -91,5 +91,15 @@
     "addUserTitle": "Add user",
     "addUserDescription": "Add a new user",
     "bugTaskRegistrationTitle": "Bug task registration",
-    "bugTaskRegistrationDescription": "Register a new bug task"
+    "bugTaskRegistrationDescription": "Register a new bug task",
+    "confirm_delete": "Confirm Delete",
+    "delete_comment_message": "Are you sure you want to delete this comment?",
+    "delete_bug_task_message": "Are you sure you want to delete this bug task?",
+    "delete_feature_task_message": "Are you sure you want to delete this feature task?",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "stepsToReproduce": "Steps to Reproduce",
+    "stepsToReproduceLabel": "Steps to Reproduce",
+    "enterstepsToReproducePlaceholder": "Enter steps to reproduce",
+    "details": "Details"
 }

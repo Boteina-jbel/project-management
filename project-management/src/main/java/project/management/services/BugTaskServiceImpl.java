@@ -6,10 +6,9 @@ import org.springframework.stereotype.Service;
 import project.management.dto.BugTaskRequestDto;
 import project.management.dto.BugTaskResponseDto;
 import project.management.dto.FeatureTaskResponseDto;
-import project.management.entities.BugTask;
-import project.management.entities.TaskStatus;
-import project.management.entities.User;
+import project.management.entities.*;
 import project.management.repositories.BugTaskRepository;
+import project.management.repositories.PriorityRepository;
 import project.management.repositories.TaskStatusRepository;
 import project.management.repositories.UserRepository;
 
@@ -25,12 +24,14 @@ public class BugTaskServiceImpl implements BugTaskService {
     private final ModelMapper modelMapper;
     private final UserRepository userRepository;
     private final TaskStatusRepository taskStatusRepository;
+    private final PriorityRepository priorityRepository;
 
-    public BugTaskServiceImpl(BugTaskRepository bugTaskRepository, ModelMapper modelMapper, UserRepository userRepository, TaskStatusRepository taskStatusRepository) {
+    public BugTaskServiceImpl(BugTaskRepository bugTaskRepository, ModelMapper modelMapper, UserRepository userRepository, TaskStatusRepository taskStatusRepository, PriorityRepository priorityRepository) {
         this.bugTaskRepository = bugTaskRepository;
         this.modelMapper = modelMapper;
         this.userRepository = userRepository;
         this.taskStatusRepository = taskStatusRepository;
+        this.priorityRepository = priorityRepository;
     }
 
     @Override
@@ -106,10 +107,10 @@ public class BugTaskServiceImpl implements BugTaskService {
     }
 
     @Override
-    public BugTaskResponseDto changeTaskStatus(Long taskId, String statusName) {
+    public BugTaskResponseDto changeTaskStatus(Long taskId, Long taskStatusId) {
         BugTask bugTask = bugTaskRepository.findById(taskId)
                 .orElseThrow(() -> new RuntimeException("Bug task not found"));
-        TaskStatus status = taskStatusRepository.findByName(statusName)
+        TaskStatus status = taskStatusRepository.findById(taskStatusId)
                 .orElseThrow(() -> new RuntimeException("Task status not found"));
         bugTask.setStatus(status);
         BugTask updatedTask = bugTaskRepository.save(bugTask);
@@ -117,8 +118,19 @@ public class BugTaskServiceImpl implements BugTaskService {
     }
 
     @Override
+    public BugTaskResponseDto changeTaskPriority(Long taskId, Long priorityId) {
+        BugTask bugTask  = bugTaskRepository.findById(taskId)
+                .orElseThrow(() -> new RuntimeException("Feature task not found"));
+        Priority priority = priorityRepository.findById(priorityId)
+                .orElseThrow(() -> new RuntimeException("Task status not found"));
+        bugTask.setPriority(priority);
+        BugTask updatedTask = bugTaskRepository.save(bugTask);
+        return modelMapper.map(updatedTask, BugTaskResponseDto.class);
+    }
+
+    @Override
     public List<BugTaskResponseDto> findAll() {
-        return bugTaskRepository.findAll()
+        return bugTaskRepository.findAllByOrderByCreatedAtDesc()
                 .stream().map(el -> modelMapper.map(el, BugTaskResponseDto.class))
                 .collect(Collectors.toList());
     }

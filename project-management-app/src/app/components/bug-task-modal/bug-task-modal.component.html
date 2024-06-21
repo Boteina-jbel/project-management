@@ -29,6 +29,11 @@
       </ion-item>
 
       <ion-item lines="full">
+        <ion-label position="stacked">{{ 'stepsToReproduceLabel' | translate }}</ion-label>
+        <ion-textarea rows="4" formControlName="stepsToReproduce" placeholder="{{ 'enterstepsToReproducePlaceholder' | translate }}" type="text" ngDefaultControl></ion-textarea>
+      </ion-item>
+
+      <ion-item lines="full">
         <ion-select formControlName="project"  [(ngModel)]="project" label="{{ 'projectLabel' | translate }}" placeholder="{{ 'selectProjectLabel' | translate }}">
           <ion-select-option *ngFor="let project of projects" [value]="project">{{ project.name }}</ion-select-option>
         </ion-select>

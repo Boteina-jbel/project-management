@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { ModalController, PopoverController } from '@ionic/angular';
+import { BugTask } from 'src/app/models/BugTask';
 import { FeatureTask } from 'src/app/models/FeatureTask';
 import { Priority } from 'src/app/models/Priority';
 import { TaskStatus } from 'src/app/models/TaskStatus';
@@ -17,16 +18,17 @@ export class TaskPopoverComponent implements OnInit {
 
   @Input() popover: HTMLIonPopoverElement;
   @Input() featureTask: FeatureTask;
+  @Input() bugTask: BugTask;
 
-  teamMembers             : User[];
-  assignedTo              : User;
-  statuses                : TaskStatus[];
-  status                  : TaskStatus;
-  priorities              : Priority[];
-  priority                : Priority;
+  teamMembers: User[];
+  assignedTo: User;
+  statuses: TaskStatus[];
+  status: TaskStatus;
+  priorities: Priority[];
+  priority: Priority;
 
   constructor(
-    private popoverController : PopoverController,
+    private popoverController: PopoverController,
     private kernelService: KernelServiceService,
     private spinnerService: SpinnerService,
     private adminServiceService: AdminServiceService
@@ -38,36 +40,68 @@ export class TaskPopoverComponent implements OnInit {
     this.teamMembers = await this.adminServiceService.getByProfileCode('TM');
 
     if (this.featureTask) {
-      if(this.featureTask.status) {
+      if (this.featureTask.status) {
         const resultStatus = this.statuses.find(e => e.id === this.featureTask.status.id);
-        if(resultStatus) this.status = resultStatus;
+        if (resultStatus) this.status = resultStatus;
       }
 
-      if(this.featureTask.priority) {
+      if (this.featureTask.priority) {
         const resultPriority = this.priorities.find(e => e.id === this.featureTask.priority.id);
-        if(resultPriority) this.priority = resultPriority;
+        if (resultPriority) this.priority = resultPriority;
       }
 
-      if(this.featureTask.assignedTo) {
+      if (this.featureTask.assignedTo) {
         const resultAssignedTo = this.teamMembers.find(e => e.id === this.featureTask.assignedTo.id);
-        if(resultAssignedTo) this.assignedTo = resultAssignedTo;
+        if (resultAssignedTo) this.assignedTo = resultAssignedTo;
       }
     }
 
+
+    if (this.bugTask) {
+      if (this.bugTask.status) {
+        const resultStatus = this.statuses.find(e => e.id === this.bugTask.status.id);
+        if (resultStatus) this.status = resultStatus;
+      }
+
+      if (this.bugTask.priority) {
+        const resultPriority = this.priorities.find(e => e.id === this.bugTask.priority.id);
+        if (resultPriority) this.priority = resultPriority;
+      }
+
+      if (this.bugTask.assignedTo) {
+        const resultAssignedTo = this.teamMembers.find(e => e.id === this.bugTask.assignedTo.id);
+        if (resultAssignedTo) this.assignedTo = resultAssignedTo;
+      }
+    }
   }
 
   async changeStatus(event: any) {
-    const featureTask = await this.kernelService.changeTaskStatus(this.featureTask.id, this.status.id);
-    this.popover.dismiss({role: 'save', featureTask: featureTask});
+    if (this.featureTask) {
+      const featureTask = await this.kernelService.changeFeatureTaskStatus(this.featureTask.id, this.status.id);
+      this.popover.dismiss({ role: 'save', featureTask: featureTask });
+    } else if (this.bugTask) {
+      const bugTask = await this.kernelService.changeBugTaskStatus(this.bugTask.id, this.status.id);
+      this.popover.dismiss({ role: 'save', bugTask: bugTask });
+    }
   }
 
   async changePriority(event: any) {
-    const featureTask = await this.kernelService.changeTaskPriority(this.featureTask.id, this.priority.id);
-    this.popover.dismiss({role: 'save', featureTask: featureTask});
+    if (this.featureTask) {
+      const featureTask = await this.kernelService.changeFeatureTaskPriority(this.featureTask.id, this.priority.id);
+      this.popover.dismiss({ role: 'save', featureTask: featureTask });
+    } else if (this.bugTask) {
+      const bugTask = await this.kernelService.changeBugTaskPriority(this.bugTask.id, this.priority.id);
+      this.popover.dismiss({ role: 'save', bugTask: bugTask });
+    }
   }
 
   async changeAssignedTo(even: any) {
-    const featureTask = await this.kernelService.assignTaskToUser(this.featureTask.id, this.assignedTo.id);
-    this.popover.dismiss({role: 'save', featureTask: featureTask});
+    if (this.featureTask) {
+      const featureTask = await this.kernelService.assignFeatureTaskToUser(this.featureTask.id, this.assignedTo.id);
+      this.popover.dismiss({ role: 'save', featureTask: featureTask });
+    } else if (this.bugTask) {
+      const bugTask = await this.kernelService.assignBugTaskToUser(this.bugTask.id, this.assignedTo.id);
+      this.popover.dismiss({ role: 'save', bugTask: bugTask });
+    }
   }
 }

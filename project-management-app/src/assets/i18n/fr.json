@@ -91,5 +91,15 @@
     "bugTaskRegistrationTitle": "Enregistrement d'une bogue tache",
     "bugTaskRegistrationDescription": "Enregistrer une nouvelle bogue tache",
     "addUserTitle": "Ajouter un utilisateur",
-    "addUserDescription": "Ajouter un nouveau utilisateur"
+    "addUserDescription": "Ajouter un nouveau utilisateur",
+    "confirm_delete": "Confirmer la suppression",
+    "delete_comment_message": "Êtes-vous sûr de vouloir supprimer ce commentaire?",
+    "delete_bug_task_message": "Êtes-vous sûr de vouloir supprimer cette tâche de bug?",
+    "delete_feature_task_message": "Êtes-vous sûr de vouloir supprimer cette tâche de fonctionnalité?",
+    "cancel": "Annuler",
+    "delete": "Supprimer",
+    "stepsToReproduce": "Étapes à reproduire",
+    "stepsToReproduceLabel": "Étapes à reproduire",
+    "enterstepsToReproducePlaceholder": "Entrez les étapes à reproduire",
+    "details": "Détails"
 }
