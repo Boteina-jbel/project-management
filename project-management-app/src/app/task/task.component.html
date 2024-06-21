@@ -60,10 +60,11 @@
             <ion-button (click)="saveEdit(comment)" fill="clear">{{ 'save' | translate }}</ion-button>
             <ion-button (click)="cancelEdit(comment)" fill="clear" color="danger">{{ 'cancel' | translate }}</ion-button>
           </div>
-          <div style="display: flex; justify-content: flex-end; width: 100% !important; gap: 5px;">
+          <div *ngIf="user.id === comment?.author?.id" style="display: flex; justify-content: flex-end; width: 100% !important; gap: 5px;">
             <ion-button *ngIf="!comment.isEditing" (click)="enableEdit(comment)" type="submit" fill="clear">{{ 'edit' | translate }}</ion-button>
             <ion-button type="submit" fill="clear" color="danger" (click)="delete(comment)">{{ 'delete' | translate }}</ion-button>
           </div>
+          <br />
         </div>
       </div>
 
@@ -194,10 +195,11 @@
             <ion-button (click)="saveEdit(comment)" fill="clear">{{ 'save' | translate }}</ion-button>
             <ion-button (click)="cancelEdit(comment)" fill="clear" color="danger">{{ 'cancel' | translate }}</ion-button>
           </div>
-          <div style="display: flex; justify-content: flex-end; width: 100% !important; gap: 5px;">
+          <div *ngIf="user.id === comment?.author?.id" style="display: flex; justify-content: flex-end; width: 100% !important; gap: 5px;">
             <ion-button *ngIf="!comment.isEditing" (click)="enableEdit(comment)" type="submit" fill="clear">{{ 'edit' | translate }}</ion-button>
             <ion-button type="submit" fill="clear" color="danger" (click)="delete(comment)">{{ 'delete' | translate }}</ion-button>
           </div>
+          <br />
         </div>
       </div>
 
@@ -264,5 +266,4 @@
       </ion-item>
     </div>
   </section>
-
 </app-base>

@@ -88,6 +88,7 @@ public class FeatureTaskController {
         return new ResponseEntity<>(featureTaskService.findAll(), HttpStatus.OK);
     }
 
+
     @GetMapping("/projectName/{projectName}")
     public ResponseEntity<List<FeatureTaskResponseDto>> getFeatureTasksByProjectName(@PathVariable("projectName") String projectName) {
         List<FeatureTaskResponseDto> featureTasks = featureTaskService.getFeatureTasksByProjectName(projectName);

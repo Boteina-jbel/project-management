@@ -135,6 +135,7 @@ public class BugTaskServiceImpl implements BugTaskService {
                 .collect(Collectors.toList());
     }
 
+
     @Override
     public List<BugTaskResponseDto> getBugTasksByProjectName(String projectName) {
         Project project = projectRepository.findByName(projectName);

@@ -11,6 +11,8 @@ import { TaskPopoverComponent } from '../components/task-popover/task-popover.co
 import { TranslateService } from '@ngx-translate/core';
 import { FeaturetaskModalComponent } from '../components/featuretask-modal/featuretask-modal.component';
 import { BugTaskModalComponent } from '../components/bug-task-modal/bug-task-modal.component';
+import { User } from '../models/User';
+import { SecurityServiceService } from '../services/security-service.service';
 
 @Component({
   selector: 'app-task',
@@ -25,7 +27,8 @@ export class TaskComponent implements OnInit {
   bugTask: BugTask;
   featureTask: FeatureTask;
   comment: string;
-  comments: Comment[];
+  comments              : Comment[];
+  user                  : User;
 
   constructor(
     private adminService: AdminServiceService,
@@ -37,6 +40,7 @@ export class TaskComponent implements OnInit {
     private popoverController: PopoverController,
     private translate: TranslateService,
     private alertController: AlertController,
+    private securityService: SecurityServiceService,
   ) { }
 
   formatDate(dateString: string): string {
@@ -65,6 +69,8 @@ export class TaskComponent implements OnInit {
     }
 
     if (this.id) this.comments = await this.kernelService.getComments(this.id);
+
+    this.user         = this.securityService.getSecurityInfo();
 
   }
 
