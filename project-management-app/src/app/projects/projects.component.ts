@@ -51,7 +51,7 @@ export class ProjectsComponent implements OnInit {
     });
     await modal.present();
     const { data } = await modal.onWillDismiss();
-    if(data && data.role === 'save') this.projects.push(data.project);
+    if(data && data.role === 'save') this.projects.unshift(data.project);
   }
 
   async openProjectModal(project : Project) {

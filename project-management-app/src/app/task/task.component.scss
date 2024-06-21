@@ -25,6 +25,17 @@ section {
         padding: 20px;
         border-radius: 5px;
     }
+
+    @media screen and (max-width: 999px) {
+        flex-direction: column;
+        .side-1 {
+            width: 100%;
+        }
+    
+        .side-2 {
+            width: 100%;
+        }
+    }
 }
 
 .comment{
@@ -84,7 +95,7 @@ ion-item {
 }
 
 
-.user-avatar {
+.user-avatar-2 {
     width: 30px;
     height: 30px;
     margin: auto 5px;
@@ -102,4 +113,8 @@ ion-item {
         width: 40px;
         height: 40px;
     }
+}
+
+ion-chip {
+    margin: 2px;
 }

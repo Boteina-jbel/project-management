@@ -81,7 +81,7 @@ export class BugTasksComponent  implements OnInit {
     await modal.present();
     const { data } = await modal.onWillDismiss();
     if (data && data.role === 'save') {
-      this.bugTasks.push(data.bugTask);
+      this.bugTasks.unshift(data.bugTask);
       this.trackChange(null);
     }
   }

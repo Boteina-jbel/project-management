@@ -52,7 +52,7 @@ public class CommentServiceImpl implements CommentService {
 
     @Override
     public List<CommentResponseDto> findByTaskId(Long taskId) {
-        List<Comment> comments = commentRepository.findByTaskId(taskId);
+        List<Comment> comments = commentRepository.findByTaskIdOrderByCreatedAtDesc(taskId);
         return comments.stream()
                 .map(comment -> modelMapper.map(comment, CommentResponseDto.class))
                 .collect(Collectors.toList());

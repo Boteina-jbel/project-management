@@ -84,7 +84,7 @@ export class TaskComponent implements OnInit {
     if (this.bugTask) comment.task = this.bugTask;
     if (this.featureTask) comment.task = this.featureTask;
     comment = await this.kernelService.addCommment(comment);
-    this.comments.push(comment);
+    this.comments.unshift(comment);
     this.comment = '';
   }
 

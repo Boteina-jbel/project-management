@@ -81,7 +81,7 @@ export class FeatureTasksComponent implements OnInit {
     await modal.present();
     const { data } = await modal.onWillDismiss();
     if (data && data.role === 'save') {
-      this.featureTasks.push(data.featureTask);
+      this.featureTasks.unshift(data.featureTask);
       this.trackChange(null);
     }
   }

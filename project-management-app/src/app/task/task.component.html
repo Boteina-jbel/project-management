@@ -63,7 +63,9 @@
             <ion-button *ngIf="!comment.isEditing" (click)="enableEdit(comment)" type="submit" fill="clear">{{ 'edit' | translate }}</ion-button>
             <ion-button type="submit" fill="clear" color="danger" (click)="delete(comment)">{{ 'delete' | translate }}</ion-button>
           </div>
-          <br />
+          <div *ngIf="! (user.id === comment?.author?.id)" style="display: flex; justify-content: flex-end; width: 100% !important; gap: 5px;">
+            <br />
+          </div>
         </div>
       </div>
 
@@ -76,8 +78,8 @@
           <h4>{{'assignedTo'| translate}}</h4>
           <h5 (click)="openPersonPage(featureTask?.assignedTo?.username)">&nbsp;
             <div style="display: flex; align-items: center; margin: 3px 0;">
-              <img *ngIf="featureTask" class="user-avatar" [src]="featureTask?.assignedTo?.thumbnail" alt="">
-              <div *ngIf="!featureTask" class="user-avatar">
+              <img *ngIf="featureTask" class="user-avatar-2" [src]="featureTask?.assignedTo?.thumbnail" alt="">
+              <div *ngIf="!featureTask" class="user-avatar-2">
                 <ion-icon name="person-outline"></ion-icon>
               </div>
               <ng-container *ngIf="featureTask">
@@ -198,7 +200,9 @@
             <ion-button *ngIf="!comment.isEditing" (click)="enableEdit(comment)" type="submit" fill="clear">{{ 'edit' | translate }}</ion-button>
             <ion-button type="submit" fill="clear" color="danger" (click)="delete(comment)">{{ 'delete' | translate }}</ion-button>
           </div>
-          <br />
+          <div *ngIf="! (user.id === comment?.author?.id)" style="display: flex; justify-content: flex-end; width: 100% !important; gap: 5px;">
+            <br />
+          </div>
         </div>
       </div>
 
@@ -211,8 +215,8 @@
           <h4>{{'assignedTo'| translate}}</h4>
           <h5 (click)="openPersonPage(bugTask?.assignedTo?.username)">&nbsp;
             <div style="display: flex; align-items: center; margin: 3px 0;">
-              <img *ngIf="bugTask" class="user-avatar" [src]="bugTask?.assignedTo?.thumbnail" alt="">
-              <div *ngIf="!bugTask" class="user-avatar">
+              <img *ngIf="bugTask" class="user-avatar-2" [src]="bugTask?.assignedTo?.thumbnail" alt="">
+              <div *ngIf="!bugTask" class="user-avatar-2">
                 <ion-icon name="person-outline"></ion-icon>
               </div>
               <ng-container *ngIf="bugTask">
