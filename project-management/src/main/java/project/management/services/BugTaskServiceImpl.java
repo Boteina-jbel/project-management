@@ -7,10 +7,7 @@ import project.management.dto.BugTaskRequestDto;
 import project.management.dto.BugTaskResponseDto;
 import project.management.dto.FeatureTaskResponseDto;
 import project.management.entities.*;
-import project.management.repositories.BugTaskRepository;
-import project.management.repositories.PriorityRepository;
-import project.management.repositories.TaskStatusRepository;
-import project.management.repositories.UserRepository;
+import project.management.repositories.*;
 
 import java.util.Date;
 import java.util.List;
@@ -25,13 +22,16 @@ public class BugTaskServiceImpl implements BugTaskService {
     private final UserRepository userRepository;
     private final TaskStatusRepository taskStatusRepository;
     private final PriorityRepository priorityRepository;
+    private final ProjectRepository projectRepository;
 
-    public BugTaskServiceImpl(BugTaskRepository bugTaskRepository, ModelMapper modelMapper, UserRepository userRepository, TaskStatusRepository taskStatusRepository, PriorityRepository priorityRepository) {
+
+    public BugTaskServiceImpl(BugTaskRepository bugTaskRepository, ModelMapper modelMapper, UserRepository userRepository, TaskStatusRepository taskStatusRepository, PriorityRepository priorityRepository, ProjectRepository projectRepository) {
         this.bugTaskRepository = bugTaskRepository;
         this.modelMapper = modelMapper;
         this.userRepository = userRepository;
         this.taskStatusRepository = taskStatusRepository;
         this.priorityRepository = priorityRepository;
+        this.projectRepository = projectRepository;
     }
 
     @Override
@@ -132,6 +132,18 @@ public class BugTaskServiceImpl implements BugTaskService {
     public List<BugTaskResponseDto> findAll() {
         return bugTaskRepository.findAllByOrderByCreatedAtDesc()
                 .stream().map(el -> modelMapper.map(el, BugTaskResponseDto.class))
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<BugTaskResponseDto> getBugTasksByProjectName(String projectName) {
+        Project project = projectRepository.findByName(projectName);
+        if (project == null) {
+            throw new EntityNotFoundException("Project with name " + projectName + " not found");
+        }
+        List<BugTask> bugTasks = bugTaskRepository.findByProjectId(project.getId());
+        return bugTasks.stream()
+                .map(bugTask -> modelMapper.map(bugTask, BugTaskResponseDto.class))
                 .collect(Collectors.toList());
     }
 }

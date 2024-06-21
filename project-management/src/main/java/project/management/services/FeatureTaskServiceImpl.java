@@ -5,14 +5,8 @@ import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import project.management.dto.FeatureTaskRequestDto;
 import project.management.dto.FeatureTaskResponseDto;
-import project.management.entities.FeatureTask;
-import project.management.entities.Priority;
-import project.management.entities.TaskStatus;
-import project.management.entities.User;
-import project.management.repositories.FeatureTaskRepository;
-import project.management.repositories.PriorityRepository;
-import project.management.repositories.TaskStatusRepository;
-import project.management.repositories.UserRepository;
+import project.management.entities.*;
+import project.management.repositories.*;
 
 import java.util.Date;
 import java.util.List;
@@ -29,13 +23,16 @@ public class FeatureTaskServiceImpl implements FeatureTaskService {
     private final UserRepository userRepository;
     private final TaskStatusRepository taskStatusRepository;
     private final PriorityRepository priorityRepository;
+    private final ProjectRepository projectRepository;
 
-    public FeatureTaskServiceImpl(FeatureTaskRepository featureTaskRepository, ModelMapper modelMapper, UserRepository userRepository, TaskStatusRepository taskStatusRepository, PriorityRepository priorityRepository) {
+    public FeatureTaskServiceImpl(FeatureTaskRepository featureTaskRepository, ModelMapper modelMapper, UserRepository userRepository, TaskStatusRepository taskStatusRepository, PriorityRepository priorityRepository, ProjectRepository projectRepository) {
         this.featureTaskRepository = featureTaskRepository;
         this.modelMapper = modelMapper;
         this.userRepository = userRepository;
         this.taskStatusRepository = taskStatusRepository;
         this.priorityRepository = priorityRepository;
+        this.projectRepository = projectRepository;
+
     }
 
     @Override
@@ -138,4 +135,18 @@ public class FeatureTaskServiceImpl implements FeatureTaskService {
                 .stream().map(el -> modelMapper.map(el, FeatureTaskResponseDto.class))
                 .collect(Collectors.toList());
     }
+
+
+    @Override
+    public List<FeatureTaskResponseDto> getFeatureTasksByProjectName(String projectName) {
+        Project project = projectRepository.findByName(projectName);
+        if (project == null) {
+            throw new EntityNotFoundException("Project with name " + projectName + " not found");
+        }
+        List<FeatureTask> featureTasks = featureTaskRepository.findByProjectId(project.getId());
+        return featureTasks.stream()
+                .map(featureTask -> modelMapper.map(featureTask, FeatureTaskResponseDto.class))
+                .collect(Collectors.toList());
+    }
+
 }
