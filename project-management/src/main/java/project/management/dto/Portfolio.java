@@ -9,11 +9,12 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class Portfolio {
 
-    private Integer projectCount;
-    private Integer featureTaskCount;
-    private Integer BugTaskCount;
-    private Integer ManagerCount;
-    private Integer TeamMemberCount;
-    private Integer StakeHolderCount;
+    private long projectCount;
+    private long featureTaskCount;
+    private long BugTaskCount;
+    private long adminCount;
+    private long ManagerCount;
+    private long TeamMemberCount;
+    private long StakeHolderCount;
 
 }

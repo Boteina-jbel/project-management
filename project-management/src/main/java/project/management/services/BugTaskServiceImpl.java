@@ -23,17 +23,14 @@ public class BugTaskServiceImpl implements BugTaskService {
     private final TaskStatusRepository taskStatusRepository;
     private final PriorityRepository priorityRepository;
     private final ProjectRepository projectRepository;
-    private final List<String> bugTasks;
 
-
-    public BugTaskServiceImpl(BugTaskRepository bugTaskRepository, ModelMapper modelMapper, UserRepository userRepository, TaskStatusRepository taskStatusRepository, PriorityRepository priorityRepository, ProjectRepository projectRepository, List<String> bugTasks) {
+    public BugTaskServiceImpl(BugTaskRepository bugTaskRepository, ModelMapper modelMapper, UserRepository userRepository, TaskStatusRepository taskStatusRepository, PriorityRepository priorityRepository, ProjectRepository projectRepository) {
         this.bugTaskRepository = bugTaskRepository;
         this.modelMapper = modelMapper;
         this.userRepository = userRepository;
         this.taskStatusRepository = taskStatusRepository;
         this.priorityRepository = priorityRepository;
         this.projectRepository = projectRepository;
-        this.bugTasks = bugTasks;
     }
 
     @Override
@@ -152,8 +149,8 @@ public class BugTaskServiceImpl implements BugTaskService {
     }
 
     @Override
-    public int countBugTasks() {
-        return bugTasks.size();
+    public long countBugTasks() {
+        return bugTaskRepository.count();
     }
 
 }

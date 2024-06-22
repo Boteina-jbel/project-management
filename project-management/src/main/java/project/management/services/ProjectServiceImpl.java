@@ -21,13 +21,11 @@ public class ProjectServiceImpl implements ProjectService{
     private ProjectRepository projectRepository;
     private ModelMapper modelMapper;
     private UserRepository userRepository;
-    private final List<String> projects;
 
-    public ProjectServiceImpl(ProjectRepository projectRepository, ModelMapper modelMapper, UserRepository userRepository, List<String> projects) {
+    public ProjectServiceImpl(ProjectRepository projectRepository, ModelMapper modelMapper, UserRepository userRepository) {
         this.projectRepository = projectRepository;
         this.modelMapper = modelMapper;
         this.userRepository = userRepository;
-        this.projects = projects;
     }
 
     @Override
@@ -79,7 +77,7 @@ public class ProjectServiceImpl implements ProjectService{
     }
 
     @Override
-    public int countProjects() {
-        return projects.size();
+    public long countProjects() {
+        return projectRepository.count();
     }
 }

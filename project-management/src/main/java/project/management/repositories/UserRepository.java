@@ -20,7 +20,7 @@ public interface UserRepository extends JpaRepository<User,Long> {
 
     List<User> findByProfileCode(String profileCode);
 
-    int countByRole(String role);
+    long countByProfileCode(String profileCode);
 
     @Query("SELECT new project.management.dto.UserResponseDto(u.firstName, u.lastName, u.username, u.email, u.thumbnail, u.profile)" +
             "FROM User u " +

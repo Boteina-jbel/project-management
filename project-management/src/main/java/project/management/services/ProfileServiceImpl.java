@@ -22,8 +22,8 @@ public class ProfileServiceImpl implements ProfileService {
     }
 
     @Override
-    public long countByName(String name) {
-        return profileRepository.countByName(name);
+    public long countByCode(String code) {
+        return profileRepository.countByCode(code);
     }
 }
 

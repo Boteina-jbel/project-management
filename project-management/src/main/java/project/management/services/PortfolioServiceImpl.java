@@ -1,38 +1,39 @@
 package project.management.services;
 
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 import project.management.dto.Portfolio;
-import project.management.services.PortfolioService;
-import project.management.services.ProfileService;
-import project.management.services.ProjectService;
-import project.management.services.FeatureTaskService;
-import project.management.services.BugTaskService;
+import project.management.repositories.UserRepository;
 
+@Service
 public class PortfolioServiceImpl implements PortfolioService {
 
-    private final ProfileService profileService;
     private final ProjectService projectService;
     private final FeatureTaskService featureTaskService;
     private final BugTaskService bugTaskService;
 
-    public PortfolioServiceImpl(ProfileService profileService,
-                                ProjectService projectService,
+    private final UserRepository userRepository;
+
+    public PortfolioServiceImpl(ProjectService projectService,
                                 FeatureTaskService featureTaskService,
-                                BugTaskService bugTaskService) {
-        this.profileService = profileService;
+                                BugTaskService bugTaskService,
+                                UserRepository userRepository) {
         this.projectService = projectService;
         this.featureTaskService = featureTaskService;
         this.bugTaskService = bugTaskService;
+        this.userRepository = userRepository;
     }
 
     @Override
     public Portfolio getPortfolio() {
-        int projectCount = projectService.countProjects();
-        int featureTaskCount = featureTaskService.countFeatureTasks();
-        int bugTaskCount = bugTaskService.countBugTasks();
-        long managerCount = profileService.countByName("Manager");
-        long teamMemberCount = profileService.countByName("TeamMember");
-        long stakeHolderCount = profileService.countByName("StakeHolder");
+        long projectCount = projectService.countProjects();
+        long featureTaskCount = featureTaskService.countFeatureTasks();
+        long bugTaskCount = bugTaskService.countBugTasks();
+        long adminCount = userRepository.countByProfileCode("ADMIN");
+        long managerCount = userRepository.countByProfileCode("PM");
+        long teamMemberCount = userRepository.countByProfileCode("TM");
+        long stakeHolderCount = userRepository.countByProfileCode("SH");
 
-        return new Portfolio(projectCount, featureTaskCount, bugTaskCount, (int) managerCount, (int) teamMemberCount, (int) stakeHolderCount);
+        return new Portfolio(projectCount, featureTaskCount, bugTaskCount, adminCount, managerCount, teamMemberCount, stakeHolderCount);
     }
 }

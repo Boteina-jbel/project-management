@@ -32,6 +32,6 @@ public interface BugTaskService {
 
     List<BugTaskResponseDto> getBugTasksByUserId(Long userId);
 
-    int countBugTasks();
+    long countBugTasks();
 
 }

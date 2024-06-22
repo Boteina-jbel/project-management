@@ -7,7 +7,7 @@ import project.management.entities.Profile;
 @Repository
 public interface ProfileRepository extends JpaRepository<Profile,Long> {
 
-    long countByName(String name);
+    long countByCode(String code);
 
 }
 
