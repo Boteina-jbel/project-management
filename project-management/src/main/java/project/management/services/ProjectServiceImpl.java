@@ -21,11 +21,13 @@ public class ProjectServiceImpl implements ProjectService{
     private ProjectRepository projectRepository;
     private ModelMapper modelMapper;
     private UserRepository userRepository;
+    private final List<String> projects;
 
-    public ProjectServiceImpl(ProjectRepository projectRepository, ModelMapper modelMapper, UserRepository userRepository) {
+    public ProjectServiceImpl(ProjectRepository projectRepository, ModelMapper modelMapper, UserRepository userRepository, List<String> projects) {
         this.projectRepository = projectRepository;
         this.modelMapper = modelMapper;
         this.userRepository = userRepository;
+        this.projects = projects;
     }
 
     @Override
@@ -74,5 +76,10 @@ public class ProjectServiceImpl implements ProjectService{
         return projectRepository.findAll()
                 .stream().map(el -> modelMapper.map(el, ProjectResponseDto.class))
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public int countProjects() {
+        return projects.size();
     }
 }

@@ -9,4 +9,5 @@ public interface ProfileService {
 
     List<Profile> findAll();
 
+    long countByName(String name);
 }

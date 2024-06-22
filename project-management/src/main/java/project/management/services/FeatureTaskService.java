@@ -29,4 +29,6 @@ public interface FeatureTaskService {
     List<FeatureTaskResponseDto> findAll();
     List<FeatureTaskResponseDto> getFeatureTasksByUserId(Long userId);
 
+    int countFeatureTasks();
+
 }

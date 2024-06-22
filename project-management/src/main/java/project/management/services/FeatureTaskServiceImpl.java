@@ -24,8 +24,9 @@ public class FeatureTaskServiceImpl implements FeatureTaskService {
     private final TaskStatusRepository taskStatusRepository;
     private final PriorityRepository priorityRepository;
     private final ProjectRepository projectRepository;
+    private final List<String> featureTasks;
 
-    public FeatureTaskServiceImpl(FeatureTaskRepository featureTaskRepository, ModelMapper modelMapper, UserRepository userRepository, TaskStatusRepository taskStatusRepository, PriorityRepository priorityRepository, ProjectRepository projectRepository) {
+    public FeatureTaskServiceImpl(FeatureTaskRepository featureTaskRepository, ModelMapper modelMapper, UserRepository userRepository, TaskStatusRepository taskStatusRepository, PriorityRepository priorityRepository, ProjectRepository projectRepository, List<String> featureTasks) {
         this.featureTaskRepository = featureTaskRepository;
         this.modelMapper = modelMapper;
         this.userRepository = userRepository;
@@ -33,6 +34,7 @@ public class FeatureTaskServiceImpl implements FeatureTaskService {
         this.priorityRepository = priorityRepository;
         this.projectRepository = projectRepository;
 
+        this.featureTasks = featureTasks;
     }
 
     @Override
@@ -149,6 +151,11 @@ public class FeatureTaskServiceImpl implements FeatureTaskService {
         return featureTasks.stream()
                 .map(featureTask -> modelMapper.map(featureTask, FeatureTaskResponseDto.class))
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public int countFeatureTasks() {
+        return featureTasks.size();
     }
 
 }

@@ -1,8 +1,10 @@
 package project.management.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import project.management.dto.Portfolio;
 import project.management.dto.ProjectRequestDto;
 import project.management.dto.ProjectResponseDto;
+import project.management.services.PortfolioService;
 import project.management.services.ProjectService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,11 +16,13 @@ import java.util.List;
 @RequestMapping("/project")
 public class ProjectController {
 
-    private ProjectService projectService;
+    private final ProjectService projectService;
+    private final PortfolioService portfolioService;
 
     @Autowired
-    public ProjectController(ProjectService projectService) {
+    public ProjectController(ProjectService projectService, PortfolioService portfolioService) {
         this.projectService = projectService;
+        this.portfolioService = portfolioService;
     }
 
     @GetMapping("")
@@ -54,5 +58,11 @@ public class ProjectController {
     public ResponseEntity<ProjectResponseDto> update(@RequestBody() ProjectRequestDto projectRequestDto, @PathVariable() Long id) {
         ProjectResponseDto projectResponseDto = projectService.update(projectRequestDto, id);
         return ResponseEntity.accepted().body(projectResponseDto);
+    }
+
+    @GetMapping("/portfolio")
+    public ResponseEntity<Portfolio> getPortfolio() {
+        Portfolio portfolio = portfolioService.getPortfolio();
+        return ResponseEntity.ok(portfolio);
     }
 }

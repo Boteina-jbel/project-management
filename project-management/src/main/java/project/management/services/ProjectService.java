@@ -19,4 +19,6 @@ public interface ProjectService {
 
     List<ProjectResponseDto> findAll();
 
+    int countProjects();
+
 }

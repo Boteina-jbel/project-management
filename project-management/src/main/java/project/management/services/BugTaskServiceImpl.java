@@ -23,15 +23,17 @@ public class BugTaskServiceImpl implements BugTaskService {
     private final TaskStatusRepository taskStatusRepository;
     private final PriorityRepository priorityRepository;
     private final ProjectRepository projectRepository;
+    private final List<String> bugTasks;
 
 
-    public BugTaskServiceImpl(BugTaskRepository bugTaskRepository, ModelMapper modelMapper, UserRepository userRepository, TaskStatusRepository taskStatusRepository, PriorityRepository priorityRepository, ProjectRepository projectRepository) {
+    public BugTaskServiceImpl(BugTaskRepository bugTaskRepository, ModelMapper modelMapper, UserRepository userRepository, TaskStatusRepository taskStatusRepository, PriorityRepository priorityRepository, ProjectRepository projectRepository, List<String> bugTasks) {
         this.bugTaskRepository = bugTaskRepository;
         this.modelMapper = modelMapper;
         this.userRepository = userRepository;
         this.taskStatusRepository = taskStatusRepository;
         this.priorityRepository = priorityRepository;
         this.projectRepository = projectRepository;
+        this.bugTasks = bugTasks;
     }
 
     @Override
@@ -147,6 +149,11 @@ public class BugTaskServiceImpl implements BugTaskService {
         return bugTasks.stream()
                 .map(featureTask -> modelMapper.map(featureTask, BugTaskResponseDto.class))
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public int countBugTasks() {
+        return bugTasks.size();
     }
 
 }

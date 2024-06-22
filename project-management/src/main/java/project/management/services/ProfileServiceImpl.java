@@ -20,4 +20,10 @@ public class ProfileServiceImpl implements ProfileService {
     public List<Profile> findAll() {
         return profileRepository.findAll();
     }
+
+    @Override
+    public long countByName(String name) {
+        return profileRepository.countByName(name);
+    }
 }
+

@@ -10,5 +10,10 @@ import lombok.NoArgsConstructor;
 public class Portfolio {
 
     private Integer projectCount;
+    private Integer featureTaskCount;
+    private Integer BugTaskCount;
+    private Integer ManagerCount;
+    private Integer TeamMemberCount;
+    private Integer StakeHolderCount;
 
 }
