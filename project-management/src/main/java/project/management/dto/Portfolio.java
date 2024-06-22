@@ -11,10 +11,10 @@ public class Portfolio {
 
     private long projectCount;
     private long featureTaskCount;
-    private long BugTaskCount;
+    private long bugTaskCount;
     private long adminCount;
-    private long ManagerCount;
-    private long TeamMemberCount;
-    private long StakeHolderCount;
+    private long managerCount;
+    private long teamMemberCount;
+    private long stakeHolderCount;
 
 }

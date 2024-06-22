@@ -1,5 +1,5 @@
 {
-    "serverUrl"         : "http://23.22.108.80:8080/",
+    "serverUrl"         : "http://localhost:8080/",
     "applicationVersion": "v.1.0.0.dev",
     "defaultLanguage"   : "fr",
     "toastDuration"     : 5000

@@ -10,6 +10,7 @@ import { TaskStatus } from '../models/TaskStatus';
 import { Priority } from '../models/Priority';
 import { BugTask } from '../models/BugTask';
 import { Comment } from '../models/Comment';
+import { Portfolio } from '../models/Portfolio';
 
 @Injectable({
   providedIn: 'root'
@@ -21,6 +22,17 @@ export class KernelServiceService {
     private networkService        : NetworkServiceService,
     private spinnerService        : SpinnerService,
   ) {}
+
+  getPortfolio() : Promise<Portfolio>{
+    return new Promise((resolve, reject) => {
+      this.networkService.get("project/portfolio" , false).then((response: any) => {
+          resolve(response);
+      }, error => {
+          reject(error);
+      }
+      );
+    });
+  }
 
   getProfiles(): Promise<Profile[]>{
     return new Promise((resolve, reject) => {

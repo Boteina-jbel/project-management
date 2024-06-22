@@ -101,5 +101,17 @@
     "stepsToReproduce": "Steps to Reproduce",
     "stepsToReproduceLabel": "Steps to Reproduce",
     "enterstepsToReproducePlaceholder": "Enter steps to reproduce",
-    "details": "Details"
+    "details": "Details",
+    "portfolioTitle": "Portfolio Overview",
+    "projectTotal": "Total Projects",
+    "featureTaskTotal": "Total Feature Tasks",
+    "bugTaskTotal": "Total Bug Tasks",
+    "adminTotal": "Total Admins",
+    "managerTotal": "Total Managers",
+    "teamMemberTotal": "Total Team Members",
+    "stakeHolderTotal": "Total Stakeholders",
+    "moreDetails": "More Details",
+    "welcomeTitle": "Welcome to the Project Planner",
+    "welcomeDescription": "This tool helps you monitor your projects and manage your team efficiently, ensuring everything runs smoothly.",
+    "chartsTitle": "Charts"
 }

@@ -1,3 +1,130 @@
 <app-base>
 
+    <div class="welcome-message">
+        <h2>{{ 'welcomeTitle' | translate }}</h2>
+        <p>{{ 'welcomeDescription' | translate }}</p>
+
+        <br />
+        <section class="portfolio">
+            <!-- <h2>{{ 'portfolioTitle' | translate }}</h2> -->
+            <div class="portfolio-summary">
+                <div class="summary-details">
+                    <div class="info">
+                        <h1>{{ portfolio?.projectCount }}</h1>
+                        <p>{{ 'projectTotal' | translate }}</p>
+                    </div>
+                    <div class="icon">
+                        <ion-icon name="briefcase-outline"></ion-icon>
+                    </div>
+                </div>
+                <div class="more-details" [routerLink]="['/projects']" routerLinkActive="router-link-active">
+                    {{ 'moreDetails' | translate }}
+                </div>
+            </div>
+
+            <div class="portfolio-summary">
+                <div class="summary-details">
+                    <div class="info">
+                        <h1>{{ portfolio?.featureTaskCount }}</h1>
+                        <p>{{ 'featureTaskTotal' | translate }}</p>
+                    </div>
+                    <div class="icon">
+                        <ion-icon name="trending-up-outline"></ion-icon>
+                    </div>
+                </div>
+                <div class="more-details" [routerLink]="['/feature-tasks']" routerLinkActive="router-link-active">
+                    {{ 'moreDetails' | translate }}
+                </div>
+            </div>
+
+            <div class="portfolio-summary">
+                <div class="summary-details">
+                    <div class="info">
+                        <h1>{{ portfolio?.bugTaskCount }}</h1>
+                        <p>{{ 'bugTaskTotal' | translate }}</p>
+                    </div>
+                    <div class="icon">
+                        <ion-icon name="bug-outline"></ion-icon>
+                    </div>
+                </div>
+                <div class="more-details" [routerLink]="['/bug-tasks']" routerLinkActive="router-link-active">
+                    {{ 'moreDetails' | translate }}
+                </div>
+            </div>
+
+            <div class="portfolio-summary">
+                <div class="summary-details">
+                    <div class="info">
+                        <h1>{{ portfolio?.adminCount }}</h1>
+                        <p>{{ 'adminTotal' | translate }}</p>
+                    </div>
+                    <div class="icon">
+                        <ion-icon name="people-outline"></ion-icon>
+                    </div>
+                </div>
+                <div class="more-details" [routerLink]="['/users']" routerLinkActive="router-link-active">
+                    {{ 'moreDetails' | translate }}
+                </div>
+            </div>
+
+            <div class="portfolio-summary">
+                <div class="summary-details">
+                    <div class="info">
+                        <h1>{{ portfolio?.managerCount }}</h1>
+                        <p>{{ 'managerTotal' | translate }}</p>
+                    </div>
+                    <div class="icon">
+                        <ion-icon name="people-outline"></ion-icon>
+                    </div>
+                </div>
+                <div class="more-details" [routerLink]="['/users']" routerLinkActive="router-link-active">
+                    {{ 'moreDetails' | translate }}
+                </div>
+            </div>
+
+            <div class="portfolio-summary">
+                <div class="summary-details">
+                    <div class="info">
+                        <h1>{{ portfolio?.teamMemberCount }}</h1>
+                        <p>{{ 'teamMemberTotal' | translate }}</p>
+                    </div>
+                    <div class="icon" [routerLink]="['/users']" routerLinkActive="router-link-active">
+                        <ion-icon name="people-outline"></ion-icon>
+                    </div>
+                </div>
+                <div class="more-details">
+                    {{ 'moreDetails' | translate }}
+                </div>
+            </div>
+
+            <div class="portfolio-summary">
+                <div class="summary-details">
+                    <div class="info">
+                        <h1>{{ portfolio?.stakeHolderCount }}</h1>
+                        <p>{{ 'stakeHolderTotal' | translate }}</p>
+                    </div>
+                    <div class="icon">
+                        <ion-icon name="people-outline"></ion-icon>
+                    </div>
+                </div>
+                <div class="more-details" [routerLink]="['/users']" routerLinkActive="router-link-active">
+                    {{ 'moreDetails' | translate }}
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <div class="charts">
+        <h2>{{ 'chartsTitle' | translate }}</h2>
+        <div class="chart-container">
+            <canvas #featureTaskChart></canvas>
+        </div>
+    
+        <div class="chart-container">
+            <canvas #bugTaskChart></canvas>
+        </div>
+    </div>
+
+
+
 </app-base>

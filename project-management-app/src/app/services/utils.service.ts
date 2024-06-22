@@ -114,13 +114,13 @@ export class UtilsService {
   setDefaultLanguage() {
     let language = localStorage.getItem(this.PREFERRED_LANGUAGE_LOCAL_STORAGE_KEY);
     language = language ? JSON.parse(language) : null;
-    this.switchLanguage(language ? language : this.configuration.configuration.defaultLanguage);
+    this.switchLanguage(language ? language : "fr");
   }
 
   getDefaultLanguage() {
     let language = localStorage.getItem(this.PREFERRED_LANGUAGE_LOCAL_STORAGE_KEY);
     language = language ? JSON.parse(language) : null;
-    return language ? language : this.configuration.configuration.defaultLanguage;
+    return language ? language : "fr";
   }
 
   getCurrentLanguage(): string {

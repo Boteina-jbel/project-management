@@ -101,5 +101,17 @@
     "stepsToReproduce": "Étapes à reproduire",
     "stepsToReproduceLabel": "Étapes à reproduire",
     "enterstepsToReproducePlaceholder": "Entrez les étapes à reproduire",
-    "details": "Détails"
+    "details": "Détails",
+    "portfolioTitle": "Aperçu du Portfolio",
+    "projectTotal": "Total des Projets",
+    "featureTaskTotal": "Total des Tâches Fonctionnelles",
+    "bugTaskTotal": "Total des Tâches de Bug",
+    "adminTotal": "Total des Admins",
+    "managerTotal": "Total des Managers",
+    "teamMemberTotal": "Total des Membres de l'équipe",
+    "stakeHolderTotal": "Total des Parties Prenantes",
+    "moreDetails": "Plus de Détails",
+    "welcomeTitle": "Bienvenue dans le Planificateur de Projet",
+    "welcomeDescription": "Cet outil vous aide à surveiller vos projets et à gérer votre équipe efficacement, garantissant ainsi le bon déroulement des activités.",
+    "chartsTitle": "Graphiques"
 }
