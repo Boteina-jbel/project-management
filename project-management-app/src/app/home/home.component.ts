@@ -105,7 +105,7 @@ export class HomeComponent  implements OnInit {
           datasets: [{
             label: 'Feature Tasks',
             data: this.chartDataFeature,
-            backgroundColor: '#3cba9f'
+            backgroundColor: '#0077B6'
           }]
         },
         options: this.chartOptions
@@ -123,7 +123,7 @@ export class HomeComponent  implements OnInit {
           datasets: [{
             label: 'Bug Tasks',
             data: this.chartDataBug,
-            backgroundColor: '#3cba9f'
+            backgroundColor: '#0077B6'
           }]
         },
         options: this.chartOptions
