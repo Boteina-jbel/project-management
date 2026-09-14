@@ -34,7 +34,7 @@ import { FeaturetaskModalComponent } from './components/featuretask-modal/featur
 import { TaskPopoverComponent } from './components/task-popover/task-popover.component';
 import { BugTaskModalComponent } from './components/bug-task-modal/bug-task-modal.component';
 import { TaskComponent } from './task/task.component';
-import { BaseChartDirective } from 'ng2-charts';
+import { NgChartsModule } from 'ng2-charts';
 
 export function ConfigLoader(configurationService: ConfigurationService) {
   return () => configurationService.load(environment.configFile);
@@ -67,7 +67,6 @@ export function HttpLoaderFactory(http: HttpClient) {
     FeaturetaskModalComponent,
     TaskPopoverComponent,
     BugTaskModalComponent,
-    FeaturetaskModalComponent,
     TaskComponent,
   ],
   imports: [
@@ -80,7 +79,6 @@ export function HttpLoaderFactory(http: HttpClient) {
     ReactiveFormsModule,
     FormsModule,
     CommonModule,
-    HttpClientModule,
     PortalModule,
     HttpClientModule,
         TranslateModule.forRoot({
@@ -90,7 +88,7 @@ export function HttpLoaderFactory(http: HttpClient) {
                 deps: [HttpClient]
             }
         }),
-    BaseChartDirective
+    NgChartsModule
   ],
   providers: [
     ClipboardDirective,
