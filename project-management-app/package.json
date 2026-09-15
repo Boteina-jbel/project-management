@@ -75,7 +75,22 @@
     "typescript": "~5.0.2"
   },
   "overrides": {
-    "@xmldom/xmldom": "0.8.15"
+    "@xmldom/xmldom": "0.8.15",
+    "cosmiconfig": {
+      "js-yaml": "4.3.2"
+    },
+    "nx": {
+      "js-yaml": "4.3.2"
+    },
+    "eslint": {
+      "js-yaml": "3.15.2"
+    },
+    "@istanbuljs/load-nyc-config": {
+      "js-yaml": "3.15.2"
+    },
+    "@yarnpkg/parsers": {
+      "js-yaml": "3.15.2"
+    }
   },
   "description": "An Ionic project"
 }
